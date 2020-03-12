@@ -13,6 +13,7 @@ set_target_properties(ScratchedHologramFrom3DCLI
         ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        LINK_FLAGS "-Wl,-rpath,'$ORIGIN/../lib'"
         )
 
 
