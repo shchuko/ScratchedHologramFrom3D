@@ -1,0 +1,70 @@
+version: "1.0.0.{build}"
+
+image: Visual Studio 2019
+
+init:
+  - git config --global core.autocrlf input
+
+environment:
+  matrix:
+    - type: MinGW
+      command: cmd /C
+
+matrix:
+  fast_finish: false
+
+install:
+  - choco upgrade chocolatey
+  - if "%type%"=="MinGW" if not exist "C:\mingw.7z" appveyor-retry appveyor DownloadFile "http://downloads.sourceforge.net/mingw-w64/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z" -FileName "C:\mingw.7z"
+  - if "%type%"=="MinGW" 7z x -y -oC:\ "C:\mingw.7z" > nul
+  - if "%type%"=="MinGW" set PATH=C:\mingw64\bin;%PATH:C:\Program Files\Git\usr\bin;=%
+  - if "%type%"=="MinGW" set INCLUDE=C:\mingw64\x86_64-w64-mingw32\include;%INCLUDE%
+  - '%command% "cmake --version"'
+
+
+build_script:
+  - cmd: git submodule -q update --init --recursive
+  - set pwd=%project_root%
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=../temp/install -G "MinGW Makefiles" ..
+  - mingw32-make -j8 all
+
+
+test_script:
+  - ctest -VV --output-on-failure
+
+
+artifacts:
+  - path: <local-package-path>
+    name: package_name
+
+before_deploy:
+  - cd %project_root%
+  - if EXIST build\ (rd /s /q build\)
+  - mkdir build
+  - cd build
+  - cmake ..
+  - set target_name=ScratchedHologramFrom3DCLI
+  - set build_name=%target_name%-%APPVEYOR_REPO_TAG_NAME%-mingw32
+  - mingw32-make -j8 %target_name%
+  - mkdir %build-name%
+  - mkdir %build-name%\bin
+  - mkdir %build-name%\lib
+  - xcopy \lib %build-name%\lib /E
+  - xcopy \bin %build-name%\bin /E
+  - xcopy C:\mingw64\bin\libwinpthread-1.dll %build-name%\bin
+  - 7z a %build-name%.zip .\%build-name%
+
+deploy:
+  description: '$(APPVEYOR_REPO_TAG_NAME)'
+  provider: GitHub
+
+  auth_token:
+    secure: BjBHeV/7fQSlfwzL/yckme72EEyXFliING6bGF0qw9SY28ZusohE3sEczIA8Zc3E
+
+  artifact: .\build\%build-name%.zip
+  force_update: true
+
+  on:
+    appveyor_repo_tag: true
