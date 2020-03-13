@@ -8,12 +8,12 @@ target_link_libraries(HeadSourceUnitTests app_lib)
 
 set_target_properties(HeadSourceUnitTests
         PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/bin"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
 add_test(
         NAME
         HeadSourceUnitTests
         COMMAND
-        ${CMAKE_BINARY_DIR}/test/bin/HeadSourceUnitTests
+        ${CMAKE_BINARY_DIR}/bin/HeadSourceUnitTests
 )

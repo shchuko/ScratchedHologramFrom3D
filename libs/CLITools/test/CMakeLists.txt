@@ -9,12 +9,12 @@ target_link_libraries(CLIToolsUnitTests gtest gtest_main)
 
 set_target_properties(CLIToolsUnitTests
         PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test/bin"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
 add_test(
         NAME
         CLIToolsUnitTests
         COMMAND
-        ${CMAKE_BINARY_DIR}/test/bin/CLIToolsUnitTests
+        ${CMAKE_BINARY_DIR}/bin/CLIToolsUnitTests
 )
