@@ -24,7 +24,7 @@ install:
 
 build_script:
   - cmd: git submodule -q update --init --recursive
-  - set pwd=%project_root%
+  - set project_root=%cd%
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=../temp/install -G "MinGW Makefiles" ..
@@ -34,27 +34,27 @@ build_script:
 test_script:
   - ctest -VV --output-on-failure
 
-
-artifacts:
-  - path: <local-package-path>
-    name: package_name
-
-before_deploy:
+after_test:
   - cd %project_root%
   - if EXIST build\ (rd /s /q build\)
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=../temp/install -G "MinGW Makefiles" ..
   - set target_name=ScratchedHologramFrom3DCLI
-  - set build_name=%target_name%-%APPVEYOR_REPO_TAG_NAME%-mingw32
+  - set build_name=%target_name%_%APPVEYOR_REPO_TAG_NAME%_mingw32
   - mingw32-make -j8 %target_name%
-  - mkdir %build-name%
-  - mkdir %build-name%\bin
-  - mkdir %build-name%\lib
-  - xcopy \lib %build-name%\lib /E
-  - xcopy \bin %build-name%\bin /E
-  - xcopy C:\mingw64\bin\libwinpthread-1.dll %build-name%\bin
-  - 7z a %build-name%.zip .\%build-name%
+  - mkdir %build_name%
+  - mkdir %build_name%\bin
+  - mkdir %build_name%\lib
+  - xcopy .\lib .\%build_name%\lib /E
+  - xcopy .\bin .\%build_name%\bin /E
+  - xcopy C:\mingw64\bin\libwinpthread-1.dll .\%build_name%\bin
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%build_name%.zip .\%build_name%
+  - cd %project_root%
+
+artifacts:
+  - path: '*.zip'
+    name: package_name_artifacts
 
 deploy:
   description: '$(APPVEYOR_REPO_TAG_NAME)'
@@ -63,7 +63,7 @@ deploy:
   auth_token:
     secure: BjBHeV/7fQSlfwzL/yckme72EEyXFliING6bGF0qw9SY28ZusohE3sEczIA8Zc3E
 
-  artifact: .\build\%build-name%.zip
+  artifact: package_name_artifacts
   force_update: true
 
   on:
