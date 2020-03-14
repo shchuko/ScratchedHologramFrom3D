@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace CLITools {
+namespace CliTools {
 
     class CArgsParser {
 

@@ -31,7 +31,7 @@ set_target_properties(app_lib
 add_subdirectory(./extern)
 
 add_subdirectory(ScratchedHologramFrom3DCLI)
-add_subdirectory(libs/CLITools)
+add_subdirectory(libs/CliTools)
 add_subdirectory(libs/File2DProcessingTools)
 add_subdirectory(libs/File3DProcessingTools)
 add_subdirectory(libs/Geometry2D)

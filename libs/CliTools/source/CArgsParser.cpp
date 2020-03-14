@@ -1,5 +1,5 @@
 #include "CArgsParser.hpp"
 
-namespace CLITools {
+namespace CliTools {
 
 }
