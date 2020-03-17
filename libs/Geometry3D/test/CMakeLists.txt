@@ -5,7 +5,7 @@ add_executable(Geometry3DUnitTests ${Geometry3D_TEST_SOURCES})
 target_include_directories(Geometry3DUnitTests PRIVATE ${Geometry3D_SOURCE_DIR}/include)
 target_include_directories(Geometry3DUnitTests PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-target_link_libraries(Geometry3DUnitTests gtest gtest_main)
+target_link_libraries(Geometry3DUnitTests gtest gtest_main Geometry3D)
 
 set_target_properties(Geometry3DUnitTests
         PROPERTIES

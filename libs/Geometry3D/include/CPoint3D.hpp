@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Geometry3D {
 
     /**
@@ -21,21 +20,17 @@ namespace Geometry3D {
 
         CPoint3D(CPoint3D&& cPoint3D) noexcept;
 
+        CPoint3D(double x, double y, double z) noexcept;
+
         /**
          * Get x coordinate
          * @return x coordinate
          */
-        double getX() const noexcept {
-            return x;
-        }
+        double getX() const noexcept;
 
-        double getY() const noexcept {
-            return y;
-        }
+        double getY() const noexcept;
 
-        double getZ() const noexcept {
-            return z;
-        }
+        double getZ() const noexcept;
 
     };
 }
