@@ -31,4 +31,13 @@ namespace Geometry3D {
     double CPoint3D::getZ() const noexcept {
         return z;
     }
+
+    CPoint3D &CPoint3D::operator=(const CPoint3D &cPoint3D) {
+        if(this != &cPoint3D) {
+            x = cPoint3D.getX();
+            y = cPoint3D.getY();
+            z = cPoint3D.getZ();
+        }
+        return *this;
+    }
 }

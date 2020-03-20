@@ -35,14 +35,14 @@ namespace Geometry3D {
          * @param vector3D Vector in 3D
          * @return Collinear or not
          */
-        virtual bool isCollinear(const IVector3D& vector3D) const noexcept = 0;
+        virtual bool isCollinear(const IVector3D &vector3D) const noexcept = 0;
 
         /**
          * Get cos of angel between two vectors
          * @param vector3D Vector in 3D
          * @return Cos of angel between two vectors
          */
-        virtual double getAngleCos(const IVector3D& vector3D) const noexcept = 0;
+        virtual double getAngleCos(const IVector3D &vector3D) const noexcept = 0;
 
         virtual ~IVector3D() = 0;
 

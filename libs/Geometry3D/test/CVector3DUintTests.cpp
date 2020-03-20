@@ -38,21 +38,21 @@ namespace Geometry3D {
 
     TEST(CVector3D, CVector3D_DefaultConstructor_Test) {
         CVector3D cVector3D;
-        EXPECT_DOUBLE_EQ(cVector3D.getX(),0.0);
-        EXPECT_DOUBLE_EQ(cVector3D.getY(),0.0);
-        EXPECT_DOUBLE_EQ(cVector3D.getZ(),0.0);
+        EXPECT_DOUBLE_EQ(cVector3D.getX(), 0.0);
+        EXPECT_DOUBLE_EQ(cVector3D.getY(), 0.0);
+        EXPECT_DOUBLE_EQ(cVector3D.getZ(), 0.0);
 
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_BuildFromCoordinatesConstructor_Test) {
-        CVector3D cVector3D (x, y, z);
+        CVector3D cVector3D(x, y, z);
         EXPECT_DOUBLE_EQ(x, cVector3D.getX());
-        EXPECT_DOUBLE_EQ(y,cVector3D.getY());
+        EXPECT_DOUBLE_EQ(y, cVector3D.getY());
         EXPECT_DOUBLE_EQ(z, cVector3D.getZ());
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_getX_Test) {
-        EXPECT_DOUBLE_EQ(x,cVector3D->getX());
+        EXPECT_DOUBLE_EQ(x, cVector3D->getX());
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_getY_Test) {
@@ -84,13 +84,17 @@ namespace Geometry3D {
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_isCollinear_Test) {
-        CVector3D cVector3D1 (x, y, z);
-        EXPECT_EQ(x / cVector3D1.getX() == y / cVector3D1.getY() && y / cVector3D1.getY() == z / cVector3D1.getZ(),cVector3D->isCollinear(cVector3D1));
+        CVector3D cVector3D1(x, y, z);
+        EXPECT_EQ(x / cVector3D1.getX() == y / cVector3D1.getY() && y / cVector3D1.getY() == z / cVector3D1.getZ(),
+                  cVector3D->isCollinear(cVector3D1));
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_getAngleCos_Test) {
         CVector3D cVector3D1(x, y, z);
-        EXPECT_DOUBLE_EQ((x * cVector3D1.getX() + y * cVector3D1.getY() + z * cVector3D1.getZ()) / (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) + sqrt((pow(cVector3D1.getX(), 2) + pow(cVector3D1.getY(), 2) + pow(cVector3D1.getZ(), 2)))), cVector3D->getAngleCos(cVector3D1));
+        EXPECT_DOUBLE_EQ((x * cVector3D1.getX() + y * cVector3D1.getY() + z * cVector3D1.getZ()) /
+                         (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) +
+                          sqrt((pow(cVector3D1.getX(), 2) + pow(cVector3D1.getY(), 2) + pow(cVector3D1.getZ(), 2)))),
+                         cVector3D->getAngleCos(cVector3D1));
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_operatorPlus_Test) {
@@ -114,7 +118,7 @@ namespace Geometry3D {
     }
 
     TEST_F(CVector3DRandomFixture, CVector3D_opertorEqMinus_Test) {
-        CVector3D cVector3D1 (x, y, z);
+        CVector3D cVector3D1(x, y, z);
         CVector3D cVector3D2 = cVector3D->operator-=(cVector3D1);
         EXPECT_DOUBLE_EQ(x - cVector3D1.getX(), cVector3D2.getX());
         EXPECT_DOUBLE_EQ(y - cVector3D1.getY(), cVector3D2.getY());

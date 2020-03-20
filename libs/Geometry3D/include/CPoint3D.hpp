@@ -21,13 +21,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param cPoint3D Point in 3D
          */
-        CPoint3D(const CPoint3D& cPoint3D) noexcept;
+        CPoint3D(const CPoint3D &cPoint3D) noexcept;
 
         /**
          * Copy constructor Rvalue
          * @param cPoint3D Point int 3D
          */
-        CPoint3D(CPoint3D&& cPoint3D) noexcept;
+        CPoint3D(CPoint3D &&cPoint3D) noexcept;
 
         /**
          * Constructor with parameters of coordinates
@@ -54,5 +54,7 @@ namespace Geometry3D {
          * @return Coordinate Z
          */
         double getZ() const noexcept;
+
+        CPoint3D &operator=(const CPoint3D &cPoint3D);
     };
 }

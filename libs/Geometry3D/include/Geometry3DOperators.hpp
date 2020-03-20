@@ -2,7 +2,7 @@
 
 #include "IVector3D.hpp"
 #include "CVector3D.hpp"
-//#include "CLinkedVector3D.hpp"
+#include "CLinkedVector3D.hpp"
 
 namespace Geometry3D {
     /**
@@ -11,7 +11,7 @@ namespace Geometry3D {
      * @param right Vector in 3D
      * @return new CVector3D
      */
-    CVector3D operator+(const IVector3D& left, const IVector3D& right);
+    CVector3D operator+(const IVector3D &left, const IVector3D &right);
 
     /**
      * Overloaded operator - which subtraction two vectors
@@ -19,5 +19,5 @@ namespace Geometry3D {
      * @param right Vector in 3D
      * @return new CVector3D
      */
-    CVector3D operator-(const IVector3D& left, const IVector3D& right);
+    CVector3D operator-(const IVector3D &left, const IVector3D &right);
 }

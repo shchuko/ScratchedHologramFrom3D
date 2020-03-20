@@ -7,7 +7,7 @@ namespace Geometry3D {
     /**
      * @author github.com/Tulesha
      */
-    class CVector3D : public IVector3D{
+    class CVector3D : public IVector3D {
     private:
         double x = 0.0;
         double y = 0.0;
@@ -22,13 +22,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param cVector3D Vector in 3D
          */
-        CVector3D(const CVector3D& cVector3D) noexcept;
+        CVector3D(const CVector3D &cVector3D) noexcept;
 
         /**
          * Copy constructor Rvalue
          * @param cVector3D Vector in 3D
          */
-        CVector3D(CVector3D&& cVector3D) noexcept;
+        CVector3D(CVector3D &&cVector3D) noexcept;
 
         /**
          * Constructor with parameters of coordinates
@@ -51,30 +51,30 @@ namespace Geometry3D {
         double getAngleCos(const IVector3D &vector3D) const noexcept override;
 
         /**
-         * Overloaded operator -
-         * @return new CVector3D
-         */
-        CVector3D operator-() const;
-
-        /**
          * Overloaded operator +
          * @return new CVector3D
          */
         CVector3D operator+() const;
 
         /**
+        * Overloaded operator -
+        * @return new CVector3D
+        */
+        CVector3D operator-() const;
+
+        /**
          * Overloaded operator +=
          * @param iVector3D Vector in 3D
          * @return new CVector3D
          */
-        CVector3D& operator+=(const IVector3D& iVector3D);
+        CVector3D &operator+=(const IVector3D &iVector3D);
 
         /**
          * Overloaded operator -=
          * @param iVector3D Vector int 3D
          * @return new CVector3D
          */
-        CVector3D& operator-=(const IVector3D& iVector3D);
+        CVector3D &operator-=(const IVector3D &iVector3D);
 
         ~CVector3D() override = default;
     };
