@@ -1,7 +1,7 @@
 #include <string>
 #include "COption.hpp"
 
-std::string CliTools::COption::getShortName() {
+char CliTools::COption::getShortName() {
     return shortName;
 }
 
@@ -15,10 +15,6 @@ std::string CliTools::COption::getDescription() {
 
 bool CliTools::COption::isHasArgument() {
     return !argument.empty();
-}
-
-std::string CliTools::COption::getOptionData() {
-    return argument;
 }
 
 bool CliTools::COption::isRequired() {

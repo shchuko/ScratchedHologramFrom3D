@@ -7,7 +7,7 @@ namespace CliTools {
         // Fields
     private:
 
-        std::string shortName;
+        char shortName;
         std::string longName;
         std::string description;
         std::string argument;
@@ -16,10 +16,9 @@ namespace CliTools {
         // Methods
     public:
 
-        std::string getShortName();
+        char getShortName();
         std::string getLongName();
         std::string getDescription();
-        std::string getOptionData();
 
         bool isRequired();
         bool isHasArgument();
