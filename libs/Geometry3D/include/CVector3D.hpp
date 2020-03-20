@@ -1,9 +1,12 @@
 #pragma once
 
+#include "IVector3D.hpp"
 
 namespace Geometry3D {
-
-    class CVector3D {
+    /**
+     * @author Tulesha
+     */
+    class CVector3D : public IVector3D{
     private:
         double x = 0.0;
         double y = 0.0;
@@ -33,31 +36,6 @@ namespace Geometry3D {
          * @param z Coordinate Z
          */
         CVector3D(double x, double y, double z);
-
-        /**
-         * Get x coordinate
-         * @return Coordinate X
-         */
-        double getX() const noexcept;
-
-        /**
-         * Get y coordinate
-         * @return Coordinate Y
-         */
-        double getY() const noexcept;
-
-        /**
-         * Get z coordinate
-         * @return Coordinte Z
-         */
-        double getZ() const noexcept;
-
-        /**
-         * Get length of 3D vector
-         * @return length of 3D vector
-         */
-        double getLen() const noexcept;
-
 
     };
 
