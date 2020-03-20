@@ -49,5 +49,33 @@ namespace Geometry3D {
         bool isCollinear(const IVector3D &vector3D) const noexcept override;
 
         double getAngleCos(const IVector3D &vector3D) const noexcept override;
+
+        /**
+         * Overloaded operator -
+         * @return new CVector3D
+         */
+        CVector3D operator-() const;
+
+        /**
+         * Overloaded operator +
+         * @return new CVector3D
+         */
+        CVector3D operator+() const;
+
+        /**
+         * Overloaded operator +=
+         * @param iVector3D Vector in 3D
+         * @return new CVector3D
+         */
+        CVector3D& operator+=(const IVector3D& iVector3D);
+
+        /**
+         * Overloaded operator -=
+         * @param iVector3D Vector int 3D
+         * @return new CVector3D
+         */
+        CVector3D& operator-=(const IVector3D& iVector3D);
+
+        ~CVector3D() override = default;
     };
 }

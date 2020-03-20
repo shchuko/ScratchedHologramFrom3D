@@ -43,5 +43,10 @@ namespace Geometry3D {
          * @return Cos of angel between two vectors
          */
         virtual double getAngleCos(const IVector3D& vector3D) const noexcept = 0;
+
+        virtual ~IVector3D() = 0;
+
     };
+
+    inline IVector3D::~IVector3D() = default;
 }
