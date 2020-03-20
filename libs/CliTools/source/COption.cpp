@@ -1,22 +1,26 @@
 #include <string>
 #include "COption.hpp"
 
-char CliTools::COption::getShortName() {
-    return shortName;
+namespace CliTools{
+
+    char COption::getShortName() {
+        return shortName;
+    }
+
+    std::string COption::getLongName() {
+        return longName;
+    }
+
+    std::string COption::getDescription() {
+        return description;
+    }
+
+    bool COption::isHasArgument() {
+        return !argument.empty();
+    }
+
+    bool COption::isRequired() {
+        return option_required;
+    }
 }
 
-std::string CliTools::COption::getLongName() {
-    return longName;
-}
-
-std::string CliTools::COption::getDescription() {
-    return description;
-}
-
-bool CliTools::COption::isHasArgument() {
-    return !argument.empty();
-}
-
-bool CliTools::COption::isRequired() {
-    return isRequiredArgument;
-}

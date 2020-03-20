@@ -2,30 +2,34 @@
 
 namespace CliTools {
 
+    // Forward declaring the builder
+    class COptionBuilder;
+
     class COption {
 
-        // Fields
+    // Fields
     private:
 
-        char shortName;
-        std::string longName;
-        std::string description;
-        std::string argument;
-        bool isRequiredArgument = false;
+        char shortName = '\0';
+        std::string longName = "";
+        std::string description = "";
+        std::string argument = "";
+        bool option_required = false;
 
-        // Methods
+    // Methods
     public:
+
+        friend COptionBuilder;
 
         char getShortName();
         std::string getLongName();
         std::string getDescription();
-
         bool isRequired();
         bool isHasArgument();
 
-    private:
+    protected:
 
-        // Private constructor
+        // Protected constructor
         // Building in COptionBuilder
         COption()= default;
 
