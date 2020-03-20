@@ -20,4 +20,28 @@ namespace Geometry3D {
         this->z = z;
     }
 
+    double CVector3D::getX() const noexcept {
+        return x;
+    }
+
+    double CVector3D::getY() const noexcept {
+        return y;
+    }
+
+    double CVector3D::getZ() const noexcept {
+        return z;
+    }
+
+    double CVector3D::getLen() const noexcept {
+        return 0;
+    }
+
+    bool CVector3D::isCollinear(const IVector3D &vector3D) const noexcept {
+        return this->x / vector3D.getX() == this->y / vector3D.getY() && this->y / vector3D.getY() == this->z / vector3D.getZ();
+    }
+
+    double CVector3D::getAngleCos(const IVector3D &vector3D) const noexcept {
+        return (this->x * vector3D.getX() + this->y * vector3D.getY() + this->z * vector3D.getZ())/(sqrt(pow(this->x,2) + pow(this->y,2) + pow(this->z,2)) + sqrt((pow(vector3D.getX(),2) + pow(vector3D.getY(),2) + pow(vector3D.getZ(),2))));
+    }
+
 }

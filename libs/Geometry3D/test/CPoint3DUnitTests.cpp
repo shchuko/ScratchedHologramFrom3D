@@ -6,6 +6,9 @@
 
 
 namespace Geometry3D {
+    /**
+     * @author github.com/Tulesha
+     */
     class CPoint3DRandomFixture : public ::testing::Test {
     private:
         static constexpr double MAX_DOUBLE_VALUE = 10000.0;

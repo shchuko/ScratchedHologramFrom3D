@@ -2,7 +2,7 @@
 
 namespace Geometry3D {
     /**
-     * @author Tulesha 2020
+     * @author github.com/Tulesha
      */
     class IVector3D {
     public:
@@ -35,13 +35,13 @@ namespace Geometry3D {
          * @param vector3D Vector in 3D
          * @return Collinear or not
          */
-        virtual bool isCollinear(IVector3D& vector3D) const noexcept = 0;
+        virtual bool isCollinear(const IVector3D& vector3D) const noexcept = 0;
 
         /**
          * Get cos of angel between two vectors
          * @param vector3D Vector in 3D
          * @return Cos of angel between two vectors
          */
-        virtual double getAngleCos(IVector3D& vector3D) const noexcept = 0;
+        virtual double getAngleCos(const IVector3D& vector3D) const noexcept = 0;
     };
 }

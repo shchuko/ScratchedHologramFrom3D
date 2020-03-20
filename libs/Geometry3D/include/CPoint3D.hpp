@@ -3,7 +3,7 @@
 namespace Geometry3D {
 
     /**
-     * @author Tulesha 2020
+     * @author github.com/Tulesha
      */
     class CPoint3D {
     private:
