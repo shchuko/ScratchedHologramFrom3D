@@ -3,6 +3,7 @@
 
 namespace CliTools{
 
+    // Get
     char COption::getShortName() {
         return shortName;
     }
@@ -15,10 +16,12 @@ namespace CliTools{
         return description;
     }
 
+    // Does the option have arguments
     bool COption::isHasArgument() {
         return !argument.empty();
     }
 
+    // Is the argument required
     bool COption::isRequired() {
         return option_required;
     }

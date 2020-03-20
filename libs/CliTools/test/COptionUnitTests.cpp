@@ -23,7 +23,7 @@ namespace CliTools{
 
     TEST(COption, getDescription) {
         COptionBuilder cOptionBuilder{};
-        cOptionBuilder.addDescription("Some description");
+        cOptionBuilder.addDescription( "Some description");
         std::string expected = "Some description";
         std::string actual = cOptionBuilder.build().getDescription();
         ASSERT_STREQ(expected.c_str(), actual.c_str()) << "Description received incorrectly";
@@ -33,7 +33,7 @@ namespace CliTools{
         COptionBuilder cOptionBuilder{};
 
         // Option entered
-        cOptionBuilder.setValue("value");
+        cOptionBuilder.setValue( "value");
         bool actual = cOptionBuilder.build().isRequired();
         ASSERT_FALSE(actual) << "Argument isn't mandatory";
 
