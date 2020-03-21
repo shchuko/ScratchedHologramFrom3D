@@ -3,6 +3,7 @@
 
 #include <gtest/gtest.h>
 #include <CVector3D.hpp>
+#include <Geometry3DOperators.hpp>
 #include "FunctionsForTests.cpp"
 
 namespace Geometry3D {
@@ -149,5 +150,33 @@ namespace Geometry3D {
                          cVector3D.operator-=(cVector3D1).getY());
         EXPECT_DOUBLE_EQ(z - cVector3D1.getZ() - cVector3D1.getZ() - cVector3D1.getZ(),
                          cVector3D.operator-=(cVector3D1).getZ());
+    }
+
+    TEST(CVector3D, CVector3D_operatorPlusFunc_Test) {
+        double x = randomDouble();
+        double y = randomDouble();
+        double z = randomDouble();
+        CVector3D cVector3D(x, y, z);
+        double x1 = randomDouble();
+        double y1 = randomDouble();
+        double z1 = randomDouble();
+        CVector3D cVector3D1(x1, y1, z1);
+        EXPECT_DOUBLE_EQ(x + x1, operator+(cVector3D, cVector3D1).getX());
+        EXPECT_DOUBLE_EQ(y + y1, operator+(cVector3D, cVector3D1).getY());
+        EXPECT_DOUBLE_EQ(z + z1, operator+(cVector3D, cVector3D1).getZ());
+    }
+
+    TEST(CVector3D, CVector3D_operatorMinusFunc_Test) {
+        double x = randomDouble();
+        double y = randomDouble();
+        double z = randomDouble();
+        CVector3D cVector3D(x, y, z);
+        double x1 = randomDouble();
+        double y1 = randomDouble();
+        double z1 = randomDouble();
+        CVector3D cVector3D1(x1, y1, z1);
+        EXPECT_DOUBLE_EQ(x - x1, operator-(cVector3D, cVector3D1).getX());
+        EXPECT_DOUBLE_EQ(y - y1, operator-(cVector3D, cVector3D1).getY());
+        EXPECT_DOUBLE_EQ(z - z1, operator-(cVector3D, cVector3D1).getZ());
     }
 }

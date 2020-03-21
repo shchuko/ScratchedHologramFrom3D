@@ -37,6 +37,6 @@ double Geometry3D::AVector3D::getAngleCos(const Geometry3D::AVector3D &vector3D)
                           sqrt((pow(vector3D.getX(), 2) + pow(vector3D.getY(), 2) + pow(vector3D.getZ(), 2))));
 
     if (denominator != 0)
-        return numerator/denominator;
+        return numerator / denominator;
     return 1;
 }

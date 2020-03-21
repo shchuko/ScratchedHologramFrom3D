@@ -1,9 +1,8 @@
 #include <CLinkedVector3D.hpp>
 
 Geometry3D::CLinkedVector3D::CLinkedVector3D(const Geometry3D::CPoint3D &_point_begin,
-                                                  const Geometry3D::CPoint3D &_point_end) noexcept
-        : point_begin{_point_begin}
-        , point_end{_point_end}{}
+                                             const Geometry3D::CPoint3D &_point_end) noexcept
+        : point_begin{_point_begin}, point_end{_point_end} {}
 
 double Geometry3D::CLinkedVector3D::getX() const noexcept {
     return point_end.getX() - point_begin.getX();

@@ -46,12 +46,13 @@ namespace Geometry3D {
 
     double getAngleCos(const AVector3D &vector3D, const AVector3D &vector3D1) noexcept {
         double numerator =
-                vector3D.getX() * vector3D1.getX() + vector3D.getY() * vector3D1.getY() +vector3D.getZ() * vector3D1.getZ();
+                vector3D.getX() * vector3D1.getX() + vector3D.getY() * vector3D1.getY() +
+                vector3D.getZ() * vector3D1.getZ();
         double denominator = (sqrt(pow(vector3D.getX(), 2) + pow(vector3D.getY(), 2) + pow(vector3D.getZ(), 2)) +
                               sqrt((pow(vector3D1.getX(), 2) + pow(vector3D1.getY(), 2) + pow(vector3D1.getZ(), 2))));
 
         if (denominator != 0)
-            return numerator/denominator;
+            return numerator / denominator;
         return 1;
     }
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <AVector3D.hpp>
+
 namespace Geometry3D {
 
     /**
@@ -54,6 +56,10 @@ namespace Geometry3D {
          * @return Coordinate Z
          */
         double getZ() const noexcept;
+
+        void move(const AVector3D &vector3D) noexcept;
+
+        CPoint3D moveCopy(const AVector3D &vector3D) const noexcept;
 
         CPoint3D &operator=(const CPoint3D &cPoint3D);
     };
