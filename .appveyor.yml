@@ -46,9 +46,11 @@ after_test:
   - mkdir %build_name%
   - mkdir %build_name%\bin
   - mkdir %build_name%\lib
-  - xcopy .\lib .\%build_name%\lib /E
+#  - xcopy .\lib .\%build_name%\lib /E
   - xcopy .\bin .\%build_name%\bin /E
-  - xcopy C:\mingw64\bin\libwinpthread-1.dll .\%build_name%\bin
+  - xcopy C:\mingw64\bin\libgcc*.dll .\%build_name%\bin
+  - xcopy C:\mingw64\bin\libstdc++*.dll .\%build_name%\bin
+  - xcopy C:\mingw64\bin\libwinpthread*.dll .\%build_name%\bin
   - 7z a %APPVEYOR_BUILD_FOLDER%\%build_name%.zip .\%build_name%
   - cd %project_root%
 
