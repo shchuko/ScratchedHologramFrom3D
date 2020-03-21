@@ -9,7 +9,7 @@ namespace Geometry3D {
      */
     class AVector3D {
     private:
-        inline bool is_equal_double(double x, double y) const noexcept;
+        static inline bool is_equal_double(double x, double y) noexcept;
 
     public:
         /**
