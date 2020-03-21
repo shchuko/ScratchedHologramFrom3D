@@ -1,6 +1,7 @@
 #include "COptionBuilder.hpp"
 
 #include <utility>
+#include <EOptionBuildError.hpp>
 
 namespace CliTools{
 
@@ -33,6 +34,14 @@ namespace CliTools{
 
     // Form and get a customized object
     COption COptionBuilder::build() {
+
+        if (cOption.longName.empty() and cOption.shortName == '\0') {
+            throw EOptionBuildError( "Not enough arguments: full name option, short name option");
+        }
+
+        if (!cOption.has_argument && cOption.option_required) {
+            throw EOptionBuildError("No arguments, but it's required");
+        }
 
         return cOption;
     }
