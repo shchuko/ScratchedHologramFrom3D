@@ -18,10 +18,10 @@ namespace CliTools{
 
     // Does the option have arguments
     bool COption::isHasArgument() {
-        return !argument.empty();
+        return has_argument;
     }
 
-    // Is the argument required
+    // Is there an argument in the option
     bool COption::isRequired() {
         return option_required;
     }

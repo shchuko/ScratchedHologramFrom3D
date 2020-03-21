@@ -20,7 +20,7 @@ namespace CliTools {
         // Description of option
         std::string description = "";
         // Argument for option (if needed)
-        std::string argument = "";
+        bool has_argument = false;
         // Is the argument required
         bool option_required = false;
 
@@ -52,7 +52,7 @@ namespace CliTools {
         bool isRequired();
 
         /**
-        * Does the option have arguments
+        * Is there an argument in the option
         * @return true if option has an argument and false if option hasn't argument
         */
         bool isHasArgument();

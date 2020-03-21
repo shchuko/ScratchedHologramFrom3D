@@ -33,11 +33,11 @@ namespace CliTools {
 
         /**
          * Set argument to option
-         * @param argument - argument to option
+         * @param has_argument - Is there an argument to the option
          * @param option_required - is the argument required
          * @return instance of COptionBuilder for further construction
          */
-        COptionBuilder& setValue(const std::string &argument, bool option_required = false);
+        COptionBuilder& setValue(bool has_argument, bool option_required = false);
 
         /**
          * Add description to option for information about it

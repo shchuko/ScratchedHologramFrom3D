@@ -19,9 +19,9 @@ namespace CliTools{
     // Set argument to option
     // argument - argument to option
     // option_required - Is the argument required
-    COptionBuilder& COptionBuilder::setValue(const std::string &argument, bool option_required) {
+    COptionBuilder& COptionBuilder::setValue(bool has_argument, bool option_required) {
         cOption.option_required = option_required;
-        cOption.argument = argument;
+        cOption.has_argument = has_argument;
         return *this;
     }
 
@@ -33,6 +33,7 @@ namespace CliTools{
 
     // Form and get a customized object
     COption COptionBuilder::build() {
+
         return cOption;
     }
 
@@ -40,7 +41,9 @@ namespace CliTools{
     void COptionBuilder::reset() {
         cOption.shortName = '\0';
         cOption.longName = "";
-        cOption.argument = "";
+        cOption.description = "";
+        cOption.has_argument = false;
+        cOption.option_required = false;
     }
 
 
