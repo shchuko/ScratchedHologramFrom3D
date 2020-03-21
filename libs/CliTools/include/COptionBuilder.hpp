@@ -5,7 +5,10 @@
 
 namespace CliTools {
 
-    //Builder for class COption
+    /**
+     * Builder for class COption
+     * @author Nikita Novgorodtsev (github <https://github.com/paNoNi>)
+     */
     class COptionBuilder {
 
     private:
@@ -14,26 +17,44 @@ namespace CliTools {
 
     public:
 
-        COptionBuilder()= default;
-
-        // Getting short option name
+        /**
+        * Getting short option name
+        * @param shortOption - short name for easy to use and combination options
+        * @return instance of COptionBuilder for further construction
+        */
         COptionBuilder& addShortName(char shortOption);
 
-        //Getting long option name
+        /**
+         * Getting long option name
+         * @param longOption - full name of option
+         * @return instance of COptionBuilder for further construction
+         */
         COptionBuilder& addLongName(const std::string &longOption);
 
-        // Set argument to option
-        // argument - argument to option
-        // option_required - Is the argument required
+        /**
+         * Set argument to option
+         * @param argument - argument to option
+         * @param option_required - is the argument required
+         * @return instance of COptionBuilder for further construction
+         */
         COptionBuilder& setValue(const std::string &argument, bool option_required = false);
 
-        // Add description to option for information about it
+        /**
+         * Add description to option for information about it
+         * @param description - description of option to get information about it
+         * @return instance of COptionBuilder for further construction
+         */
         COptionBuilder& addDescription(const std::string &description);
 
-        // Form and get a customized object
+        /**
+         * Form and get a customized object
+         * @return finished instance of COption
+         */
         COption build();
 
-        // Reset all object settings
+        /**
+         * Reset all object settings
+         */
         void reset();
 
     };
