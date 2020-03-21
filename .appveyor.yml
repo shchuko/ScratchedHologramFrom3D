@@ -46,7 +46,7 @@ after_test:
   - mkdir %build_name%
   - mkdir %build_name%\bin
   - mkdir %build_name%\lib
-  - xcopy .\lib .\%build_name%\lib /E
+#  - xcopy .\lib .\%build_name%\lib /E
   - xcopy .\bin .\%build_name%\bin /E
   - xcopy C:\mingw64\bin\libgcc*.dll .\%build_name%\bin
   - xcopy C:\mingw64\bin\libstdc++*.dll .\%build_name%\bin
