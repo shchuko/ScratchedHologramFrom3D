@@ -1,13 +1,14 @@
 #pragma once
 
 namespace CliTools {
-
-    // Forward declaring the builder
+    /**
+    * Prototype of builder to access the fields
+    */
     class COptionBuilder;
-/**
- * Helper class for ease of use and storage of options
- * @author Nikita Novgorodtsev (github <https://github.com/paNoNi>)
- */
+    /**
+    * Helper class for ease of use and storage of options
+    * @author Nikita Novgorodtsev (github <https://github.com/paNoNi>)
+    */
     class COption {
 
     private:
