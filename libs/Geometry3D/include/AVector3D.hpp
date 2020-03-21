@@ -1,10 +1,16 @@
 #pragma once
 
+#include <cmath>
+#include <limits>
+
 namespace Geometry3D {
     /**
      * @author github.com/Tulesha
      */
-    class IVector3D {
+    class AVector3D {
+    private:
+        inline bool is_equal_double(double x, double y) const noexcept;
+
     public:
         /**
          * Get x coordinate
@@ -35,18 +41,17 @@ namespace Geometry3D {
          * @param vector3D Vector in 3D
          * @return Collinear or not
          */
-        virtual bool isCollinear(const IVector3D &vector3D) const noexcept = 0;
+        bool isCollinear(const AVector3D &vector3D) const noexcept;
 
         /**
          * Get cos of angel between two vectors
          * @param vector3D Vector in 3D
          * @return Cos of angel between two vectors
          */
-        virtual double getAngleCos(const IVector3D &vector3D) const noexcept = 0;
+        double getAngleCos(const AVector3D &vector3D) const noexcept;
 
-        virtual ~IVector3D() = 0;
-
+        virtual ~AVector3D() = 0;
     };
 
-    inline IVector3D::~IVector3D() = default;
+    inline AVector3D::~AVector3D() = default;
 }

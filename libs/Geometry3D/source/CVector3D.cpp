@@ -36,17 +36,6 @@ namespace Geometry3D {
         return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
     }
 
-    bool CVector3D::isCollinear(const IVector3D &vector3D) const noexcept {
-        return this->x / vector3D.getX() == this->y / vector3D.getY() &&
-               this->y / vector3D.getY() == this->z / vector3D.getZ();
-    }
-
-    double CVector3D::getAngleCos(const IVector3D &vector3D) const noexcept {
-        return (this->x * vector3D.getX() + this->y * vector3D.getY() + this->z * vector3D.getZ()) /
-               (sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2)) +
-                sqrt((pow(vector3D.getX(), 2) + pow(vector3D.getY(), 2) + pow(vector3D.getZ(), 2))));
-    }
-
     CVector3D CVector3D::operator+() const {
         return CVector3D(*this);
     }
@@ -59,7 +48,7 @@ namespace Geometry3D {
         return CVector3D(new_x, new_y, new_z);
     }
 
-    CVector3D &CVector3D::operator+=(const IVector3D &iVector3D) {
+    CVector3D &CVector3D::operator+=(const AVector3D &iVector3D) {
         x += iVector3D.getX();
         y += iVector3D.getY();
         z += iVector3D.getZ();
@@ -67,7 +56,7 @@ namespace Geometry3D {
         return *this;
     }
 
-    CVector3D &CVector3D::operator-=(const IVector3D &iVector3D) {
+    CVector3D &CVector3D::operator-=(const AVector3D &iVector3D) {
         x -= iVector3D.getX();
         y -= iVector3D.getY();
         z -= iVector3D.getZ();
