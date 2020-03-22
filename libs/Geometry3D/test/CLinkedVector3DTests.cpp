@@ -88,9 +88,9 @@ namespace Geometry3DCLinkedVector3DTests {
         CPoint3D point_end = nextRandomPoint3D();
         CLinkedVector3D linked_vector(point_begin, point_end);
 
-        double expected_len = sqrt(pow(linked_vector.getX(), 2)
-                                   + pow(linked_vector.getY(), 2)
-                                   + pow(linked_vector.getZ(), 2));
+        double expected_len = sqrt(linked_vector.getX() * linked_vector.getX()
+                                   + linked_vector.getY() * linked_vector.getY()
+                                   + linked_vector.getZ() * linked_vector.getZ());
 
         EXPECT_DOUBLE_EQ(expected_len, linked_vector.getLen());
     }

@@ -109,7 +109,7 @@ namespace Geometry3DCVector3DTests {
         double y = nextRandomDouble();
         double z = nextRandomDouble();
         CVector3D vector(x, y, z);
-        EXPECT_DOUBLE_EQ(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)), vector.getLen());
+        EXPECT_DOUBLE_EQ(sqrt(x * x + y * y + z * z), vector.getLen());
     }
 
 
