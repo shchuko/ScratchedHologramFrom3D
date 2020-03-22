@@ -3,10 +3,9 @@
 #include <cmath>
 
 #include <gtest/gtest.h>
-#include <AVector2D.hpp>
 #include <CVector2D.hpp>
 
-namespace Geometry3DCVector3DTests {
+namespace Geometry2DCVector2DTests {
     using Geometry2D::CVector2D;
 
     class CVector2DFixture : public ::testing::Test {
