@@ -59,7 +59,7 @@ namespace CliTools {
     }
 
     // Test: lack of parameters, but the required input - true
-    TEST(COptionBuilder, buildNoArguments) {
+    TEST(COptionBuilder, build_no_arguments) {
         COptionBuilder cOptionBuilder;
         bool isException = false;
         cOptionBuilder.addLongName("test");
@@ -68,26 +68,26 @@ namespace CliTools {
         try {
             cOptionBuilder.build();
         } catch (Exceptions::EOptionBuildError &error) {
-            EXPECT_STREQ(expected, error.what());
+            EXPECT_STREQ(expected, error.what()) << "Incorrect the text of error";
             isException = true;
         }
 
-        EXPECT_TRUE(isException);
+        EXPECT_TRUE(isException) << "Excepted exception, but it wasn't";
 
     }
 
     // Test: lack of options
-    TEST(COptionBuilder, buildNoOptionNames) {
+    TEST(COptionBuilder, build_no_option_names) {
         COptionBuilder cOptionBuilder;
         bool isException = false;
         const char *expectedTest2 = "Not enough arguments: full name option, short name option";
         try {
             cOptionBuilder.build();
         } catch (Exceptions::EOptionBuildError &error) {
-            EXPECT_STREQ(expectedTest2, error.what());
+            EXPECT_STREQ(expectedTest2, error.what()) << "Incorrect the text of error";
             isException = true;
         }
-        EXPECT_TRUE(isException);
+        EXPECT_TRUE(isException) << "Excepted exception, but it wasn't";
     }
 
 }
