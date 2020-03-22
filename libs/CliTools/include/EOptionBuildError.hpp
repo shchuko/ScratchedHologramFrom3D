@@ -8,7 +8,7 @@
  * Exception for {@link COptionBuilder}
  * @author Nikita Novgorodtsev (github https://github.com/paNoNi)
  */
-class EOptionBuildError : std::exception {
+class EOptionBuildError : public std::exception {
 
 private:
     std::string m_error;
@@ -20,12 +20,12 @@ public:
      * @param error - message of error
      */
     explicit EOptionBuildError(std::string error)
-        : m_error(std::move(error)){}
+            : m_error(std::move(error)) {}
 
     /**
     * Method for getting error description
     * @return text of error
     */
-    const char* what() const noexcept override;
+    const char *what() const noexcept override;
 
 };
