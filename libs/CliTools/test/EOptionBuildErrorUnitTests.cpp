@@ -9,7 +9,7 @@ namespace CliTools {
             bool thrown;
             try {
                 throw EOptionBuildError();
-            } catch (std::exception& e) {
+            } catch (std::exception &e) {
                 thrown = true;
             } catch (...) {
                 thrown = false;
@@ -18,12 +18,13 @@ namespace CliTools {
             EXPECT_TRUE(thrown) << "CliTools::EOptionBuildError does not inherit std::exception" << std::endl;
         }
 
-        TEST(EOptionBuildError,EOptionBuildError_test_message_with_empty_constructor) {
+        TEST(EOptionBuildError, EOptionBuildError_test_message_with_empty_constructor) {
             bool thrown;
             try {
                 throw EOptionBuildError();
-            } catch (std::exception& error) {
-                EXPECT_EQ((std::string)(error.what()), "") << "An empty message was expected, but received: " + (std::string)(error.what());
+            } catch (std::exception &error) {
+                EXPECT_EQ(std::string(error.what()), "")
+                                    << "An empty message was expected, but received: " + std::string(error.what());
                 thrown = true;
             }
 
@@ -31,12 +32,14 @@ namespace CliTools {
 
         }
 
-        TEST(EOptionBuildError,EOptionBuildError_test_message) {
+        TEST(EOptionBuildError, EOptionBuildError_test_message) {
             bool thrown;
+            std::string expected = "test message";
             try {
-                throw EOptionBuildError("test message");
-            } catch (std::exception& error) {
-                EXPECT_EQ((std::string)(error.what()), "test message") << "Expected: test message , but received: " + (std::string)(error.what());
+                throw EOptionBuildError(expected);
+            } catch (std::exception &error) {
+                EXPECT_EQ(std::string(error.what()), expected)
+                                    << "Expected: test message , but received: " + std::string(error.what());
                 thrown = true;
             }
 
