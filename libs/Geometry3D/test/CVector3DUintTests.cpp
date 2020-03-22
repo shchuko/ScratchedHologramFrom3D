@@ -59,57 +59,57 @@ namespace Geometry3DCVector3DTests {
 
 
     TEST_F(CVector3DFixture, CVector3D_DefaultConstructor_Test) {
-        CVector3D cVector3D;
-        EXPECT_DOUBLE_EQ(cVector3D.getX(), 0.0);
-        EXPECT_DOUBLE_EQ(cVector3D.getY(), 0.0);
-        EXPECT_DOUBLE_EQ(cVector3D.getZ(), 0.0);
+        CVector3D vector;
+        EXPECT_DOUBLE_EQ(vector.getX(), 0.0);
+        EXPECT_DOUBLE_EQ(vector.getY(), 0.0);
+        EXPECT_DOUBLE_EQ(vector.getZ(), 0.0);
     }
 
 
     TEST_F(CVector3DFixture, CVector3D_getX_Test) {
         double x = nextRandomDouble();
-        CVector3D cVector3D(x, 0.0, 0.0);
-        EXPECT_DOUBLE_EQ(x, cVector3D.getX());
+        CVector3D vector(x, 0.0, 0.0);
+        EXPECT_DOUBLE_EQ(x, vector.getX());
     }
 
     TEST_F(CVector3DFixture, CVector3D_getY_Test) {
         double y = nextRandomDouble();
-        CVector3D cVector3D(0.0, y, 0.0);
-        EXPECT_DOUBLE_EQ(y, cVector3D.getY());
+        CVector3D vector(0.0, y, 0.0);
+        EXPECT_DOUBLE_EQ(y, vector.getY());
     }
 
     TEST_F(CVector3DFixture, CVector3D_getZ_Test) {
         double z = nextRandomDouble();
-        CVector3D cVector3D(0.0, 0.0, z);
-        EXPECT_DOUBLE_EQ(z, cVector3D.getZ());
+        CVector3D vector(0.0, 0.0, z);
+        EXPECT_DOUBLE_EQ(z, vector.getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_CopyConstReferenceConstructor_Test) {
-        CVector3D cVector3D(nextRandomDouble(), nextRandomDouble(), nextRandomDouble());
-        CVector3D cVector3DCopy(cVector3D);
-        EXPECT_DOUBLE_EQ(cVector3D.getX(), cVector3DCopy.getX());
-        EXPECT_DOUBLE_EQ(cVector3D.getY(), cVector3DCopy.getY());
-        EXPECT_DOUBLE_EQ(cVector3D.getZ(), cVector3DCopy.getZ());
+        CVector3D vector(nextRandomDouble(), nextRandomDouble(), nextRandomDouble());
+        CVector3D vector_copy(vector);
+        EXPECT_DOUBLE_EQ(vector.getX(), vector_copy.getX());
+        EXPECT_DOUBLE_EQ(vector.getY(), vector_copy.getY());
+        EXPECT_DOUBLE_EQ(vector.getZ(), vector_copy.getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_CopyConstructorRValue_Test) {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
-        CVector3D cVector3DCopy(std::move(cVector3D));
+        CVector3D vector(x, y, z);
+        CVector3D vector_copy(std::move(vector));
 
-        EXPECT_DOUBLE_EQ(x, cVector3DCopy.getX());
-        EXPECT_DOUBLE_EQ(y, cVector3DCopy.getY());
-        EXPECT_DOUBLE_EQ(z, cVector3DCopy.getZ());
+        EXPECT_DOUBLE_EQ(x, vector_copy.getX());
+        EXPECT_DOUBLE_EQ(y, vector_copy.getY());
+        EXPECT_DOUBLE_EQ(z, vector_copy.getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_getLen_Test) {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
-        EXPECT_DOUBLE_EQ(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)), cVector3D.getLen());
+        CVector3D vector(x, y, z);
+        EXPECT_DOUBLE_EQ(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)), vector.getLen());
     }
 
 
@@ -117,52 +117,52 @@ namespace Geometry3DCVector3DTests {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
-        EXPECT_DOUBLE_EQ(x, cVector3D.operator+().getX());
-        EXPECT_DOUBLE_EQ(y, cVector3D.operator+().getY());
-        EXPECT_DOUBLE_EQ(z, cVector3D.operator+().getZ());
+        CVector3D vector(x, y, z);
+        EXPECT_DOUBLE_EQ(x, vector.operator+().getX());
+        EXPECT_DOUBLE_EQ(y, vector.operator+().getY());
+        EXPECT_DOUBLE_EQ(z, vector.operator+().getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_operatorMinus_Test) {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
-        EXPECT_DOUBLE_EQ(-x, cVector3D.operator-().getX());
-        EXPECT_DOUBLE_EQ(-y, cVector3D.operator-().getY());
-        EXPECT_DOUBLE_EQ(-z, cVector3D.operator-().getZ());
+        CVector3D vector(x, y, z);
+        EXPECT_DOUBLE_EQ(-x, vector.operator-().getX());
+        EXPECT_DOUBLE_EQ(-y, vector.operator-().getY());
+        EXPECT_DOUBLE_EQ(-z, vector.operator-().getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_operatorEqPlus_Test) {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
+        CVector3D vector_first(x, y, z);
         double x1 = nextRandomDouble();
         double y1 = nextRandomDouble();
         double z1 = nextRandomDouble();
-        CVector3D cVector3D1(x1, y1, z1);
-        EXPECT_DOUBLE_EQ(x + cVector3D1.getX(), cVector3D.operator+=(cVector3D1).getX());
-        EXPECT_DOUBLE_EQ(y + cVector3D1.getY() + cVector3D1.getY(),
-                         cVector3D.operator+=(cVector3D1).getY());
-        EXPECT_DOUBLE_EQ(z + cVector3D1.getZ() + cVector3D1.getZ() + cVector3D1.getZ(),
-                         cVector3D.operator+=(cVector3D1).getZ());
+        CVector3D vector_second(x1, y1, z1);
+        EXPECT_DOUBLE_EQ(x + vector_second.getX(), vector_first.operator+=(vector_second).getX());
+        EXPECT_DOUBLE_EQ(y + vector_second.getY() + vector_second.getY(),
+                         vector_first.operator+=(vector_second).getY());
+        EXPECT_DOUBLE_EQ(z + vector_second.getZ() + vector_second.getZ() + vector_second.getZ(),
+                         vector_first.operator+=(vector_second).getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_opertorEqMinus_Test) {
         double x = nextRandomDouble();
         double y = nextRandomDouble();
         double z = nextRandomDouble();
-        CVector3D cVector3D(x, y, z);
+        CVector3D vector_first(x, y, z);
         double x1 = nextRandomDouble();
         double y1 = nextRandomDouble();
         double z1 = nextRandomDouble();
-        CVector3D cVector3D1(x1, y1, z1);
-        EXPECT_DOUBLE_EQ(x - cVector3D1.getX(), cVector3D.operator-=(cVector3D1).getX());
-        EXPECT_DOUBLE_EQ(y - cVector3D1.getY() - cVector3D1.getY(),
-                         cVector3D.operator-=(cVector3D1).getY());
-        EXPECT_DOUBLE_EQ(z - cVector3D1.getZ() - cVector3D1.getZ() - cVector3D1.getZ(),
-                         cVector3D.operator-=(cVector3D1).getZ());
+        CVector3D vector_second(x1, y1, z1);
+        EXPECT_DOUBLE_EQ(x - vector_second.getX(), vector_first.operator-=(vector_second).getX());
+        EXPECT_DOUBLE_EQ(y - vector_second.getY() - vector_second.getY(),
+                         vector_first.operator-=(vector_second).getY());
+        EXPECT_DOUBLE_EQ(z - vector_second.getZ() - vector_second.getZ() - vector_second.getZ(),
+                         vector_first.operator-=(vector_second).getZ());
     }
 
     TEST_F(CVector3DFixture, CVector3D_isCollinear_zero_vectors_Test) {

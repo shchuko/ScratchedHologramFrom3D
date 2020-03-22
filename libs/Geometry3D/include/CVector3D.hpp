@@ -22,13 +22,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param cVector3D Vector in 3D
          */
-        CVector3D(const CVector3D &cVector3D) noexcept;
+        CVector3D(const CVector3D &vector) noexcept;
 
         /**
          * Copy constructor Rvalue
          * @param cVector3D Vector in 3D
          */
-        CVector3D(CVector3D &&cVector3D) noexcept;
+        CVector3D(CVector3D &&vector) noexcept;
 
         /**
          * Constructor with parameters of coordinates
@@ -63,14 +63,14 @@ namespace Geometry3D {
          * @param iVector3D Vector in 3D
          * @return new CVector3D
          */
-        CVector3D &operator+=(const AVector3D &iVector3D);
+        CVector3D &operator+=(const AVector3D &vector);
 
         /**
          * Overloaded operator -=
          * @param iVector3D Vector int 3D
          * @return new CVector3D
          */
-        CVector3D &operator-=(const AVector3D &iVector3D);
+        CVector3D &operator-=(const AVector3D &vector);
 
         ~CVector3D() override = default;
     };

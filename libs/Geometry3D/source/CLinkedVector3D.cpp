@@ -17,6 +17,15 @@ double Geometry3D::CLinkedVector3D::getZ() const noexcept {
 }
 
 double Geometry3D::CLinkedVector3D::getLen() const noexcept {
-    return sqrt(pow(point_end.getX() - point_begin.getX(), 2) + pow(point_end.getY() - point_begin.getY(), 2) +
-                pow(point_end.getZ() - point_begin.getZ(), 2));
+    double point_end_x = point_end.getX();
+    double point_end_y = point_end.getY();
+    double point_end_z = point_end.getZ();
+
+    double point_begin_x = point_begin.getX();
+    double point_begin_y = point_begin.getY();
+    double point_begin_z = point_begin.getZ();
+
+    return sqrt(((point_end_x - point_begin_x) * (point_end_x - point_begin_x)) +
+                ((point_end_y - point_begin_y) * (point_end_y - point_begin_y)) +
+                ((point_end_z - point_begin_z) * (point_end_z - point_begin_z)));
 }

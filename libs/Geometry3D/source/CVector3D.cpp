@@ -2,16 +2,16 @@
 
 namespace Geometry3D {
 
-    CVector3D::CVector3D(const CVector3D &cVector3D) noexcept {
-        this->x = cVector3D.getX();
-        this->y = cVector3D.getY();
-        this->z = cVector3D.getZ();
+    CVector3D::CVector3D(const CVector3D &vector) noexcept {
+        this->x = vector.getX();
+        this->y = vector.getY();
+        this->z = vector.getZ();
     }
 
-    CVector3D::CVector3D(CVector3D &&cVector3D) noexcept {
-        this->x = cVector3D.getX();
-        this->y = cVector3D.getY();
-        this->z = cVector3D.getZ();
+    CVector3D::CVector3D(CVector3D &&vector) noexcept {
+        this->x = vector.getX();
+        this->y = vector.getY();
+        this->z = vector.getZ();
     }
 
     CVector3D::CVector3D(double x, double y, double z) {
@@ -33,7 +33,7 @@ namespace Geometry3D {
     }
 
     double CVector3D::getLen() const noexcept {
-        return sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
+        return sqrt(x * x + y * y + z * z);
     }
 
     CVector3D CVector3D::operator+() const {
@@ -48,18 +48,18 @@ namespace Geometry3D {
         return CVector3D(new_x, new_y, new_z);
     }
 
-    CVector3D &CVector3D::operator+=(const AVector3D &iVector3D) {
-        x += iVector3D.getX();
-        y += iVector3D.getY();
-        z += iVector3D.getZ();
+    CVector3D &CVector3D::operator+=(const AVector3D &vector) {
+        x += vector.getX();
+        y += vector.getY();
+        z += vector.getZ();
 
         return *this;
     }
 
-    CVector3D &CVector3D::operator-=(const AVector3D &iVector3D) {
-        x -= iVector3D.getX();
-        y -= iVector3D.getY();
-        z -= iVector3D.getZ();
+    CVector3D &CVector3D::operator-=(const AVector3D &vector) {
+        x -= vector.getX();
+        y -= vector.getY();
+        z -= vector.getZ();
 
         return *this;
     }

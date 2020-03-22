@@ -2,16 +2,16 @@
 
 namespace Geometry3D {
 
-    CPoint3D::CPoint3D(const CPoint3D &cPoint3D) noexcept {
-        this->x = cPoint3D.getX();
-        this->y = cPoint3D.getY();
-        this->z = cPoint3D.getZ();
+    CPoint3D::CPoint3D(const CPoint3D &point) noexcept {
+        this->x = point.getX();
+        this->y = point.getY();
+        this->z = point.getZ();
     }
 
-    CPoint3D::CPoint3D(CPoint3D &&cPoint3D) noexcept {
-        this->x = cPoint3D.getX();
-        this->y = cPoint3D.getY();
-        this->z = cPoint3D.getZ();
+    CPoint3D::CPoint3D(CPoint3D &&point) noexcept {
+        this->x = point.getX();
+        this->y = point.getY();
+        this->z = point.getZ();
     }
 
     CPoint3D::CPoint3D(double x, double y, double z) noexcept {
@@ -32,25 +32,25 @@ namespace Geometry3D {
         return z;
     }
 
-    CPoint3D &CPoint3D::operator=(const CPoint3D &cPoint3D) {
-        if (this != &cPoint3D) {
-            x = cPoint3D.getX();
-            y = cPoint3D.getY();
-            z = cPoint3D.getZ();
+    CPoint3D &CPoint3D::operator=(const CPoint3D &point) {
+        if (this != &point) {
+            x = point.getX();
+            y = point.getY();
+            z = point.getZ();
         }
         return *this;
     }
 
-    void CPoint3D::move(const AVector3D &vector3D) noexcept {
-        this->x += vector3D.getX();
-        this->y += vector3D.getY();
-        this->z += vector3D.getZ();
+    void CPoint3D::move(const AVector3D &vector) noexcept {
+        this->x += vector.getX();
+        this->y += vector.getY();
+        this->z += vector.getZ();
     }
 
-    CPoint3D CPoint3D::moveCopy(const AVector3D &vector3D) const noexcept {
-        double new_x = this->getX() + vector3D.getX();
-        double new_y = this->getY() + vector3D.getY();
-        double new_z = this->getZ() + vector3D.getZ();
+    CPoint3D CPoint3D::moveCopy(const AVector3D &vector) const noexcept {
+        double new_x = this->getX() + vector.getX();
+        double new_y = this->getY() + vector.getY();
+        double new_z = this->getZ() + vector.getZ();
         return {new_x, new_y, new_z};
     }
 }

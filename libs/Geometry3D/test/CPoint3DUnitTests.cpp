@@ -49,10 +49,10 @@ namespace Geometry3DCPoint3DTests{
     };
 
     TEST_F(CPoint3DFixture, CPoint3D_DefaultConstructor_Test) {
-        CPoint3D cPoint3D;
-        EXPECT_DOUBLE_EQ(cPoint3D.getX(), 0.0);
-        EXPECT_DOUBLE_EQ(cPoint3D.getY(), 0.0);
-        EXPECT_DOUBLE_EQ(cPoint3D.getZ(), 0.0);
+        CPoint3D point;
+        EXPECT_DOUBLE_EQ(point.getX(), 0.0);
+        EXPECT_DOUBLE_EQ(point.getY(), 0.0);
+        EXPECT_DOUBLE_EQ(point.getZ(), 0.0);
     }
 
     TEST_F(CPoint3DFixture, CPoint3D_BuildFromCoordinatesConstructor_Test) {
@@ -93,13 +93,13 @@ namespace Geometry3DCPoint3DTests{
         double x_vector = nextRandomDouble();
         double y_vector = nextRandomDouble();
         double z_vector = nextRandomDouble();
-        CVector3D cVector3D(x_vector, y_vector, z_vector);
+        CVector3D vector(x_vector, y_vector, z_vector);
 
         CPoint3D point_copy(*c_point_3d_fixture);
-        point_copy.move(cVector3D);
-        double x_expected = c_point_3d_fixture->getX() + cVector3D.getX();
-        double y_expected = c_point_3d_fixture->getY() + cVector3D.getY();
-        double z_expected = c_point_3d_fixture->getZ() + cVector3D.getZ();
+        point_copy.move(vector);
+        double x_expected = c_point_3d_fixture->getX() + vector.getX();
+        double y_expected = c_point_3d_fixture->getY() + vector.getY();
+        double z_expected = c_point_3d_fixture->getZ() + vector.getZ();
 
         EXPECT_DOUBLE_EQ(x_expected, point_copy.getX());
         EXPECT_DOUBLE_EQ(y_expected, point_copy.getY());
@@ -110,12 +110,12 @@ namespace Geometry3DCPoint3DTests{
         double x_vector = nextRandomDouble();
         double y_vector = nextRandomDouble();
         double z_vector = nextRandomDouble();
-        CVector3D cVector3D(x_vector, y_vector, z_vector);
+        CVector3D vector(x_vector, y_vector, z_vector);
 
-        CPoint3D point_moved_copy = c_point_3d_fixture->moveCopy(cVector3D);
-        double x_expected = c_point_3d_fixture->getX() + cVector3D.getX();
-        double y_expected = c_point_3d_fixture->getY() + cVector3D.getY();
-        double z_expected = c_point_3d_fixture->getZ() + cVector3D.getZ();
+        CPoint3D point_moved_copy = c_point_3d_fixture->moveCopy(vector);
+        double x_expected = c_point_3d_fixture->getX() + vector.getX();
+        double y_expected = c_point_3d_fixture->getY() + vector.getY();
+        double z_expected = c_point_3d_fixture->getZ() + vector.getZ();
 
         EXPECT_DOUBLE_EQ(x_expected, point_moved_copy.getX());
         EXPECT_DOUBLE_EQ(y_expected, point_moved_copy.getY());

@@ -23,13 +23,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param cPoint3D Point in 3D
          */
-        CPoint3D(const CPoint3D &cPoint3D) noexcept;
+        CPoint3D(const CPoint3D &point) noexcept;
 
         /**
          * Copy constructor Rvalue
          * @param cPoint3D Point int 3D
          */
-        CPoint3D(CPoint3D &&cPoint3D) noexcept;
+        CPoint3D(CPoint3D &&point) noexcept;
 
         /**
          * Constructor with parameters of coordinates
@@ -57,10 +57,10 @@ namespace Geometry3D {
          */
         double getZ() const noexcept;
 
-        void move(const AVector3D &vector3D) noexcept;
+        void move(const AVector3D &vector) noexcept;
 
-        CPoint3D moveCopy(const AVector3D &vector3D) const noexcept;
+        CPoint3D moveCopy(const AVector3D &vector) const noexcept;
 
-        CPoint3D &operator=(const CPoint3D &cPoint3D);
+        CPoint3D &operator=(const CPoint3D &vector);
     };
 }

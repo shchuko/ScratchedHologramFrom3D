@@ -9,7 +9,7 @@ namespace Geometry3D {
      */
     class AVector3D {
     private:
-        static inline bool is_equal_double(double x, double y) noexcept;
+        static inline bool isEqualDouble(double x, double y) noexcept;
 
     public:
         /**
@@ -41,14 +41,14 @@ namespace Geometry3D {
          * @param vector3D Vector in 3D
          * @return Collinear or not
          */
-        bool isCollinear(const AVector3D &vector3D) const noexcept;
+        bool isCollinear(const AVector3D &vector) const noexcept;
 
         /**
          * Get cos of angel between two vectors
          * @param vector3D Vector in 3D
          * @return Cos of angel between two vectors
          */
-        double getAngleCos(const AVector3D &vector3D) const noexcept;
+        double getAngleCos(const AVector3D &vector) const noexcept;
 
         virtual ~AVector3D() = 0;
     };

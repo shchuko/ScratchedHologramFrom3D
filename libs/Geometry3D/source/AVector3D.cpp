@@ -1,42 +1,60 @@
 #include <AVector3D.hpp>
 
-bool Geometry3D::AVector3D::isCollinear(const Geometry3D::AVector3D &vector3D) const noexcept {
-    if (is_equal_double(this->getX(), 0.0) && is_equal_double(vector3D.getX(), 0.0) &&
-        is_equal_double(this->getY(), 0.0) && is_equal_double(vector3D.getY(), 0.0) &&
-        is_equal_double(this->getZ(), 0.0) && is_equal_double(vector3D.getZ(), 0.0)) {
+bool Geometry3D::AVector3D::isCollinear(const Geometry3D::AVector3D &vector) const noexcept {
+    double first_vector_x = this->getX();
+    double first_vector_y = this->getY();
+    double first_vector_z = this->getZ();
+
+    double second_vector_x = vector.getX();
+    double second_vector_y = vector.getY();
+    double second_vector_z = vector.getZ();
+
+    if (isEqualDouble(first_vector_x, 0.0) && isEqualDouble(second_vector_x, 0.0) &&
+        isEqualDouble(first_vector_y, 0.0) && isEqualDouble(second_vector_y, 0.0) &&
+        isEqualDouble(first_vector_z, 0.0) && isEqualDouble(second_vector_z, 0.0)) {
         return true;
-    } else if (is_equal_double(this->getX(), 0.0) && is_equal_double(vector3D.getX(), 0.0) &&
-               is_equal_double(this->getY(), 0.0) && is_equal_double(vector3D.getY(), 0.0)) {
+    } else if (isEqualDouble(first_vector_x, 0.0) && isEqualDouble(second_vector_x, 0.0) &&
+               isEqualDouble(first_vector_y, 0.0) && isEqualDouble(second_vector_y, 0.0)) {
         return true;
-    } else if (is_equal_double(this->getX(), 0.0) && is_equal_double(vector3D.getX(), 0.0) &&
-               is_equal_double(this->getZ(), 0.0) && is_equal_double(vector3D.getZ(), 0.0)) {
+    } else if (isEqualDouble(first_vector_x, 0.0) && isEqualDouble(second_vector_x, 0.0) &&
+               isEqualDouble(first_vector_z, 0.0) && isEqualDouble(second_vector_z, 0.0)) {
         return true;
-    } else if (is_equal_double(this->getY(), 0.0) && is_equal_double(vector3D.getY(), 0.0) &&
-               is_equal_double(this->getZ(), 0.0) && is_equal_double(vector3D.getZ(), 0.0)) {
+    } else if (isEqualDouble(first_vector_y, 0.0) && isEqualDouble(second_vector_y, 0.0) &&
+               isEqualDouble(first_vector_z, 0.0) && isEqualDouble(second_vector_z, 0.0)) {
         return true;
-    } else if (is_equal_double(this->getX(), 0.0) && is_equal_double(vector3D.getX(), 0.0)) {
-        return is_equal_double(this->getY() / vector3D.getY(), this->getZ() / vector3D.getZ());
-    } else if (is_equal_double(this->getY(), 0.0) && is_equal_double(vector3D.getY(), 0.0)) {
-        return is_equal_double(this->getX() / vector3D.getX(), this->getZ() / vector3D.getZ());
-    } else if (is_equal_double(this->getZ(), 0.0) && is_equal_double(vector3D.getZ(), 0.0)) {
-        return is_equal_double(this->getX() / vector3D.getX(), this->getY() / vector3D.getY());
+    } else if (isEqualDouble(first_vector_x, 0.0) && isEqualDouble(second_vector_x, 0.0)) {
+        return isEqualDouble(first_vector_y / second_vector_y, first_vector_z / second_vector_z);
+    } else if (isEqualDouble(first_vector_y, 0.0) && isEqualDouble(second_vector_y, 0.0)) {
+        return isEqualDouble(first_vector_x / second_vector_x, first_vector_z / second_vector_z);
+    } else if (isEqualDouble(first_vector_z, 0.0) && isEqualDouble(second_vector_z, 0.0)) {
+        return isEqualDouble(first_vector_x / second_vector_x, first_vector_y / second_vector_y);
     } else {
-        return is_equal_double(this->getX() / vector3D.getX(), this->getY() / vector3D.getY()) &&
-               is_equal_double(this->getY() / vector3D.getY(), this->getZ() / vector3D.getZ());
+        return isEqualDouble(first_vector_x / second_vector_x, first_vector_y / second_vector_y) &&
+               isEqualDouble(first_vector_y / second_vector_y, first_vector_z / second_vector_z);
     }
 }
 
-double Geometry3D::AVector3D::getAngleCos(const Geometry3D::AVector3D &vector3D) const noexcept {
+double Geometry3D::AVector3D::getAngleCos(const Geometry3D::AVector3D &vector) const noexcept {
+    double first_vector_x = this->getX();
+    double first_vector_y = this->getY();
+    double first_vector_z = this->getZ();
+
+    double second_vector_x = vector.getX();
+    double second_vector_y = vector.getY();
+    double second_vector_z = vector.getZ();
+
     double numerator =
-            this->getX() * vector3D.getX() + this->getY() * vector3D.getY() + this->getZ() * vector3D.getZ();
-    double denominator = sqrt(pow(this->getX(), 2) + pow(this->getY(), 2) + pow(this->getZ(), 2)) *
-                         sqrt(pow(vector3D.getX(), 2) + pow(vector3D.getY(), 2) + pow(vector3D.getZ(), 2));
+            first_vector_x * second_vector_x + first_vector_y * second_vector_y + first_vector_z * second_vector_z;
+    double denominator =
+            sqrt(first_vector_x * first_vector_x + first_vector_y * first_vector_y + first_vector_z * first_vector_z) *
+            sqrt(second_vector_x * second_vector_x + second_vector_y * second_vector_y +
+                 second_vector_z * second_vector_z);
 
     if (denominator != 0)
         return numerator / denominator;
     return 1;
 }
 
-bool Geometry3D::AVector3D::is_equal_double(double x, double y) noexcept {
+bool Geometry3D::AVector3D::isEqualDouble(double x, double y) noexcept {
     return std::fabs(x - y) < std::numeric_limits<double>::epsilon();
 }
