@@ -6,7 +6,7 @@
 namespace CliTools {
 
 
-    TEST(COption, getShortName) {
+    TEST(COption, COption_getShortName_Test) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addShortName('a');
         char expected = 'a';
@@ -14,7 +14,7 @@ namespace CliTools {
         ASSERT_EQ(expected, actual) << "Short name received incorrectly";
     }
 
-    TEST(COption, getLongName) {
+    TEST(COption, COption_getLongName_Test) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addLongName("testString");
         std::string expected = "testString";
@@ -22,16 +22,16 @@ namespace CliTools {
         ASSERT_STREQ(expected.c_str(), actual.c_str()) << "Long name received incorrectly";
     }
 
-    TEST(COption, getDescription) {
+    TEST(COption,  COption_getDescription_Test) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addLongName("Test");
         cOptionBuilder.addDescription("Some description");
         std::string expected = "Some description";
         std::string actual = cOptionBuilder.build().getDescription();
-        ASSERT_STREQ(expected.c_str(), actual.c_str()) << "Description received incorrectly";
+        EXPECT_STREQ(expected.c_str(), actual.c_str()) << "Description received incorrectly";
     }
 
-    TEST(COption, isRequired) {
+    TEST(COption, COption_isRequired_Test) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addLongName("Test");
 
@@ -46,7 +46,7 @@ namespace CliTools {
         ASSERT_TRUE(actual) << "Argument is mandatory";
     }
 
-    TEST(COption, isHasArgument) {
+    TEST(COption, COption_isHasArgument_Test) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addLongName("Test");
 
@@ -59,7 +59,7 @@ namespace CliTools {
     }
 
     // Test: lack of parameters, but the required input - true
-    TEST(COptionBuilder, build_no_arguments) {
+    TEST(COptionBuilder, COptionBuilder_required_option_without_value_exception_Test) {
         COptionBuilder cOptionBuilder;
         bool isException = false;
         cOptionBuilder.addLongName("test");
@@ -77,7 +77,7 @@ namespace CliTools {
     }
 
     // Test: lack of options
-    TEST(COptionBuilder, build_no_option_names) {
+    TEST(COptionBuilder, COptionBuilder_not_initialized_exception_Test) {
         COptionBuilder cOptionBuilder;
         bool isException = false;
         const char *expectedTest2 = "Not enough arguments: full name option, short name option";
