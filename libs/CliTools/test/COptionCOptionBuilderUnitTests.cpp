@@ -8,25 +8,25 @@ namespace CliTools {
 
     TEST(COption, COption_getShortName_Test) {
         COptionBuilder cOptionBuilder{};
-        cOptionBuilder.addShortName('a');
         char expected = 'a';
+        cOptionBuilder.addShortName(expected);
         char actual = cOptionBuilder.build().getShortName();
-        ASSERT_EQ(expected, actual) << "Short name received incorrectly";
+        EXPECT_EQ(expected, actual) << "Short name received incorrectly";
     }
 
     TEST(COption, COption_getLongName_Test) {
         COptionBuilder cOptionBuilder{};
-        cOptionBuilder.addLongName("testString");
         std::string expected = "testString";
+        cOptionBuilder.addLongName(expected);
         std::string actual = cOptionBuilder.build().getLongName();
-        ASSERT_STREQ(expected.c_str(), actual.c_str()) << "Long name received incorrectly";
+        EXPECT_STREQ(expected.c_str(), actual.c_str()) << "Long name received incorrectly";
     }
 
-    TEST(COption,  COption_getDescription_Test) {
+    TEST(COption, COption_getDescription_Test) {
         COptionBuilder cOptionBuilder{};
-        cOptionBuilder.addLongName("Test");
-        cOptionBuilder.addDescription("Some description");
         std::string expected = "Some description";
+        cOptionBuilder.addLongName("Test");
+        cOptionBuilder.addDescription(expected);
         std::string actual = cOptionBuilder.build().getDescription();
         EXPECT_STREQ(expected.c_str(), actual.c_str()) << "Description received incorrectly";
     }
@@ -36,26 +36,38 @@ namespace CliTools {
         cOptionBuilder.addLongName("Test");
 
         // Option entered
-        cOptionBuilder.setValue("value");
+        cOptionBuilder.setValue(true, false);
         bool actual = cOptionBuilder.build().isRequired();
-        ASSERT_FALSE(actual) << "Argument isn't mandatory";
+        EXPECT_FALSE(actual) << "Argument isn't mandatory";
 
         // Option entered
-        cOptionBuilder.setValue("value", true);
+        cOptionBuilder.setValue(true, true);
         actual = cOptionBuilder.build().isRequired();
-        ASSERT_TRUE(actual) << "Argument is mandatory";
+        EXPECT_TRUE(actual) << "Argument is mandatory";
     }
 
-    TEST(COption, COption_isHasArgument_Test) {
+    TEST(COption, COption_isHasArgument_Test_without_argument) {
         COptionBuilder cOptionBuilder{};
         cOptionBuilder.addLongName("Test");
 
         bool actual = cOptionBuilder.build().isHasArgument();
-        ASSERT_FALSE(actual) << "Argument wasn't entered and expected FALSE, but actual TRUE";
+        EXPECT_FALSE(actual) << "Argument wasn't entered and expected FALSE, but actual TRUE";
+    }
 
-        cOptionBuilder.setValue("value");
-        actual = cOptionBuilder.build().isHasArgument();
-        ASSERT_TRUE(actual) << "Argument was entered and expected TRUE, but actual FALSE";
+    TEST(COption, COption_isHasArgument_Test_with_has_argument_true) {
+        COptionBuilder cOptionBuilder;
+        cOptionBuilder.addLongName("Test");
+        cOptionBuilder.setValue(true);
+        bool actual = cOptionBuilder.build().isHasArgument();
+        EXPECT_TRUE(actual) << "Argument was entered and expected TRUE, but actual FALSE";
+    }
+
+    TEST(COption, COption_isHasArgument_Test_with_both_arguments_true) {
+        COptionBuilder cOptionBuilder;
+        cOptionBuilder.addLongName("Test");
+        cOptionBuilder.setValue(true, true);
+        bool actual = cOptionBuilder.build().isHasArgument();
+        EXPECT_TRUE(actual) << "Arguments was entered and expected TRUE, but actual FALSE";
     }
 
     // Test: lack of parameters, but the required input - true
