@@ -53,7 +53,7 @@ namespace CliTools {
         COption build();
 
         /**
-         * Reset all object settings
+         * Clear builder data
          */
         void reset();
 
