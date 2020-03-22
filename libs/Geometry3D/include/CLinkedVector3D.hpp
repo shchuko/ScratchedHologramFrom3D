@@ -20,6 +20,7 @@ namespace Geometry3D {
          */
         CLinkedVector3D(const CPoint3D &_point_begin, const CPoint3D &_point_end) noexcept;
 
+
         double getX() const noexcept override;
 
         double getY() const noexcept override;
@@ -29,5 +30,9 @@ namespace Geometry3D {
         double getLen() const noexcept override;
 
         ~CLinkedVector3D() override = default;
+
+    private:
+        CLinkedVector3D(CPoint3D &&_point_begin, CPoint3D &&_point_end);
+
     };
 }
