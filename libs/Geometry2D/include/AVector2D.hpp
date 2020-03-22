@@ -32,14 +32,14 @@ namespace Geometry2D {
 
         /**
          * Check collinear between two vectors
-         * @param vector3D Vector in 2D
+         * @param vector Vector in 2D
          * @return Collinear or not
          */
         bool isCollinear(const AVector2D &vector) const noexcept;
 
         /**
          * Get cos of angel between two vectors
-         * @param vector3D Vector in 2D
+         * @param vector Vector in 2D
          * @return Cos of angel between two vectors
          */
         double getAngleCos(const AVector2D &vector) const noexcept;
