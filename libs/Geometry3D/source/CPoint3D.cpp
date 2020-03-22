@@ -53,4 +53,22 @@ namespace Geometry3D {
         double new_z = this->getZ() + vector.getZ();
         return {new_x, new_y, new_z};
     }
+
+    double CPoint3D::getDistance(const CPoint3D &point) const noexcept {
+        double difference_between_x = point.x - this->x;
+        double difference_between_y = point.y - this->y;
+        double difference_between_z = point.z - this->z;
+
+        return std::sqrt(difference_between_x * difference_between_x + difference_between_y * difference_between_y +
+                         difference_between_z * difference_between_z);
+    }
+
+    double CPoint3D::getDistance(CPoint3D &&point) const noexcept {
+        double difference_between_x = point.x - this->x;
+        double difference_between_y = point.y - this->y;
+        double difference_between_z = point.z - this->z;
+
+        return std::sqrt(difference_between_x * difference_between_x + difference_between_y * difference_between_y +
+                         difference_between_z * difference_between_z);
+    }
 }
