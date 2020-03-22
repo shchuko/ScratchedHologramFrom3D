@@ -4,7 +4,6 @@
 #include <gtest/gtest.h>
 #include <AVector3D.hpp>
 #include <CVector3D.hpp>
-#include <Geometry3DOperators.hpp>
 
 namespace Geometry3DCVector3DTests {
     using Geometry3D::CVector3D;

@@ -4,7 +4,6 @@
 
 #include <Geometry3DOperators.hpp>
 #include <CVector3D.hpp>
-#include <CLinkedVector3D.hpp>
 
 namespace Geometry3DOperatorsLibTests {
     using Geometry3D::operator-;
