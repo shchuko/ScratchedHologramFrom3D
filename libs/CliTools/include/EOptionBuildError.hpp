@@ -19,8 +19,7 @@ public:
      * the constructor serves to create an exception and get the cause of the error
      * @param error - message of error
      */
-    explicit EOptionBuildError(std::string error)
-            : m_error(std::move(error)) {}
+    explicit EOptionBuildError(std::string &error);
 
     /**
     * Method for getting error description
