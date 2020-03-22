@@ -23,6 +23,7 @@ namespace CliTools{
 
     TEST(COption, getDescription) {
         COptionBuilder cOptionBuilder{};
+        cOptionBuilder.addLongName("Test");
         cOptionBuilder.addDescription( "Some description");
         std::string expected = "Some description";
         std::string actual = cOptionBuilder.build().getDescription();
@@ -31,6 +32,7 @@ namespace CliTools{
 
     TEST(COption, isRequired) {
         COptionBuilder cOptionBuilder{};
+        cOptionBuilder.addLongName("Test");
 
         // Option entered
         cOptionBuilder.setValue( "value");
@@ -45,6 +47,7 @@ namespace CliTools{
 
     TEST(COption, isHasArgument){
         COptionBuilder cOptionBuilder{};
+        cOptionBuilder.addLongName("Test");
 
         bool actual = cOptionBuilder.build().isHasArgument();
         ASSERT_FALSE(actual) << "Argument wasn't entered and expected FALSE, but actual TRUE";
