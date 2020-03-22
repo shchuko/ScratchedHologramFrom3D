@@ -34,8 +34,6 @@ namespace CliTools{
     // Form and get a customized object
     COption COptionBuilder::build() {
 
-        std::string error;
-
         if (cOption.longName.empty() and cOption.shortName == '\0') {
             throw Exceptions::EOptionBuildError("Not enough arguments: full name option, short name option");
         }
@@ -48,7 +46,7 @@ namespace CliTools{
         return cOption;
     }
 
-    // Reset all object settings
+    // Clear builder data
     void COptionBuilder::reset() {
         cOption.shortName = '\0';
         cOption.longName = "";
