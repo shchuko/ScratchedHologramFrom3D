@@ -35,12 +35,23 @@ namespace CliTools{
     // Form and get a customized object
     COption COptionBuilder::build() {
 
+        std::string error = "Could not build instance of COption class : \n";
+        bool hasName = true;
+        // If this value is not entered, but it is required - false
+        bool hasRequiredValue = true;
+
         if (cOption.longName.empty() and cOption.shortName == '\0') {
-            throw EOptionBuildError( "Not enough arguments: full name option, short name option");
+            hasName = false;
+            error += "Not enough arguments: full name option, short name option\n";
         }
 
+        // If this value is not entered, but it is required - false
         if (!cOption.has_argument && cOption.option_required) {
-            throw EOptionBuildError("No arguments, but it's required");
+            hasRequiredValue = false;
+            error += "No arguments, but it's required\n";
+        }
+        if (!hasName || !hasRequiredValue) {
+            throw EOptionBuildError(error);
         }
 
         return cOption;
