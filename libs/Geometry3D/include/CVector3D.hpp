@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AVector3D.hpp"
+#include <AVector3D.hpp>
 #include <cmath>
 
 namespace Geometry3D {
@@ -20,13 +20,13 @@ namespace Geometry3D {
 
         /**
          * Copy constructor Lvalue
-         * @param cVector3D Vector in 3D
+         * @param vector Vector in 3D
          */
         CVector3D(const CVector3D &vector) noexcept;
 
         /**
          * Copy constructor Rvalue
-         * @param cVector3D Vector in 3D
+         * @param vector Vector in 3D
          */
         CVector3D(CVector3D &&vector) noexcept;
 
@@ -60,14 +60,14 @@ namespace Geometry3D {
 
         /**
          * Overloaded operator +=
-         * @param iVector3D Vector in 3D
+         * @param vector Vector in 3D
          * @return new CVector3D
          */
         CVector3D &operator+=(const AVector3D &vector);
 
         /**
          * Overloaded operator -=
-         * @param iVector3D Vector int 3D
+         * @param vector Vector int 3D
          * @return new CVector3D
          */
         CVector3D &operator-=(const AVector3D &vector);

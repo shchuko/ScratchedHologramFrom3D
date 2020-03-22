@@ -3,7 +3,6 @@
 
 #include <gtest/gtest.h>
 #include <CPoint3D.hpp>
-#include <AVector3D.hpp>
 #include <CVector3D.hpp>
 
 

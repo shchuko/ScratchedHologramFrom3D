@@ -3,11 +3,11 @@
 #include <cmath>
 #include <limits>
 
-namespace Geometry3D {
+namespace Geometry2D {
     /**
      * @author github.com/Tulesha
      */
-    class AVector3D {
+    class AVector2D {
     private:
         static inline bool isEqualDouble(double x, double y) noexcept;
 
@@ -25,12 +25,6 @@ namespace Geometry3D {
         virtual double getY() const noexcept = 0;
 
         /**
-         * Get z coordinate
-         * @return Coordinate Z
-         */
-        virtual double getZ() const noexcept = 0;
-
-        /**
          * Get length
          * @return length
          */
@@ -38,20 +32,18 @@ namespace Geometry3D {
 
         /**
          * Check collinear between two vectors
-         * @param vector Vector in 3D
+         * @param vector Vector in 2D
          * @return Collinear or not
          */
-        bool isCollinear(const AVector3D &vector) const noexcept;
+        bool isCollinear(const AVector2D &vector) const noexcept;
 
         /**
          * Get cos of angel between two vectors
-         * @param vector Vector in 3D
+         * @param vector Vector in 2D
          * @return Cos of angel between two vectors
          */
-        double getAngleCos(const AVector3D &vector) const noexcept;
-
-        virtual ~AVector3D() = 0;
+        double getAngleCos(const AVector2D &vector) const noexcept;
+        virtual ~AVector2D() = 0;
     };
-
-    inline AVector3D::~AVector3D() = default;
+    inline AVector2D::~AVector2D() = default;
 }
