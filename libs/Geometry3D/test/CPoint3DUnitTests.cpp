@@ -6,11 +6,11 @@
 #include <CVector3D.hpp>
 
 
-namespace Geometry3DCPoint3DTests{
+namespace Geometry3DCPoint3DTests {
     using Geometry3D::CPoint3D;
     using Geometry3D::CVector3D;
     using Geometry3D::AVector3D;
-    
+
     class CPoint3DFixture : public ::testing::Test {
     private:
         static constexpr double MAX_DOUBLE_VALUE = 10000.0;
@@ -18,11 +18,12 @@ namespace Geometry3DCPoint3DTests{
 
         std::uniform_real_distribution<double> *distribution = nullptr;
         std::mt19937 *random_engine = nullptr;
-        
+
     protected:
         double nextRandomDouble() {
             return (*distribution)(*random_engine);
         }
+
         void SetUp() override {
             distribution = new std::uniform_real_distribution<double>(MIN_DOUBLE_VALUE, MAX_DOUBLE_VALUE);
             random_engine = new std::mt19937(std::chrono::system_clock::now().time_since_epoch().count());
@@ -41,7 +42,7 @@ namespace Geometry3DCPoint3DTests{
         }
 
         CPoint3D *c_point_3d_fixture = nullptr;
-        
+
         double x = 0.0;
         double y = 0.0;
         double z = 0.0;
@@ -121,4 +122,45 @@ namespace Geometry3DCPoint3DTests{
         EXPECT_DOUBLE_EQ(z_expected, point_moved_copy.getZ());
     }
 
+    TEST_F(CPoint3DFixture, CPoint3D_getDistance_LValue_Test) {
+        double x = nextRandomDouble();
+        double y = nextRandomDouble();
+        double z = nextRandomDouble();
+        CPoint3D first_point(x, y, z);
+
+        double x1 = nextRandomDouble();
+        double y1 = nextRandomDouble();
+        double z1 = nextRandomDouble();
+        CPoint3D second_point(x1, y1, z1);
+
+        double difference_between_x = x1 - x;
+        double difference_between_y = y1 - y;
+        double difference_between_z = z1 - z;
+
+        double expected_distance = std::sqrt(
+                difference_between_x * difference_between_x + difference_between_y * difference_between_y +
+                difference_between_z * difference_between_z);
+
+        EXPECT_DOUBLE_EQ(expected_distance, first_point.getDistance(second_point));
+    }
+
+    TEST_F(CPoint3DFixture, CPoint3D_getDistance_RValue_Test) {
+        double x = nextRandomDouble();
+        double y = nextRandomDouble();
+        double z = nextRandomDouble();
+        CPoint3D first_point(x, y, z);
+
+        double x1 = nextRandomDouble();
+        double y1 = nextRandomDouble();
+        double z1 = nextRandomDouble();
+        CPoint3D second_point(x1, y1, z1);
+        double difference_between_x = x1 - x;
+        double difference_between_y = y1 - y;
+        double difference_between_z = z1 - z;
+
+        double expected_distance = std::sqrt(
+                difference_between_x * difference_between_x + difference_between_y * difference_between_y +
+                difference_between_z * difference_between_z);
+        EXPECT_DOUBLE_EQ(expected_distance, first_point.getDistance(std::move(second_point)));
+    }
 }

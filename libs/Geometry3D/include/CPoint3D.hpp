@@ -62,5 +62,19 @@ namespace Geometry3D {
         CPoint3D moveCopy(const AVector3D &vector) const noexcept;
 
         CPoint3D &operator=(const CPoint3D &vector);
+
+        /**
+         * Get distance between two points
+         * @param point Point in 3D, LValue reference
+         * @return distance between two points
+         */
+        double getDistance(const CPoint3D& point) const noexcept;
+
+        /**
+         * Get distance between two points
+         * @param point Point in 3D, RValue reference
+         * @return distance between two points
+         */
+        double getDistance(CPoint3D&& point) const noexcept;
     };
 }
