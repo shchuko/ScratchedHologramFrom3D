@@ -5,7 +5,10 @@
 
 namespace CliTools {
     namespace Exceptions {
-
+        /**
+         * Exception for {@link EArgsParser}
+        * @author Nikita Novgorodtsev (github https://github.com/paNoNi)
+        */
         class EOptionNotPresentInDictionary : public std::exception {
 
         private:
