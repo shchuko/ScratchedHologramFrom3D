@@ -1,10 +1,8 @@
-#include <iostream>
 
 
 #include "CAppRunner.hpp"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+int main(int argv, char** args) {
     CAppRunner appRunner;
     return appRunner.run();
 }
