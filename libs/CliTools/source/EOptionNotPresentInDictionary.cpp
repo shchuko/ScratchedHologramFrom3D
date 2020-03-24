@@ -7,7 +7,7 @@ namespace CliTools {
 
         Exceptions::EOptionNotPresentInDictionary::EOptionNotPresentInDictionary() = default;
 
-        EOptionNotPresentInDictionary::EOptionNotPresentInDictionary(std::string error) : m_error(std::move(error)) {}
+        EOptionNotPresentInDictionary::EOptionNotPresentInDictionary(std::string &error) : m_error(std::move(error)) {}
 
         const char *EOptionNotPresentInDictionary::what() const noexcept {
             return m_error  .c_str();
