@@ -37,6 +37,24 @@ namespace Geometry3D {
         virtual double getLen() const noexcept = 0;
 
         /**
+         * Get normalized coordinate X
+         * @return Normalized coordinate X
+         */
+        virtual double getNormalizedX() const noexcept;
+
+        /**
+         * Get normalized coordinate Y
+         * @return Normalized coordinate Y
+         */
+        virtual double getNormalizedY() const noexcept;
+
+        /**
+         * Get normalized coordinate Z
+         * @return Normalized coordinate Z
+         */
+        virtual double getNormalizedZ() const noexcept;
+
+        /**
          * Check collinear between two vectors
          * @param vector Vector in 3D
          * @return Collinear or not

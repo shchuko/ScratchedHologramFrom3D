@@ -135,6 +135,36 @@ namespace Geometry3DCLinkedVector3DTests {
         EXPECT_EQ(&new_point_end, &linked_vector.getPointEnd());
     }
 
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getNormalizedX_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        double len = linked_vector.getLen();
+        double x = linked_vector.getX();
+        EXPECT_DOUBLE_EQ(x / len, linked_vector.getNormalizedX());
+    }
+
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getNormalizedY_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        double len = linked_vector.getLen();
+        double y = linked_vector.getY();
+        EXPECT_DOUBLE_EQ(y / len, linked_vector.getNormalizedY());
+    }
+
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getNormalizedZ_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        double len = linked_vector.getLen();
+        double z = linked_vector.getZ();
+        EXPECT_DOUBLE_EQ(z / len, linked_vector.getNormalizedZ());
+    }
+
     TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getAngleCos_zero_vectors_Test) {
         CPoint3D begin_first(0.0, 0.0, 0.0);
         CPoint3D end_first(0.0, 0.0, 0.0);

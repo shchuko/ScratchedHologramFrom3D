@@ -111,6 +111,32 @@ namespace Geometry3DCVector3DTests {
         EXPECT_DOUBLE_EQ(sqrt(x * x + y * y + z * z), vector.getLen());
     }
 
+    TEST_F(CVector3DFixture, CVector3D_getNormalizedX_Test) {
+        double x = nextRandomDouble();
+        double y = nextRandomDouble();
+        double z = nextRandomDouble();
+        CVector3D vector(x, y, z);
+        double len = vector.getLen();
+        EXPECT_DOUBLE_EQ(x / len, vector.getNormalizedX());
+    }
+
+    TEST_F(CVector3DFixture, CVector3D_getNormalizedY_Test) {
+        double x = nextRandomDouble();
+        double y = nextRandomDouble();
+        double z = nextRandomDouble();
+        CVector3D vector(x, y, z);
+        double len = vector.getLen();
+        EXPECT_DOUBLE_EQ(y / len, vector.getNormalizedY());
+    }
+
+    TEST_F(CVector3DFixture, CVector3D_getNormalizedZ_Test) {
+        double x = nextRandomDouble();
+        double y = nextRandomDouble();
+        double z = nextRandomDouble();
+        CVector3D vector(x, y, z);
+        double len = vector.getLen();
+        EXPECT_DOUBLE_EQ(z / len, vector.getNormalizedZ());
+    }
 
     TEST_F(CVector3DFixture, CVector3D_operatorPlus_Test) {
         double x = nextRandomDouble();
