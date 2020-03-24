@@ -5,7 +5,7 @@ namespace CliTools {
 
         Exceptions::EValuedOptionWithoutValue::EValuedOptionWithoutValue() = default;
 
-        EValuedOptionWithoutValue::EValuedOptionWithoutValue(std::string &error) : EParserError(error) {}
+        EValuedOptionWithoutValue::EValuedOptionWithoutValue(std::string error) : EParserError(error) {}
 
         const char *EValuedOptionWithoutValue::what() const noexcept {
             return EParserError::what();

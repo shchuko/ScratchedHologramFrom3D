@@ -16,7 +16,7 @@ namespace CliTools {
             * the constructor serves to create an exception and get the cause of the error
             * @param error - message of error
             */
-            explicit EUnrecognizedOptionParsed(std::string &error);
+            explicit EUnrecognizedOptionParsed(std::string error);
 
             /**
             * Method for getting error description
