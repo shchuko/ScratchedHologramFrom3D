@@ -70,24 +70,6 @@ namespace CliTools {
         EXPECT_TRUE(actual) << "Arguments was entered and expected TRUE, but actual FALSE";
     }
 
-    // Test: lack of parameters, but the required input - true
-    TEST(COptionBuilder, COptionBuilder_required_option_without_value_exception_Test) {
-        COptionBuilder cOptionBuilder;
-        bool isException = false;
-        cOptionBuilder.addLongName("test");
-        cOptionBuilder.setValue(false, true);
-        const char *expected = "No arguments, but it's required";
-        try {
-            cOptionBuilder.build();
-        } catch (Exceptions::EOptionBuildError &error) {
-            EXPECT_STREQ(expected, error.what()) << "Incorrect the text of error";
-            isException = true;
-        }
-
-        EXPECT_TRUE(isException) << "Excepted exception, but it wasn't";
-
-    }
-
     // Test: lack of options
     TEST(COptionBuilder, COptionBuilder_not_initialized_exception_Test) {
         COptionBuilder cOptionBuilder;
