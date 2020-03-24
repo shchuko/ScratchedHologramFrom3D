@@ -1,4 +1,4 @@
-#include "CObjFileReader.hpp"
+#include "CFile3DData.hpp"
 
 /**
  * @author Vladislav Yaroshchuk, github.com/shchuko
