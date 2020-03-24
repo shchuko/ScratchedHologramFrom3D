@@ -87,9 +87,9 @@ namespace CliTools {
         return independent_variable[arg_index];
     }
 
-    void CArgsParser::parse(int argv, char **args) {
+    void CArgsParser::parse(int argc, char **args) {
         std::stack<int> sequence;
-        for (int i = 1; i < argv; ++i) {
+        for (int i = 1; i < argc; ++i) {
 
             if (args[i][0] == '-' && args[i][1] != '-') {
                 std::string short_option = std::string(args[i]);

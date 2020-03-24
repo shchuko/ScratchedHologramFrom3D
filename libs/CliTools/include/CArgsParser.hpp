@@ -34,7 +34,7 @@ namespace CliTools {
          * @param argv - The number of entered parameters
          * @param args - Parameter List
          */
-        void parse(int argv, char **args);
+        void parse(int argc, char **args);
 
         /**
          * Add options in dictionary
