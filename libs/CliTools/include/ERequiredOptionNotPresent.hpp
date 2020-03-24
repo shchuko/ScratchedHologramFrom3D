@@ -22,7 +22,7 @@ namespace CliTools {
             * the constructor serves to create an exception and get the cause of the error
             * @param error - message of error
             */
-            explicit ERequiredOptionNotPresent(std::string &error);
+            explicit ERequiredOptionNotPresent(std::string error);
 
             /**
             * Method for getting error description
