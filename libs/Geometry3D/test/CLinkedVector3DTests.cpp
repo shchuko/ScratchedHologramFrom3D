@@ -102,9 +102,7 @@ namespace Geometry3DCLinkedVector3DTests {
 
         const CPoint3D& point_begin_copy = linked_vector.getPointBegin();
 
-        EXPECT_DOUBLE_EQ(point_begin.getX(), point_begin_copy.getX());
-        EXPECT_DOUBLE_EQ(point_begin.getY(), point_begin_copy.getY());
-        EXPECT_DOUBLE_EQ(point_begin.getZ(), point_begin_copy.getZ());
+        EXPECT_EQ(&point_begin, &point_begin_copy);
     }
 
     TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getPointEnd_Test) {
@@ -114,9 +112,7 @@ namespace Geometry3DCLinkedVector3DTests {
 
         const CPoint3D& point_end_copy = linked_vector.getPointEnd();
 
-        EXPECT_DOUBLE_EQ(point_end.getX(), point_end_copy.getX());
-        EXPECT_DOUBLE_EQ(point_end.getY(), point_end_copy.getY());
-        EXPECT_DOUBLE_EQ(point_end.getZ(), point_end_copy.getZ());
+        EXPECT_EQ(&point_end, &point_end_copy);
     }
 
     TEST_F(CLinkedVector3DFixture, CLinkedVector3D_setPointBegin_Test) {

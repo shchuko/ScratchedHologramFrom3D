@@ -34,7 +34,7 @@ namespace Geometry3D {
     public:
         /**
          * Copy constructor Lvalue
-         * @param point_begin Lvalue reference to end point
+         * @param point_begin Lvalue reference to begin point
          * @param point_end Lvalue reference to end point
          */
         CLinkedVector3D(const CPoint3D &_point_begin, const CPoint3D &_point_end) noexcept;
