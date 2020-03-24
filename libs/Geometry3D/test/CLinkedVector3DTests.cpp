@@ -95,6 +95,46 @@ namespace Geometry3DCLinkedVector3DTests {
         EXPECT_DOUBLE_EQ(expected_len, linked_vector.getLen());
     }
 
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getPointBegin_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        const CPoint3D& point_begin_copy = linked_vector.getPointBegin();
+
+        EXPECT_EQ(&point_begin, &point_begin_copy);
+    }
+
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getPointEnd_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        const CPoint3D& point_end_copy = linked_vector.getPointEnd();
+
+        EXPECT_EQ(&point_end, &point_end_copy);
+    }
+
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_setPointBegin_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        CPoint3D new_point_begin = nextRandomPoint3D();
+        linked_vector.setPointBegin(new_point_begin);
+        EXPECT_EQ(&new_point_begin, &linked_vector.getPointBegin());
+    }
+
+    TEST_F(CLinkedVector3DFixture, CLinkedVector3D_setPointEnd_Test) {
+        CPoint3D point_begin = nextRandomPoint3D();
+        CPoint3D point_end = nextRandomPoint3D();
+        CLinkedVector3D linked_vector(point_begin, point_end);
+
+        CPoint3D new_point_end = nextRandomPoint3D();
+        linked_vector.setPointEnd(new_point_end);
+        EXPECT_EQ(&new_point_end, &linked_vector.getPointEnd());
+    }
+
     TEST_F(CLinkedVector3DFixture, CLinkedVector3D_getAngleCos_zero_vectors_Test) {
         CPoint3D begin_first(0.0, 0.0, 0.0);
         CPoint3D end_first(0.0, 0.0, 0.0);
