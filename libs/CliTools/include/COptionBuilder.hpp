@@ -29,7 +29,7 @@ namespace CliTools {
          * @param longOption - full name of option
          * @return instance of COptionBuilder for further construction
          */
-        COptionBuilder& addLongName(const std::string &longOption);
+        COptionBuilder& addLongName(const std::string& longOption);
 
         /**
          * Set argument to option
@@ -44,7 +44,7 @@ namespace CliTools {
          * @param description - description of option to get information about it
          * @return instance of COptionBuilder for further construction
          */
-        COptionBuilder& addDescription(const std::string &description);
+        COptionBuilder& addDescription(const std::string& description);
 
         /**
          * Form and get a customized object

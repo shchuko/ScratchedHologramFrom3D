@@ -11,7 +11,7 @@ namespace CliTools{
     }
 
     //Add long option name
-    COptionBuilder& COptionBuilder::addLongName(const std::string &longOption) {
+    COptionBuilder& COptionBuilder::addLongName(const std::string& longOption) {
         cOption.longName = longOption;
         return *this;
     }
@@ -26,7 +26,7 @@ namespace CliTools{
     }
 
     // Add description to option for information about it
-    COptionBuilder& COptionBuilder::addDescription(const std::string &description) {
+    COptionBuilder& COptionBuilder::addDescription(const std::string& description) {
         cOption.description = description;
         return *this;
     }
@@ -36,11 +36,6 @@ namespace CliTools{
 
         if (cOption.longName.empty() and cOption.shortName == '\0') {
             throw Exceptions::EOptionBuildError("Not enough arguments: full name option, short name option");
-        }
-
-        // If this value is not entered, but it is required - false
-        if (!cOption.has_argument && cOption.option_required) {
-            throw Exceptions::EOptionBuildError("No arguments, but it's required");
         }
 
         return cOption;
