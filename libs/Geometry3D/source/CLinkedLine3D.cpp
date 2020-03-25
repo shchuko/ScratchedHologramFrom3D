@@ -118,6 +118,10 @@ double Geometry3D::CLinkedLine3D::getCoplanarCheckDeterminant(const Geometry3D::
 
 double Geometry3D::CLinkedLine3D::getLinePointX(double known_coordinate,
                                                 Geometry3D::CLinkedLine3D::CoordinateName known_coordinate_name) const noexcept {
+    if (known_coordinate_name == CoordinateName::X) {
+        return known_coordinate;
+    }
+
     if (known_coordinate_name == CoordinateName::Y) {
         double v_x = p_direction_vector->getX();
         double v_y = p_direction_vector->getY();
@@ -128,6 +132,7 @@ double Geometry3D::CLinkedLine3D::getLinePointX(double known_coordinate,
         return ((known_coordinate - p_y) * v_x / v_y) + p_x;
     }
 
+    // If known_coordinate is Z
     double v_x = p_direction_vector->getX();
     double v_z = p_direction_vector->getZ();
 
@@ -139,6 +144,10 @@ double Geometry3D::CLinkedLine3D::getLinePointX(double known_coordinate,
 
 double Geometry3D::CLinkedLine3D::getLinePointY(double known_coordinate,
                                                 Geometry3D::CLinkedLine3D::CoordinateName known_coordinate_name) const noexcept {
+    if (known_coordinate_name == CoordinateName::Y) {
+        return known_coordinate;
+    }
+
     if (known_coordinate_name == CoordinateName::X) {
         double v_x = p_direction_vector->getX();
         double v_y = p_direction_vector->getY();
@@ -149,6 +158,7 @@ double Geometry3D::CLinkedLine3D::getLinePointY(double known_coordinate,
         return ((known_coordinate - p_x) * v_y / v_x) + p_y;
     }
 
+    // If known_coordinate is Z
     double v_y = p_direction_vector->getY();
     double v_z = p_direction_vector->getZ();
 
@@ -160,6 +170,10 @@ double Geometry3D::CLinkedLine3D::getLinePointY(double known_coordinate,
 
 double Geometry3D::CLinkedLine3D::getLinePointZ(double known_coordinate,
                                                 Geometry3D::CLinkedLine3D::CoordinateName known_coordinate_name) const noexcept {
+    if (known_coordinate_name == CoordinateName::Z) {
+        return known_coordinate;
+    }
+
     if (known_coordinate_name == CoordinateName::X) {
         double v_x = p_direction_vector->getX();
         double v_z = p_direction_vector->getZ();
@@ -170,6 +184,7 @@ double Geometry3D::CLinkedLine3D::getLinePointZ(double known_coordinate,
         return ((known_coordinate - p_x) * v_z / v_x) + p_z;
     }
 
+    // If known_coordinate is Y
     double v_y = p_direction_vector->getY();
     double v_z = p_direction_vector->getZ();
 

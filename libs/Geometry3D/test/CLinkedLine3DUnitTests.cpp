@@ -6,6 +6,8 @@
 #include <CLinkedLine3D.hpp>
 #include <CVector3D.hpp>
 #include <CPoint3D.hpp>
+#include <CLinkedVector3D.hpp>
+
 
 namespace Geometry3DCLinkedLine3DTests {
     using Geometry3D::CVector3D;
@@ -42,7 +44,7 @@ namespace Geometry3DCLinkedLine3DTests {
             return {x, y, z};
         }
 
-        CVector3D nextRandomVector3D() {
+        CVector3D nextRandomCVector3D() {
             double x = nextRandomDouble();
             double y = nextRandomDouble();
             double z = nextRandomDouble();
@@ -53,7 +55,7 @@ namespace Geometry3DCLinkedLine3DTests {
 
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_Constructor_Test) {
         CPoint3D point = nextRandomPoint3D();
-        CVector3D vector = nextRandomVector3D();
+        CVector3D vector = nextRandomCVector3D();
 
         CLinkedLine3D line(vector, point);
         EXPECT_EQ(&point, &line.getLinkedPoint());
@@ -62,7 +64,7 @@ namespace Geometry3DCLinkedLine3DTests {
 
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinkedPoint_Test) {
         CPoint3D point = nextRandomPoint3D();
-        CVector3D vector = nextRandomVector3D();
+        CVector3D vector = nextRandomCVector3D();
 
         CLinkedLine3D line(vector, point);
         EXPECT_EQ(&point, &line.getLinkedPoint());
@@ -70,7 +72,7 @@ namespace Geometry3DCLinkedLine3DTests {
 
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getDirectionVector_Test) {
         CPoint3D point = nextRandomPoint3D();
-        CVector3D vector = nextRandomVector3D();
+        CVector3D vector = nextRandomCVector3D();
 
         CLinkedLine3D line(vector, point);
         EXPECT_EQ(&vector, &line.getDirectionVector());
@@ -78,7 +80,7 @@ namespace Geometry3DCLinkedLine3DTests {
 
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_setLinkedPoint_Test) {
         CPoint3D point = nextRandomPoint3D();
-        CVector3D vector = nextRandomVector3D();
+        CVector3D vector = nextRandomCVector3D();
 
         CLinkedLine3D line(vector, point);
 
@@ -90,11 +92,11 @@ namespace Geometry3DCLinkedLine3DTests {
 
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_setDirectionVector_Test) {
         CPoint3D point = nextRandomPoint3D();
-        CVector3D vector = nextRandomVector3D();
+        CVector3D vector = nextRandomCVector3D();
 
         CLinkedLine3D line(vector, point);
 
-        CVector3D new_vector = nextRandomVector3D();
+        CVector3D new_vector = nextRandomCVector3D();
         line.setDirectionVector(new_vector);
 
         EXPECT_EQ(&new_vector, &line.getDirectionVector());
@@ -221,87 +223,114 @@ namespace Geometry3DCLinkedLine3DTests {
         EXPECT_TRUE(std::isinf(crossing_point.getZ()));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointX_knownCoordinate_Y_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = 28.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Y;
+    class RandomCLinkedLine3DFixture : public ::testing::Test {
+    private:
+        static constexpr double MAX_DOUBLE_VALUE = 10000.0;
+        static constexpr double MIN_DOUBLE_VALUE = -10000.0;
 
-        double expected_x = -17.0;
+        std::uniform_real_distribution<double> *distribution = nullptr;
+        std::mt19937 *random_engine = nullptr;
 
-        double expected_x_func = line.getLinePointX(known_coordinate, coordinate_name);
+    protected:
+        void SetUp() override {
+            distribution = new std::uniform_real_distribution<double>(MIN_DOUBLE_VALUE, MAX_DOUBLE_VALUE);
+            random_engine = new std::mt19937(std::chrono::system_clock::now().time_since_epoch().count());
 
-        EXPECT_DOUBLE_EQ(expected_x, expected_x_func);
+            p_line_point = nextRandomPoint3D();
+            p_second_line_point = nextRandomPoint3D();
+            p_line_direction_vec = new Geometry3D::CLinkedVector3D(*p_line_point, *p_second_line_point);
+            p_line_fixture = new Geometry3D::CLinkedLine3D(*p_line_direction_vec, *p_line_point);
+        }
+
+        void TearDown() override {
+            delete random_engine;
+            delete distribution;
+            delete p_line_fixture;
+            delete p_line_direction_vec;
+            delete p_line_point;
+            delete p_second_line_point;
+        }
+
+        double nextRandomDouble() {
+            return (*distribution)(*random_engine);
+        }
+
+        CPoint3D* nextRandomPoint3D() {
+            double x = nextRandomDouble();
+            double y = nextRandomDouble();
+            double z = nextRandomDouble();
+            return new CPoint3D(x, y, z);
+        }
+
+        Geometry3D::CPoint3D *p_line_point = nullptr;
+        Geometry3D::CPoint3D *p_second_line_point = nullptr;
+        Geometry3D::CLinkedVector3D  *p_line_direction_vec = nullptr;
+        Geometry3D::CLinkedLine3D *p_line_fixture = nullptr;
+    };
+
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointX_knownCoordinate_X_Test) {
+        double known_coordinate = p_second_line_point->getX();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::X;
+        double expected_x = p_second_line_point->getX();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointX(known_coordinate, known_coordinate_name));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointX_knownCoordinate_Z_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = -84.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Z;
-
-        double expected_x = 386.0;
-
-        double expected_x_func = line.getLinePointX(known_coordinate, coordinate_name);
-
-        EXPECT_DOUBLE_EQ(expected_x, expected_x_func);
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointX_knownCoordinate_Y_Test) {
+        double known_coordinate = p_second_line_point->getY();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Y;
+        double expected_x = p_second_line_point->getX();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointX(known_coordinate, known_coordinate_name));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointY_knownCoordinate_X_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = 165.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::X;
-
-        double expected_y = 0.0;
-
-        double expected_y_func = line.getLinePointY(known_coordinate, coordinate_name);
-
-        EXPECT_DOUBLE_EQ(expected_y, expected_y_func);
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointX_knownCoordinate_Z_Test) {
+        double known_coordinate = p_second_line_point->getZ();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Z;
+        double expected_x = p_second_line_point->getX();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointX(known_coordinate, known_coordinate_name));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointY_knownCoordinate_Z_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = 177.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Z;
-
-        double expected_y = 140.0;
-
-        double expected_y_func = line.getLinePointY(known_coordinate, coordinate_name);
-
-        EXPECT_DOUBLE_EQ(expected_y, expected_y_func);
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointY_knownCoordinate_X_Test) {
+        double known_coordinate = p_second_line_point->getX();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::X;
+        double expected_x = p_second_line_point->getY();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointY(known_coordinate, known_coordinate_name));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointZ_knownCoordinate_X_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = 240.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::X;
-
-        double expected_z = -654.0 / 13.0;
-
-        double expected_z_func = line.getLinePointZ(known_coordinate, coordinate_name);
-
-        EXPECT_DOUBLE_EQ(expected_z, expected_z_func);
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointY_knownCoordinate_Y_Test) {
+        double known_coordinate = p_second_line_point->getY();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Y;
+        double expected_x = p_second_line_point->getY();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointY(known_coordinate, known_coordinate_name));
     }
 
-    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getLinePointZ_knownCoordinate_Y_Test) {
-        CPoint3D point(-4.0, 26.0, 6.0);
-        CVector3D vector(-26.0, 4.0, 6.0);
-        CLinkedLine3D line(vector, point);
-        double known_coordinate = 13.0;
-        CLinkedLine3D::CoordinateName coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Y;
-
-        double expected_z = -27.0 / 2.0;
-
-        double expected_z_func = line.getLinePointZ(known_coordinate, coordinate_name);
-
-        EXPECT_DOUBLE_EQ(expected_z, expected_z_func);
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointY_knownCoordinate_Z_Test) {
+        double known_coordinate = p_second_line_point->getZ();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Z;
+        double expected_x = p_second_line_point->getY();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointY(known_coordinate, known_coordinate_name));
     }
+
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointZ_knownCoordinate_X_Test) {
+        double known_coordinate = p_second_line_point->getX();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::X;
+        double expected_x = p_second_line_point->getZ();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointZ(known_coordinate, known_coordinate_name));
+    }
+
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointZ_knownCoordinate_Y_Test) {
+        double known_coordinate = p_second_line_point->getY();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Y;
+        double expected_x = p_second_line_point->getZ();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointZ(known_coordinate, known_coordinate_name));
+    }
+
+    TEST_F(RandomCLinkedLine3DFixture, CLinkedLine3D_getLinePointZ_knownCoordinate_Z_Test) {
+        double known_coordinate = p_second_line_point->getZ();
+        auto known_coordinate_name = Geometry3D::CLinkedLine3D::CoordinateName::Z;
+        double expected_x = p_second_line_point->getZ();
+        EXPECT_DOUBLE_EQ(expected_x, p_line_fixture->getLinePointZ(known_coordinate, known_coordinate_name));
+    }
+
+
+
 }
