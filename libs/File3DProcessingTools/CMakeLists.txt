@@ -14,3 +14,5 @@ set_target_properties(File3DProcessingTools
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
+
+add_subdirectory(test)
