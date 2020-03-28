@@ -142,4 +142,61 @@ class Geometry3DOperatorsFixture : public ::testing::Test {
         Geometry3D::CVector3D vector2{1.0, 2.0, 3.1};
         EXPECT_FALSE(vector1 == vector2);
     }
+    
+    // CLinkedLine3D equals operator==
+    TEST(CLinkedLine3DEquals, CLinkedLine3D_equals_objects_Test) {
+        Geometry3D::CPoint3D first_point(-4.0, -5.0, 6.0);
+        CVector3D first_vector(-2.0, 4.0, 6.0);
+        Geometry3D::CLinkedLine3D first_line(first_vector, first_point);
+
+        EXPECT_TRUE(first_line == first_line);
+    }
+
+    TEST(CLinkedLine3DEquals, CLinkedLine3D_NotEquals_PARALLEL_Test) {
+        Geometry3D::CPoint3D first_point(-4.0, -5.0, 6.0);
+        CVector3D first_vector(-2.0, 4.0, 6.0);
+        Geometry3D::CLinkedLine3D first_line(first_vector, first_point);
+
+        Geometry3D::CPoint3D second_point(0.0, 1.0, -3.0);
+        CVector3D second_vector(1.0, -2.0, -3.0);
+        Geometry3D::CLinkedLine3D second_line(second_vector, second_point);
+
+        EXPECT_FALSE(first_line == second_line);
+    }
+
+    TEST(CLinkedLine3DEquals, CLinkedLine3D_NotEquals_SKEW_Test) {
+        Geometry3D::CPoint3D first_point(2.0, -1.0, 0.0);
+        CVector3D first_vector(2.0, -3.0, -1.0);
+        Geometry3D::CLinkedLine3D first_line(first_vector, first_point);
+
+        Geometry3D::CPoint3D second_point(-1.0, 0.0, 1.0);
+        CVector3D second_vector(1.0, -2.0, 0.0);
+        Geometry3D::CLinkedLine3D second_line(second_vector, second_point);
+
+        EXPECT_FALSE(first_line == second_line);
+    }
+
+    TEST(CLinkedLine3DEquals, CLinkedLine3D_NotEquals_CROSSING_Test) {
+        Geometry3D::CPoint3D first_point(3.0, -3.0, 2.0);
+        CVector3D first_vector(-1.0, 1.0, 2.0);
+        Geometry3D::CLinkedLine3D first_line(first_vector, first_point);
+
+        Geometry3D::CPoint3D second_point(-1.0, 4.0, -26.0);
+        CVector3D second_vector(3.0, -4.0, 6.0);
+        Geometry3D::CLinkedLine3D second_line(second_vector, second_point);
+
+        EXPECT_FALSE(first_line == second_line);
+    }
+
+    TEST(CLinkedLine3DEquals, CLinkedLine3D_Equals_OVERLAP_Test) {
+        Geometry3D::CPoint3D first_point(-4.0, -5.0, 6.0);
+        CVector3D first_vector(-2.0, 4.0, 6.0);
+        Geometry3D::CLinkedLine3D first_line(first_vector, first_point);
+
+        Geometry3D::CPoint3D second_point(4.0, -21.0, -18.0);
+        CVector3D second_vector(-2.0, 4.0, 6.0);
+        Geometry3D::CLinkedLine3D second_line(second_vector, second_point);
+
+        EXPECT_TRUE(first_line == second_line);
+    }
 }
