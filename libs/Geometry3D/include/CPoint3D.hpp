@@ -57,11 +57,25 @@ namespace Geometry3D {
          */
         double getZ() const noexcept;
 
+        /**
+         * Move current point by vector
+         * @param vector Moving vector
+         */
         void move(const AVector3D &vector) noexcept;
 
+        /**
+         * Create copy of current point and move it by vector
+         * @param vector Moving vector
+         * @return New moved point object
+         */
         CPoint3D moveCopy(const AVector3D &vector) const noexcept;
 
-        CPoint3D &operator=(const CPoint3D &vector);
+        /**
+         * Copy assigment operator
+         * @param point Point to copy
+         * @return Reference to *this object
+         */
+        CPoint3D &operator=(const CPoint3D &point) noexcept;
 
         /**
          * Get distance between two points
