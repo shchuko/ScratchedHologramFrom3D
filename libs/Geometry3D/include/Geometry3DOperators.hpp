@@ -31,4 +31,12 @@ namespace Geometry3D {
      * @return True if object are equal, else if not
      */
     bool operator==(const CPoint3D &first, const CPoint3D &second);
+
+    /**
+     * Geometry3D::AVector3D equals operator
+     * @param first First object
+     * @param second Second object
+     * @return True if object are equal, else if not
+     */
+    bool operator==(const AVector3D &first, const AVector3D &second);
 }

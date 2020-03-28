@@ -79,6 +79,7 @@ class Geometry3DOperatorsFixture : public ::testing::Test {
         EXPECT_DOUBLE_EQ(z_expected, (a_vector_3d_first - a_vector_3d_second).getZ());
     }
 
+    // CPoint3D equals operator==
     TEST(CPoint3DEquals, CPoint3DEquals_EqualsObjects_Test) {
         Geometry3D::CPoint3D point{1.0, 2.0, 3.0};
         EXPECT_TRUE(point == point);
@@ -108,5 +109,37 @@ class Geometry3DOperatorsFixture : public ::testing::Test {
         Geometry3D::CPoint3D point1{1.0, 2.0, 3.0};
         Geometry3D::CPoint3D point2{1.0, 2.0, 3.1};
         EXPECT_FALSE(point1 == point2);
+    }
+
+    // AVector3D equals operator==
+    TEST(AVector3DEquals, AVector3DEquals_EqualsObjects_Test) {
+        Geometry3D::CVector3D vector{1.0, 2.0, 3.0};
+        EXPECT_TRUE(vector == vector);
+    }
+
+    TEST(AVector3DEquals, AVector3DEquals_EqualsCoordinates_Test) {
+        Geometry3D::CVector3D vector1{1.0, 2.0, 3.0};
+        auto vector2 = vector1;
+
+        EXPECT_FALSE(&vector1 == &vector2) << "Test creation error: vectors have equal addresses!";
+        EXPECT_TRUE(vector1 == vector2);
+    }
+
+    TEST(AVector3DEquals, AVector3DEquals_DifferentCoordinates_X_Test) {
+        Geometry3D::CVector3D vector1{1.0, 2.0, 3.0};
+        Geometry3D::CVector3D vector2{1.1, 2.0, 3.0};
+        EXPECT_FALSE(vector1 == vector2);
+    }
+
+    TEST(AVector3DEquals, AVector3DEquals_DifferentCoordinates_Y_Test) {
+        Geometry3D::CVector3D vector1{1.0, 2.0, 3.0};
+        Geometry3D::CVector3D vector2{1.0, 2.1, 3.0};
+        EXPECT_FALSE(vector1 == vector2);
+    }
+
+    TEST(AVector3DEquals, AVector3DEquals_DifferentCoordinates_Z_Test) {
+        Geometry3D::CVector3D vector1{1.0, 2.0, 3.0};
+        Geometry3D::CVector3D vector2{1.0, 2.0, 3.1};
+        EXPECT_FALSE(vector1 == vector2);
     }
 }

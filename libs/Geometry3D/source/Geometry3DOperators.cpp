@@ -20,3 +20,10 @@ bool Geometry3D::operator==(const Geometry3D::CPoint3D &first, const Geometry3D:
             std::fabs(first.getY() - second.getY()) <= std::numeric_limits<double>::epsilon() &&
             std::fabs(first.getZ() - second.getZ()) <= std::numeric_limits<double>::epsilon());
 }
+
+bool Geometry3D::operator==(const Geometry3D::AVector3D &first, const Geometry3D::AVector3D &second) {
+    return (&first) == (&second) ||
+           (std::fabs(first.getX() - second.getX()) <= std::numeric_limits<double>::epsilon() &&
+            std::fabs(first.getY() - second.getY()) <= std::numeric_limits<double>::epsilon() &&
+            std::fabs(first.getZ() - second.getZ()) <= std::numeric_limits<double>::epsilon());
+}
