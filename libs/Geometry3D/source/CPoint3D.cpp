@@ -32,7 +32,7 @@ namespace Geometry3D {
         return z;
     }
 
-    CPoint3D &CPoint3D::operator=(const CPoint3D &point) {
+    CPoint3D &CPoint3D::operator=(const CPoint3D &point) noexcept {
         if (this != &point) {
             x = point.getX();
             y = point.getY();
