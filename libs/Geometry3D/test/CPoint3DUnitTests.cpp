@@ -163,4 +163,34 @@ namespace Geometry3DCPoint3DTests {
                 difference_between_z * difference_between_z);
         EXPECT_DOUBLE_EQ(expected_distance, first_point.getDistance(std::move(second_point)));
     }
+
+    TEST_F(CPoint3DFixture, CPoint3D_setX_Test) {
+        double new_x = 1213.421;
+        c_point_3d_fixture->setX(new_x);
+        EXPECT_DOUBLE_EQ(new_x, c_point_3d_fixture->getX());
+
+        new_x = nextRandomDouble();
+        c_point_3d_fixture->setX(new_x);
+        EXPECT_DOUBLE_EQ(new_x, c_point_3d_fixture->getX());
+    }
+
+    TEST_F(CPoint3DFixture, CPoint3D_setY_Test) {
+        double new_y = 3425.342;
+        c_point_3d_fixture->setY(new_y);
+        EXPECT_DOUBLE_EQ(new_y, c_point_3d_fixture->getY());
+
+        new_y = nextRandomDouble();
+        c_point_3d_fixture->setY(new_y);
+        EXPECT_DOUBLE_EQ(new_y, c_point_3d_fixture->getY());
+    }
+
+    TEST_F(CPoint3DFixture, CPoint3D_setZ_Test) {
+        double new_z = -234235.342;
+        c_point_3d_fixture->setZ(new_z);
+        EXPECT_DOUBLE_EQ(new_z, c_point_3d_fixture->getZ());
+
+        new_z = nextRandomDouble();
+        c_point_3d_fixture->setZ(new_z);
+        EXPECT_DOUBLE_EQ(new_z, c_point_3d_fixture->getZ());
+    }
 }

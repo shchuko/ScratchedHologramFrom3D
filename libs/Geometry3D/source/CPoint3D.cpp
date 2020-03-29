@@ -71,4 +71,16 @@ namespace Geometry3D {
         return std::sqrt(difference_between_x * difference_between_x + difference_between_y * difference_between_y +
                          difference_between_z * difference_between_z);
     }
+
+    void CPoint3D::setX(double _x) {
+        CPoint3D::x = _x;
+    }
+
+    void CPoint3D::setY(double _y) {
+        CPoint3D::y = _y;
+    }
+
+    void CPoint3D::setZ(double _z) {
+        CPoint3D::z = _z;
+    }
 }

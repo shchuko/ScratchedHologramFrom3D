@@ -82,13 +82,31 @@ namespace Geometry3D {
          * @param point Point in 3D, LValue reference
          * @return distance between two points
          */
-        double getDistance(const CPoint3D& point) const noexcept;
+        double getDistance(const CPoint3D &point) const noexcept;
 
         /**
          * Get distance between two points
          * @param point Point in 3D, RValue reference
          * @return distance between two points
          */
-        double getDistance(CPoint3D&& point) const noexcept;
+        double getDistance(CPoint3D &&point) const noexcept;
+
+        /**
+         * Assign new value to X coordinate
+         * @param x New X value
+         */
+        void setX(double x);
+
+        /**
+         * Assign new value to Y coordinate
+         * @param y New Y value
+         */
+        void setY(double y);
+
+        /**
+         * Assign new value to Z coordinate
+         * @param z New Z value
+         */
+        void setZ(double z);
     };
 }
