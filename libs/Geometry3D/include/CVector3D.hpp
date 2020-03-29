@@ -38,6 +38,20 @@ namespace Geometry3D {
          */
         CVector3D(double x, double y, double z);
 
+        /**
+         * Copy assignment operator
+         * @param vec Vector to copy
+         * @return Reference to *this vector
+         */
+        CVector3D &operator=(const AVector3D &vec) noexcept;
+
+        /**
+         * Copy assignment operator
+         * @param vec Vector to copy
+         * @return Reference to *this vector
+         */
+        CVector3D &operator=(AVector3D &&vec) noexcept;
+
         double getX() const noexcept override;
 
         double getY() const noexcept override;
@@ -45,6 +59,24 @@ namespace Geometry3D {
         double getZ() const noexcept override;
 
         double getLen() const noexcept override;
+
+        /**
+         * Assign new value to X coordinate
+         * @param x New X value
+         */
+        void setX(double x);
+
+        /**
+         * Assign new value to Y coordinate
+         * @param y New Y value
+         */
+        void setY(double y);
+
+        /**
+         * Assign new value to Z coordinate
+         * @param z New Z value
+         */
+        void setZ(double z);
 
         /**
          * Overloaded operator +
