@@ -15,9 +15,9 @@ namespace File3DProcessingTools {
         /**
          * Read file into CObject3DData
          * @param filepath Path to file
-         * @return CObject3DData object
+         * @param output_data CObject3DData object to read into
          * @throw File3DProcessingTools::EFile3DReadError if file can't be read
          */
-        virtual CObject3DData readFile(std::string filepath) = 0;
+        virtual void readFile(const std::string &filepath, CObject3DData& output_data) = 0;
     };
 }
