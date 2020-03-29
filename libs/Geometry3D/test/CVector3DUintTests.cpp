@@ -245,4 +245,34 @@ namespace Geometry3DCVector3DTests {
         double expected_cos_value = 0.63709935889147207;
         EXPECT_DOUBLE_EQ(expected_cos_value, vector_first.getAngleCos(vector_second));
     }
+
+    TEST_F(CVector3DFixture, CPoint3D_setX_Test) {
+        double new_x = 1213.421;
+        c_vector_3d_fixture->setX(new_x);
+        EXPECT_DOUBLE_EQ(new_x, c_vector_3d_fixture->getX());
+
+        new_x = nextRandomDouble();
+        c_vector_3d_fixture->setX(new_x);
+        EXPECT_DOUBLE_EQ(new_x, c_vector_3d_fixture->getX());
+    }
+
+    TEST_F(CVector3DFixture, CPoint3D_setY_Test) {
+        double new_y = 3425.342;
+        c_vector_3d_fixture->setY(new_y);
+        EXPECT_DOUBLE_EQ(new_y, c_vector_3d_fixture->getY());
+
+        new_y = nextRandomDouble();
+        c_vector_3d_fixture->setY(new_y);
+        EXPECT_DOUBLE_EQ(new_y, c_vector_3d_fixture->getY());
+    }
+
+    TEST_F(CVector3DFixture, CPoint3D_setZ_Test) {
+        double new_z = -234235.342;
+        c_vector_3d_fixture->setZ(new_z);
+        EXPECT_DOUBLE_EQ(new_z, c_vector_3d_fixture->getZ());
+
+        new_z = nextRandomDouble();
+        c_vector_3d_fixture->setZ(new_z);
+        EXPECT_DOUBLE_EQ(new_z, c_vector_3d_fixture->getZ());
+    }
 }

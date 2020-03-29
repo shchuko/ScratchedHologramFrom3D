@@ -47,6 +47,24 @@ namespace Geometry3D {
         double getLen() const noexcept override;
 
         /**
+         * Assign new value to X coordinate
+         * @param x New X value
+         */
+        void setX(double x);
+
+        /**
+         * Assign new value to Y coordinate
+         * @param y New Y value
+         */
+        void setY(double y);
+
+        /**
+         * Assign new value to Z coordinate
+         * @param z New Z value
+         */
+        void setZ(double z);
+
+        /**
          * Overloaded operator +
          * @return new CVector3D
          */
