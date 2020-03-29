@@ -27,7 +27,7 @@ namespace File3DProcessingTools {
         return true;
     }
 
-    nrml_size_t CPolygon::getNormalVectorIndex() {
+    nrml_size_t CPolygon::getNormalVectorIndex() const noexcept {
         return normal_vector_index;
     }
 

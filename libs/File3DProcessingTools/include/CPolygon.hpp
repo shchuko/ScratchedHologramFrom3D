@@ -48,7 +48,7 @@ namespace File3DProcessingTools {
          * Get index of normal vector related to polygon
          * @return Index of normal vector related to polygon
          */
-        nrml_size_t getNormalVectorIndex();
+        nrml_size_t getNormalVectorIndex() const noexcept ;
 
         /**
          * Get edges links stored into polygon object
