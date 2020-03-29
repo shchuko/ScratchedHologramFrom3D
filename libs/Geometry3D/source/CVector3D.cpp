@@ -75,4 +75,16 @@ namespace Geometry3D {
     void CVector3D::setZ(double _z) {
         CVector3D::z = _z;
     }
+
+    CVector3D &CVector3D::operator=(const AVector3D &vec) noexcept {
+        x = vec.getX();
+        y = vec.getY();
+        z = vec.getZ();
+        return *this;
+    }
+
+    CVector3D &CVector3D::operator=(AVector3D &&vec) noexcept {
+        operator=(vec);
+        return *this;
+    }
 }

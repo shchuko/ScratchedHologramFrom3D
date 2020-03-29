@@ -2,11 +2,13 @@
 #include <chrono>
 
 #include <gtest/gtest.h>
-#include <AVector3D.hpp>
-#include <CVector3D.hpp>
+#include "CVector3D.hpp"
+#include "AVector3D.hpp"
+#include "Geometry3DOperators.hpp"
 
 namespace Geometry3DCVector3DTests {
     using Geometry3D::CVector3D;
+    using Geometry3D::AVector3D;
 
     class CVector3DFixture : public ::testing::Test {
     private:
@@ -246,7 +248,7 @@ namespace Geometry3DCVector3DTests {
         EXPECT_DOUBLE_EQ(expected_cos_value, vector_first.getAngleCos(vector_second));
     }
 
-    TEST_F(CVector3DFixture, CPoint3D_setX_Test) {
+    TEST_F(CVector3DFixture, CVector3D_setX_Test) {
         double new_x = 1213.421;
         c_vector_3d_fixture->setX(new_x);
         EXPECT_DOUBLE_EQ(new_x, c_vector_3d_fixture->getX());
@@ -256,7 +258,7 @@ namespace Geometry3DCVector3DTests {
         EXPECT_DOUBLE_EQ(new_x, c_vector_3d_fixture->getX());
     }
 
-    TEST_F(CVector3DFixture, CPoint3D_setY_Test) {
+    TEST_F(CVector3DFixture, CVector3D_setY_Test) {
         double new_y = 3425.342;
         c_vector_3d_fixture->setY(new_y);
         EXPECT_DOUBLE_EQ(new_y, c_vector_3d_fixture->getY());
@@ -266,7 +268,7 @@ namespace Geometry3DCVector3DTests {
         EXPECT_DOUBLE_EQ(new_y, c_vector_3d_fixture->getY());
     }
 
-    TEST_F(CVector3DFixture, CPoint3D_setZ_Test) {
+    TEST_F(CVector3DFixture, CVector3D_setZ_Test) {
         double new_z = -234235.342;
         c_vector_3d_fixture->setZ(new_z);
         EXPECT_DOUBLE_EQ(new_z, c_vector_3d_fixture->getZ());
@@ -274,5 +276,12 @@ namespace Geometry3DCVector3DTests {
         new_z = nextRandomDouble();
         c_vector_3d_fixture->setZ(new_z);
         EXPECT_DOUBLE_EQ(new_z, c_vector_3d_fixture->getZ());
+    }
+
+    TEST_F(CVector3DFixture, CVector3D_copy_assignment_op_lvalue_ref_Test) {
+        CVector3D vec(1.0, 2.0, 3.0);
+        AVector3D &&vec_new = CVector3D{3.2, 34.4, -123.23};
+        vec = vec_new;
+        EXPECT_EQ(vec_new, vec);
     }
 }
