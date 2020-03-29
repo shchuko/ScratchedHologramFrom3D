@@ -24,8 +24,13 @@ namespace File3DProcessingTools {
          * @param _point_begin Edge begin point
          * @param _point_end Edge end point
          */
-        CLinkedEdge(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end)
-                : linked_vector{_point_begin, _point_end}, linked_line{linked_vector, _point_begin} {}
+        CLinkedEdge(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept;
+
+        /**
+         * Copy constructor
+         * @param edge Edge to copy
+         */
+        CLinkedEdge(const CLinkedEdge &edge);
 
         /**
          * Get linked line
@@ -64,10 +69,7 @@ namespace File3DProcessingTools {
     private:
         CLinkedEdge(Geometry3D::CPoint3D &&point1, Geometry3D::CPoint3D &&point2);
 
-        static inline bool isEqualDouble(double x, double y) noexcept;
-
         bool isPointBetweenEdgeEndings(const Geometry3D::CPoint3D &point) const noexcept;
-
 
     };
 }
