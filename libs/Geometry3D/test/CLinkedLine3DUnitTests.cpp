@@ -150,6 +150,14 @@ namespace Geometry3DCLinkedLine3DTests {
         EXPECT_EQ(CLinkedLine3D::RelationType::OVERLAP, first_line.getRelationType(second_line));
     }
 
+    TEST_F(CLinkedLine3DFixture, CLinkedLine3D_getRelationType_OVERLAP_Test_2) {
+        CPoint3D point(1.0, 1.0, 1.0);
+        CVector3D vec(-2.0, -1.0, 0.0);
+        CLinkedLine3D line(vec, point);
+
+        EXPECT_EQ(CLinkedLine3D::RelationType::OVERLAP, line.getRelationType(line));
+    }
+
     TEST_F(CLinkedLine3DFixture, CLinkedLine3D_isPointOnLine_Test) {
         CPoint3D first_point(-8.0, -10.0, 12.0);
         CVector3D first_vector(-4.0, 8.0, 12.0);
