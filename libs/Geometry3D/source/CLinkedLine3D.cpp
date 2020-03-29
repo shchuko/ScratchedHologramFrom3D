@@ -84,15 +84,11 @@ Geometry3D::CPoint3D Geometry3D::CLinkedLine3D::getCrossingPoint(const Geometry3
 }
 
 bool Geometry3D::CLinkedLine3D::isPointOnLine(const Geometry3D::CPoint3D &point) const noexcept {
-    double parametric_x =
-            (point.getX() - this->p_linked_point->getX()) / this->p_direction_vector->getX();
-    double parametric_y =
-            (point.getY() - this->p_linked_point->getY()) / this->p_direction_vector->getY();
-    double parametric_z =
-            (point.getZ() - this->p_linked_point->getZ()) / this->p_direction_vector->getZ();
+    CVector3D points_vector{point.getX() - p_linked_point->getX(),
+                            point.getY() - p_linked_point->getY(),
+                            point.getZ() - p_linked_point->getZ()};
 
-
-    return isEqualDouble(parametric_x, parametric_y) && isEqualDouble(parametric_y, parametric_z);
+    return points_vector.isCollinear(*p_direction_vector);
 }
 
 double Geometry3D::CLinkedLine3D::getCoplanarCheckDeterminant(const Geometry3D::CLinkedLine3D &line) const noexcept {

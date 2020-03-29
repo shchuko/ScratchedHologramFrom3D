@@ -55,7 +55,7 @@ namespace Geometry3D {
         virtual double getNormalizedZ() const noexcept;
 
         /**
-         * Check collinear between two vectors
+         * Check collinear between two vectors. For any zero-vectors returns true
          * @param vector Vector in 3D
          * @return Collinear or not
          */
