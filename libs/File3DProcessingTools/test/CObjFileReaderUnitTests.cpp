@@ -12,13 +12,19 @@ namespace CObjFileReaderUnitTestsNS {
 
     class CObjFileReaderFixture : public ::testing::Test {
     private:
-        const std::string DIR_SEPARATOR = getDirectorySeparator();
-        const std::string PROJECT_ROOT = std::regex_replace(PROJECT_SOURCE_DIR, std::regex("/"), DIR_SEPARATOR);
-        const std::string TEST_RESOURCES_DIR =
-                PROJECT_ROOT + DIR_SEPARATOR + "test_resources";
+        std::string DIR_SEPARATOR;
+        std::string PROJECT_ROOT;
+        std::string TEST_RESOURCES_DIR;
 
     protected:
         void SetUp() override {
+            DIR_SEPARATOR = getDirectorySeparator();
+            PROJECT_ROOT = std::regex_replace(PROJECT_SOURCE_DIR, std::regex("/"), DIR_SEPARATOR);
+            TEST_RESOURCES_DIR = PROJECT_ROOT + DIR_SEPARATOR + "test_resources";
+
+            CUBE_PATH = TEST_RESOURCES_DIR + DIR_SEPARATOR + "cube.obj";
+            NOT_EXISTING_FILE_PATH = TEST_RESOURCES_DIR + DIR_SEPARATOR + "file_not_exists.obj";
+            UNSUPPORTED_OBJ_FILE_PATH = TEST_RESOURCES_DIR + DIR_SEPARATOR + "unsupported.obj";
         }
 
         void TearDown() override {
@@ -43,11 +49,9 @@ namespace CObjFileReaderUnitTestsNS {
             }
         }
 
-        const std::string CUBE_PATH = TEST_RESOURCES_DIR + DIR_SEPARATOR + "cube.obj";
-        const std::string NOT_EXISTING_FILE_PATH =
-                TEST_RESOURCES_DIR + DIR_SEPARATOR + "file_not_exists.obj";
-        const std::string UNSUPPORTED_OBJ_FILE_PATH =
-                TEST_RESOURCES_DIR + DIR_SEPARATOR + "file_not_exitst";
+        std::string CUBE_PATH;
+        std::string NOT_EXISTING_FILE_PATH;
+        std::string UNSUPPORTED_OBJ_FILE_PATH;
 
         CObject3DData parsed_data;
         CObject3DData expected_data;
