@@ -12,6 +12,7 @@ namespace File3DProcessingTools {
      * @author Vladislav Yaroshchuk, github.com/shchuko
      */
     class IFile3DReader {
+    public:
         /**
          * Read file into CObject3DData
          * @param filepath Path to file
