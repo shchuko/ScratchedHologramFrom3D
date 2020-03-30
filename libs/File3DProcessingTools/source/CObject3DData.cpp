@@ -30,9 +30,6 @@ namespace File3DProcessingTools {
     }
 
     const CLinkedEdge &CObject3DData::getEdge(edge_map_key_t edge_key) {
-        if (edge_key.first > edge_key.second) {
-            std::swap(edge_key.first, edge_key.second);
-        }
         return (edges.find(edge_key))->second;
     }
 
@@ -45,10 +42,6 @@ namespace File3DProcessingTools {
     }
 
     void CObject3DData::addEdge(edge_map_key_t points_pair) {
-        if (points_pair.first > points_pair.second) {
-            std::swap(points_pair.first, points_pair.second);
-        }
-
         if (edges.find(points_pair) == edges.end()) {
             edges.emplace(std::move(points_pair),
                           CLinkedEdge(vertexes[points_pair.first], vertexes[points_pair.second]));

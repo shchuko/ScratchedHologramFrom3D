@@ -23,6 +23,9 @@ namespace File3DProcessingTools {
             return false;
         }
 
+        if (first_point_index > second_point_index) {
+            std::swap(first_point_index, second_point_index);
+        }
         edges_links.emplace_back(std::make_pair(first_point_index, second_point_index));
         return true;
     }
