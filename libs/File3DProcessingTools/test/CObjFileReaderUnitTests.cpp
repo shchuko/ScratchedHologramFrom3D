@@ -63,27 +63,13 @@ namespace CObjFileReaderUnitTestsNS {
     };
 
     TEST_F(CObjFileReaderFixture, CObjFileReader_no_file_throw_exception_Test) {
-        bool exception_thrown = false;
-        try {
-            CObjFileReader().readFile(NOT_EXISTING_FILE_PATH, parsed_data);
-        } catch (EFile3DReadError &e) {
-            exception_thrown = true;
-        } catch (...) {
-            exception_thrown = false;
-        }
-        EXPECT_TRUE(exception_thrown);
+        CObjFileReader reader;
+        EXPECT_THROW(reader.readFile(NOT_EXISTING_FILE_PATH, parsed_data), EFile3DReadError);
     }
 
     TEST_F(CObjFileReaderFixture, CObjFileReader_unsopported_obj_file_throw_exception_Test) {
-        bool exception_thrown = false;
-        try {
-            CObjFileReader().readFile(UNSUPPORTED_OBJ_FILE_PATH, parsed_data);
-        } catch (EFile3DReadError &e) {
-            exception_thrown = true;
-        } catch (...) {
-            exception_thrown = false;
-        }
-        EXPECT_TRUE(exception_thrown);
+        CObjFileReader reader;
+        EXPECT_THROW(reader.readFile(UNSUPPORTED_OBJ_FILE_PATH, parsed_data), EFile3DReadError);
     }
 
     TEST_F(CObjFileReaderFixture, CObjFileReader_read_cube_Test) {
