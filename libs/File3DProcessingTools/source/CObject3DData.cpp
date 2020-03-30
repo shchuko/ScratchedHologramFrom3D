@@ -16,7 +16,7 @@ namespace File3DProcessingTools {
     void CObject3DData::addPolygon(CPolygon polygon) noexcept {
         polygons.emplace_back(std::move(polygon));
 
-        for (const auto& edge : polygons.back().getEdges()) {
+        for (const auto &edge : polygons.back().getEdges()) {
             addEdge(edge);
         }
     }
@@ -30,6 +30,9 @@ namespace File3DProcessingTools {
     }
 
     const CLinkedEdge &CObject3DData::getEdge(edge_map_key_t edge_key) {
+        if (edge_key.first > edge_key.second) {
+            std::swap(edge_key.first, edge_key.second);
+        }
         return (edges.find(edge_key))->second;
     }
 
@@ -42,11 +45,13 @@ namespace File3DProcessingTools {
     }
 
     void CObject3DData::addEdge(edge_map_key_t points_pair) {
-        if (edges.find(points_pair) == std::end(edges)) {
-            Geometry3D::CPoint3D &point_begin = vertexes[points_pair.first];
-            Geometry3D::CPoint3D &point_end = vertexes[points_pair.second];
-            edges.emplace(points_pair, CLinkedEdge(point_begin, point_end));
+        if (points_pair.first > points_pair.second) {
+            std::swap(points_pair.first, points_pair.second);
+        }
 
+        if (edges.find(points_pair) == edges.end()) {
+            edges.emplace(std::move(points_pair),
+                          CLinkedEdge(vertexes[points_pair.first], vertexes[points_pair.second]));
         }
     }
 
