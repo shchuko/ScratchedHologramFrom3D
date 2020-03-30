@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <sstream>
+#include <array>
 
 #include "EFile3DReadError.hpp"
 #include "IFile3DReader.hpp"
