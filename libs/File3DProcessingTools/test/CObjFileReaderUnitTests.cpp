@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <regex>
+#include <algorithm>
 
 #include "Geometry3DOperators.hpp"
 #include "CObject3DData.hpp"
@@ -19,7 +19,8 @@ namespace CObjFileReaderUnitTestsNS {
     protected:
         void SetUp() override {
             DIR_SEPARATOR = getDirectorySeparator();
-            PROJECT_ROOT = std::regex_replace(PROJECT_SOURCE_DIR, std::regex("/"), DIR_SEPARATOR);
+            PROJECT_ROOT = PROJECT_SOURCE_DIR;
+            std::replace(PROJECT_ROOT.begin(), PROJECT_ROOT.end(), '/', DIR_SEPARATOR[0]);
             TEST_RESOURCES_DIR = PROJECT_ROOT + DIR_SEPARATOR + "test_resources";
 
             CUBE_PATH = TEST_RESOURCES_DIR + DIR_SEPARATOR + "cube.obj";
@@ -57,11 +58,11 @@ namespace CObjFileReaderUnitTestsNS {
         CObject3DData expected_data;
 
     private:
-        static inline std::string getDirectorySeparator() {
+        constexpr static char getDirectorySeparator() noexcept {
 #if defined(_WIN32) || defined(WIN32)
-            return "\\";
+            return '\\';
 #else
-            return "/";
+            return '/';
 #endif
         }
     };
@@ -77,7 +78,12 @@ namespace CObjFileReaderUnitTestsNS {
     }
 
     TEST_F(CObjFileReaderFixture, CObjFileReader_read_cube_Test) {
-        CObjFileReader().readFile(CUBE_PATH, parsed_data);
+        CObjFileReader reader;
+        try {
+            reader.readFile(CUBE_PATH, parsed_data);
+        } catch (EFile3DReadError &e) {
+            GTEST_FAIL() << "Testing error: test file not found: " + CUBE_PATH;
+        }
 
         expected_data.addVertex({-1.000000, -1.000000, 1.000000});
         expected_data.addVertex({-1.000000, 1.000000, 1.000000});
