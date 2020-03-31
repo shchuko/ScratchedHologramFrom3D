@@ -32,13 +32,13 @@ namespace Geometry2D {
 
         /**
          * Copy assignment operator
-         * @param point Object to copy
+         * @param point Object to assing
          */
         CPoint2D &operator=(const CPoint2D &point) noexcept = default;
 
         /**
          * Move assignment operator
-         * @param point Object to move
+         * @param point Object to assing
          */
         CPoint2D &operator=(CPoint2D &&point) noexcept = default;
 
