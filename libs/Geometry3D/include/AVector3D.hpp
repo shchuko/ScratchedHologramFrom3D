@@ -69,6 +69,15 @@ namespace Geometry3D {
         double getAngleCos(const AVector3D &vector) const noexcept;
 
         virtual ~AVector3D() = 0;
+
+        AVector3D(const AVector3D &vec) noexcept = default;
+
+        AVector3D(AVector3D &&vec) noexcept = default;
+
+        AVector3D &operator=(const AVector3D &vec) noexcept = default;
+
+        AVector3D &operator=(AVector3D &&vec) noexcept = default;
+
     };
 
     inline AVector3D::~AVector3D() = default;
