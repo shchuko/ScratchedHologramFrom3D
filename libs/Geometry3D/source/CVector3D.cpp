@@ -1,19 +1,6 @@
 #include <CVector3D.hpp>
 
 namespace Geometry3D {
-
-    CVector3D::CVector3D(const CVector3D &vector) noexcept {
-        this->x = vector.getX();
-        this->y = vector.getY();
-        this->z = vector.getZ();
-    }
-
-    CVector3D::CVector3D(CVector3D &&vector) noexcept {
-        this->x = vector.getX();
-        this->y = vector.getY();
-        this->z = vector.getZ();
-    }
-
     CVector3D::CVector3D(double x, double y, double z) {
         this->x = x;
         this->y = y;
