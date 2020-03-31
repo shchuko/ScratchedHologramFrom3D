@@ -25,11 +25,22 @@ namespace File2DProcessingTools {
         CVectorGraphicsData &operator=(const CVectorGraphicsData &data) = default;
         CVectorGraphicsData &operator=(CVectorGraphicsData &&data) = default;
 
-
         /**
          * Store line segment
+         * @param line_segment Segment to store
          */
-        void addLineSegment(Geometry2D::CLineSegment2D) noexcept;
+        void addLineSegments(Geometry2D::CLineSegment2D line_segment) noexcept;
+
+        /**
+         * Add several CLineSegment2D objects
+         * @tparam InputIterator Should be InputIterator at least
+         * @param begin Begin iterator
+         * @param end End iterator
+         */
+        template<typename InputIterator>
+        void addLineSegments(InputIterator begin, InputIterator end) noexcept {
+            _data.insert(_data.end(), begin, end);
+        }
 
         /**
          * Get all stored line segments
