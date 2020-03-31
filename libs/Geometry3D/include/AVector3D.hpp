@@ -70,6 +70,8 @@ namespace Geometry3D {
 
         virtual ~AVector3D() = 0;
 
+        AVector3D() = default;
+
         AVector3D(const AVector3D &vec) noexcept = default;
 
         AVector3D(AVector3D &&vec) noexcept = default;
