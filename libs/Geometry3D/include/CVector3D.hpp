@@ -22,13 +22,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param vector Vector in 3D
          */
-        CVector3D(const CVector3D &vector) noexcept;
+        CVector3D(const CVector3D &vector) noexcept = default;
 
         /**
-         * Copy constructor Rvalue
+         * Move constructor Rvalue
          * @param vector Vector in 3D
          */
-        CVector3D(CVector3D &&vector) noexcept;
+        CVector3D(CVector3D &&vector) noexcept = default;
 
         /**
          * Constructor with parameters of coordinates
@@ -51,6 +51,20 @@ namespace Geometry3D {
          * @return Reference to *this vector
          */
         CVector3D &operator=(AVector3D &&vec) noexcept;
+
+        /**
+         * Copy assignment operator
+         * @param vec Vector to copy
+         * @return Reference to *this vector
+         */
+        CVector3D &operator=(const CVector3D &vec) noexcept = default;
+
+        /**
+         * Move assignment operator
+         * @param vec Vector to copy
+         * @return Reference to *this vector
+         */
+        CVector3D &operator=(CVector3D &&vec) noexcept = default;
 
         double getX() const noexcept override;
 

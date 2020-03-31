@@ -23,13 +23,13 @@ namespace Geometry3D {
          * Copy constructor Lvalue
          * @param cPoint3D Point in 3D
          */
-        CPoint3D(const CPoint3D &point) noexcept;
+        CPoint3D(const CPoint3D &point) noexcept = default;
 
         /**
          * Copy constructor Rvalue
          * @param cPoint3D Point int 3D
          */
-        CPoint3D(CPoint3D &&point) noexcept;
+        CPoint3D(CPoint3D &&point) noexcept = default;
 
         /**
          * Constructor with parameters of coordinates
@@ -75,7 +75,14 @@ namespace Geometry3D {
          * @param point Point to copy
          * @return Reference to *this object
          */
-        CPoint3D &operator=(const CPoint3D &point) noexcept;
+        CPoint3D &operator=(const CPoint3D &point) noexcept = default;
+
+        /**
+         * Copy assigment operator
+         * @param point Point to copy
+         * @return Reference to *this object
+         */
+        CPoint3D &operator=(CPoint3D &&point) noexcept = default;
 
         /**
          * Get distance between two points
