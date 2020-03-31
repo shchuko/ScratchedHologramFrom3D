@@ -26,6 +26,9 @@ jobs:
       env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install git-lfs; git lfs install; fi
+
+before_script:
   - git lfs pull
 
 install:
