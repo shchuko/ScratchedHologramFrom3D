@@ -1,0 +1,1 @@
+#include "CSvgFileWriter.hpp"
