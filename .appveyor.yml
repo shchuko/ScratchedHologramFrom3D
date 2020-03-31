@@ -24,6 +24,7 @@ install:
 
 build_script:
   - cmd: git submodule -q update --init --recursive
+  - cmd: git lfs pull
   - set project_root=%cd%
   - mkdir build
   - cd build
