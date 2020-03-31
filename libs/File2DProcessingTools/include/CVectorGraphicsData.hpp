@@ -13,9 +13,11 @@ namespace File2DProcessingTools {
     class CVectorGraphicsData {
 
     private:
-        std::vector<Geometry2D::CLineSegment2D> line_segments2D;
+        std::vector<Geometry2D::CLineSegment2D> _data;
 
     public:
+
+
         /**
          * Store line segment
          */
