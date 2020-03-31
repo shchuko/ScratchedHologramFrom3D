@@ -1,16 +1,6 @@
 #include <CVector2D.hpp>
 
 namespace Geometry2D {
-    CVector2D::CVector2D(const CVector2D &vector) noexcept {
-        this->x = vector.getX();
-        this->y = vector.getY();
-    }
-
-    CVector2D::CVector2D(Geometry2D::CVector2D &&vector) noexcept {
-        this->x = vector.getX();
-        this->y = vector.getY();
-    }
-
     CVector2D::CVector2D(double x, double y) {
         this->x = x;
         this->y = y;
