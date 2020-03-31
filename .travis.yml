@@ -1,43 +1,46 @@
 language: cpp
 
 os:
-- linux
-- osx
+  - linux
+  - osx
 
 compiler:
-- gcc
-- clang
+  - gcc
+  - clang
 
 env:
   matrix:
-  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
-  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
-  - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-  - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
 
 jobs:
   exclude:
-  - os: osx
-    compiler: gcc
-  - os: osx
-    env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-  - os: osx
-    env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+    - os: osx
+      compiler: gcc
+    - os: osx
+      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+    - os: osx
+      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+before_install:
+  - git lfs pull
 
 install:
-- source ci/travis/install-$TRAVIS_OS_NAME.sh
+  - source ci/travis/install-$TRAVIS_OS_NAME.sh
 
 script:
-- mkdir build
-- cd build
-- cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-- cmake --build .
-- ctest --output-on-failure -VV
-- cd -
+  - mkdir build
+  - cd build
+  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+  - cmake --build .
+  - ctest --output-on-failure -VV
+  - cd -
 
 before_deploy:
-- source ci/travis/create-deploy-tar-$TRAVIS_OS_NAME.sh
+  - source ci/travis/create-deploy-tar-$TRAVIS_OS_NAME.sh
 
 deploy:
   provider: releases
