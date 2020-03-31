@@ -11,7 +11,7 @@ namespace File2DProcessingTools {
     private:
 
         std::vector<Geometry2D::CLineSegment2D> cline_segments;
-        CVectorGraphicsData vector_graphics_data;
+        CVectorGraphicsData expected;
 
     protected:
 
@@ -26,7 +26,7 @@ namespace File2DProcessingTools {
                 Geometry2D::CPoint2D first_point2D(distribution(generator), distribution(generator));
                 Geometry2D::CPoint2D second_point2D(distribution(generator), distribution(generator));
                 cline_segments.emplace_back(first_point2D, second_point2D);
-                vector_graphics_data.addLineSegment(cline_segments[i]);
+                expected.addLineSegment(cline_segments[i]);
             }
 
         }
@@ -35,7 +35,7 @@ namespace File2DProcessingTools {
         }
 
         CVectorGraphicsData getVectorGraphicsData() {
-            return vector_graphics_data;
+            return expected;
         }
 
         Geometry2D::CLineSegment2D getSegment2D(int ind) {
@@ -58,7 +58,52 @@ namespace File2DProcessingTools {
             EXPECT_DOUBLE_EQ(vector_graphics_data.getLineSegments()[i].getSecondPoint().getX(), segment2D.getSecondPoint().getX());
             EXPECT_DOUBLE_EQ(vector_graphics_data.getLineSegments()[i].getSecondPoint().getY(), segment2D.getSecondPoint().getY());
         }
+    }
 
+    TEST_F(CVectorGraphicDataFixture, CVectorGraphicsData_CopyConstructor_Test) {
+        CVectorGraphicsData temp = getVectorGraphicsData();
+        const CVectorGraphicsData& actual(temp);
+        CVectorGraphicsData expected  = getVectorGraphicsData();
+        for (int i = 0; i < size(); ++i) {
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getX(), actual.getLineSegments()[i].getFirstPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getY(), actual.getLineSegments()[i].getFirstPoint().getY());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getX(), actual.getLineSegments()[i].getSecondPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getY(), actual.getLineSegments()[i].getSecondPoint().getY());
+        }
+    }
+
+    TEST_F(CVectorGraphicDataFixture, CVectorGraphicsData_MoveConstructor_Test) {
+        CVectorGraphicsData actual(getVectorGraphicsData());
+        CVectorGraphicsData expected  = getVectorGraphicsData();
+        for (int i = 0; i < size(); ++i) {
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getX(), actual.getLineSegments()[i].getFirstPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getY(), actual.getLineSegments()[i].getFirstPoint().getY());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getX(), actual.getLineSegments()[i].getSecondPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getY(), actual.getLineSegments()[i].getSecondPoint().getY());
+        }
+    }
+
+
+    TEST_F(CVectorGraphicDataFixture, CVectorGraphicsData_CopyOperator_Test) {
+        CVectorGraphicsData expected = getVectorGraphicsData();
+        const CVectorGraphicsData&  actual = expected;
+        for (int i = 0; i < size(); ++i) {
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getX(), actual.getLineSegments()[i].getFirstPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getY(), actual.getLineSegments()[i].getFirstPoint().getY());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getX(), actual.getLineSegments()[i].getSecondPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getY(), actual.getLineSegments()[i].getSecondPoint().getY());
+        }
+    }
+
+    TEST_F(CVectorGraphicDataFixture, CVectorGraphicsData_MoveOperator_Test) {
+        CVectorGraphicsData actual = getVectorGraphicsData();
+        CVectorGraphicsData expected  = getVectorGraphicsData();
+        for (int i = 0; i < size(); ++i) {
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getX(), actual.getLineSegments()[i].getFirstPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getFirstPoint().getY(), actual.getLineSegments()[i].getFirstPoint().getY());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getX(), actual.getLineSegments()[i].getSecondPoint().getX());
+            EXPECT_DOUBLE_EQ(expected.getLineSegments()[i].getSecondPoint().getY(), actual.getLineSegments()[i].getSecondPoint().getY());
+        }
     }
 
 }

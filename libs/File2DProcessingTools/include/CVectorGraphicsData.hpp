@@ -18,6 +18,14 @@ namespace File2DProcessingTools {
     public:
 
 
+        CVectorGraphicsData() = default;
+        CVectorGraphicsData(const CVectorGraphicsData &data) = default;
+        CVectorGraphicsData(CVectorGraphicsData &&data) = default;
+
+        CVectorGraphicsData &operator=(const CVectorGraphicsData &data) = default;
+        CVectorGraphicsData &operator=(CVectorGraphicsData &&data) = default;
+
+
         /**
          * Store line segment
          */
