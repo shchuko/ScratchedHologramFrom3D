@@ -1,17 +1,6 @@
 #include "CPoint2D.hpp"
 
 namespace Geometry2D {
-
-    CPoint2D::CPoint2D(const CPoint2D &point) noexcept {
-        this->x = point.getX();
-        this->y = point.getY();
-    }
-
-    CPoint2D::CPoint2D(CPoint2D &&point) noexcept {
-        this->x = point.getX();
-        this->y = point.getY();
-    }
-
     CPoint2D::CPoint2D(double x, double y) noexcept {
         this->x = x;
         this->y = y;
