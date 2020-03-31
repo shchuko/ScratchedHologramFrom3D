@@ -10,8 +10,9 @@ namespace Geometry2D {
      */
     class CLineSegment2D {
     private:
-        const CPoint2D first_point;
-        const CPoint2D second_point;
+        CPoint2D first_point;
+        CPoint2D second_point;
+
     public:
         /**
          * Copy constructor
@@ -19,6 +20,30 @@ namespace Geometry2D {
          * @param point_end Second point
          */
         CLineSegment2D(CPoint2D _first_point, CPoint2D _second_point) noexcept;
+        
+        /**
+        * Copy constructor
+        * @param lineSegment2D Object to copy
+        */
+        CLineSegment2D(const CLineSegment2D &lineSegment2D) noexcept = default;
+
+        /**
+         * Move constructor
+         * @param lineSegment2D Object to move
+         */
+        CLineSegment2D(CLineSegment2D &&lineSegment2D) noexcept = default;
+
+        /**
+         * Copy assignment operator
+         * @param lineSegment2D Object to assing
+         */
+        CLineSegment2D &operator=(const CLineSegment2D &lineSegment2D) noexcept = default;
+
+        /**
+         * Move assignment operator
+         * @param lineSegment2D Object to assign
+         */
+        CLineSegment2D &operator=(CLineSegment2D &&lineSegment2D) noexcept = default;
 
         /**
          * Get first point of CLineSegment2D
