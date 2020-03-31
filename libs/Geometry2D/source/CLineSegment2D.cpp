@@ -5,8 +5,9 @@
 namespace Geometry2D {
 
 
-    CLineSegment2D::CLineSegment2D(CPoint2D _first_point, CPoint2D _second_point) noexcept : first_point{std::move(
-            _first_point)}, second_point{std::move(_second_point)} {
+    CLineSegment2D::CLineSegment2D(CPoint2D _first_point, CPoint2D _second_point) noexcept
+            : first_point{_first_point}
+            , second_point{_second_point} {
     }
 
     const CPoint2D &CLineSegment2D::getFirstPoint() const noexcept {

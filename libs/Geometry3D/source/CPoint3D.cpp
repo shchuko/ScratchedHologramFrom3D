@@ -1,19 +1,6 @@
 #include <CPoint3D.hpp>
 
 namespace Geometry3D {
-
-    CPoint3D::CPoint3D(const CPoint3D &point) noexcept {
-        this->x = point.getX();
-        this->y = point.getY();
-        this->z = point.getZ();
-    }
-
-    CPoint3D::CPoint3D(CPoint3D &&point) noexcept {
-        this->x = point.getX();
-        this->y = point.getY();
-        this->z = point.getZ();
-    }
-
     CPoint3D::CPoint3D(double x, double y, double z) noexcept {
         this->x = x;
         this->y = y;
@@ -31,16 +18,6 @@ namespace Geometry3D {
     double CPoint3D::getZ() const noexcept {
         return z;
     }
-
-    CPoint3D &CPoint3D::operator=(const CPoint3D &point) noexcept {
-        if (this != &point) {
-            x = point.getX();
-            y = point.getY();
-            z = point.getZ();
-        }
-        return *this;
-    }
-
     void CPoint3D::move(const AVector3D &vector) noexcept {
         this->x += vector.getX();
         this->y += vector.getY();

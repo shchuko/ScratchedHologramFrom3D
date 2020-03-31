@@ -18,23 +18,36 @@ namespace Geometry2D {
         CVector2D() = default;
 
         /**
-         * Copy constructor Lvalue
-         * @param vector Vector in 2D
-         */
-        CVector2D(const CVector2D &vector) noexcept;
-
-        /**
-         * Copy constructor Rvalue
-         * @param vector Vector in 2D
-         */
-        CVector2D(CVector2D&& vector) noexcept;
-
-        /**
          * Constructor with parameters of coordinates
          * @param x Coordinate X
          * @param y Coordinate Y
          */
         CVector2D(double x, double y);
+
+        /**
+         * Copy constructor
+         * @param vector Vector in 2D
+         */
+        CVector2D(const CVector2D &vector) noexcept = default;
+
+        /**
+         * Move constructor
+         * @param vector Vector in 2D
+         */
+        CVector2D(CVector2D&& vector) noexcept = default;
+
+        /**
+         * Copy assignment operator
+         * @param vector Vector in 2D
+         */
+        CVector2D &operator=(const CVector2D &vector) noexcept = default;
+
+        /**
+         * Move assignment operator
+         * @param vector Vector in 2D
+         */
+        CVector2D &operator=(CVector2D&& vector) noexcept = default;
+
 
         double getX() const noexcept override;
 

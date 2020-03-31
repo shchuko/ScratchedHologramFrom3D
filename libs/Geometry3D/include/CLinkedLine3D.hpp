@@ -37,6 +37,32 @@ namespace Geometry3D {
         CLinkedLine3D(const AVector3D &direction_vector, const CPoint3D &linked_point) noexcept;
 
         /**
+         * Copy constructor
+         * @param line Line to copy
+         */
+        CLinkedLine3D(const CLinkedLine3D &line) noexcept = default;
+
+        /**
+         * Move constructor
+         * @param line Line to move
+         */
+        CLinkedLine3D(CLinkedLine3D &&line) noexcept = default;
+
+        /**
+         * Copy assignment operator
+         * @param line to assign
+         * @return Ref to *this
+         */
+        CLinkedLine3D &operator=(const CLinkedLine3D &line) noexcept = default;
+
+        /**
+         * Move assignment operator
+         * @param line to assign
+         * @return Ref to *this
+         */
+        CLinkedLine3D &operator=(CLinkedLine3D &&line) noexcept = default;
+
+        /**
          * Set direction vector.
          * @param direction_vector Input direction vector.
          */

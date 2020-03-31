@@ -19,16 +19,28 @@ namespace Geometry2D {
         CPoint2D() = default;
 
         /**
-         * Copy constructor Lvalue
-         * @param cPoint2D Point in 2D
+         * Copy constructor
+         * @param point Object to copy
          */
-        CPoint2D(const CPoint2D &point) noexcept;
+        CPoint2D(const CPoint2D &point) noexcept = default;
 
         /**
-         * Copy constructor Rvalue
-         * @param cPoint2D Point in 2D
+         * Move constructor
+         * @param point Object to move
          */
-        CPoint2D(CPoint2D &&point) noexcept;
+        CPoint2D(CPoint2D &&point) noexcept = default;
+
+        /**
+         * Copy assignment operator
+         * @param point Object to assing
+         */
+        CPoint2D &operator=(const CPoint2D &point) noexcept = default;
+
+        /**
+         * Move assignment operator
+         * @param point Object to assing
+         */
+        CPoint2D &operator=(CPoint2D &&point) noexcept = default;
 
         /**
          * Constructor with parameters of coordinates
@@ -62,6 +74,5 @@ namespace Geometry2D {
          */
         CPoint2D moveCopy(const AVector2D &vector) const noexcept;
 
-        CPoint2D &operator=(const CPoint2D &vector);
     };
 }
