@@ -5,7 +5,6 @@
 #include <vector>
 #include <random>
 #include <limits>
-#include <algorithm>
 
 
 namespace File2DProcessingTools {
