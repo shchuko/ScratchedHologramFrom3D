@@ -21,7 +21,7 @@ namespace File2DProcessingTools {
              * the constructor serves to create an exception and get the cause of the error
              * @param error - message of error
              */
-            explicit EFileAlreadyExistsException(std::string error);
+            explicit EFileAlreadyExistsException(std::string error) noexcept;
 
             /**
             * Method for getting error description

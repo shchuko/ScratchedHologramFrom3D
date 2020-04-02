@@ -23,7 +23,7 @@ namespace File2DProcessingTools {
              * the constructor serves to create an exception and get the cause of the error
              * @param error - message of error
              */
-            explicit EFileCannotBeOverwritten(std::string error);
+            explicit EFileCannotBeOverwritten(std::string error) noexcept;
 
             /**
             * Method for getting error description

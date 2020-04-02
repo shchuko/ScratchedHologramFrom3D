@@ -6,7 +6,7 @@ namespace File2DProcessingTools {
 
         EFileAlreadyExistsException::EFileAlreadyExistsException() = default;
 
-        EFileAlreadyExistsException::EFileAlreadyExistsException(std::string error) : m_error(std::move(error)) {}
+        EFileAlreadyExistsException::EFileAlreadyExistsException(std::string error) noexcept : m_error(std::move(error)) {}
 
         const char *EFileAlreadyExistsException::what() const noexcept {
             return m_error.c_str();

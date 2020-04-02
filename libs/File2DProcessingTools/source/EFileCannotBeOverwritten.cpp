@@ -6,7 +6,7 @@ namespace File2DProcessingTools {
 
         EFileCannotBeOverwritten::EFileCannotBeOverwritten() = default;
 
-        EFileCannotBeOverwritten::EFileCannotBeOverwritten(std::string error) : m_error(std::move(error)) {}
+        EFileCannotBeOverwritten::EFileCannotBeOverwritten(std::string error) noexcept : m_error(std::move(error)) {}
 
         const char *EFileCannotBeOverwritten::what() const noexcept {
             return m_error.c_str();
