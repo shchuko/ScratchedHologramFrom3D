@@ -36,7 +36,7 @@ namespace File2DProcessingTools {
 
     private:
 
-        static void isFileExists(const std::string &filepath, bool write_force);
+        static bool isFileExists(const std::string &filepath, bool write_force);
 
         double scaling(unsigned int height, unsigned int width);
 
