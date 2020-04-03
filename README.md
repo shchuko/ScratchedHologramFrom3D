@@ -3,3 +3,11 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d72413d6128c47a6a1c43a42647b338d)](https://www.codacy.com/manual/shchuko/ScratchedHologramFrom3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shchuko/ScratchedHologramFrom3D&amp;utm_campaign=Badge_Grade)
 
 # ScratchedHologramFrom3D
+
+(in develop, no releases)
+
+Tool to transform a 3D-model into scratches picture, that can be engraved onto semi-reflective material (vinil, aluminium) amd used to show fake-holograph.
+
+*A hologram example:*
+
+![GIF](https://github.com/shchuko/ScratchedHologramFrom3D/blob/master/examples-pictures/scratch-holo-example.gif)
