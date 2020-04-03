@@ -57,7 +57,7 @@ namespace File2DProcessingTools {
         svg_file.close();
     }
 
-    CSvgFileWriter::CSvgFileWriter(unsigned int height, unsigned int width) {
+    CSvgFileWriter::CSvgFileWriter(unsigned int height, unsigned int width) noexcept {
         _height = height;
         _width = width;
     }

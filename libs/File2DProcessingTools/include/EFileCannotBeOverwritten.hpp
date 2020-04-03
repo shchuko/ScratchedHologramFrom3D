@@ -17,7 +17,7 @@ namespace File2DProcessingTools {
             /**
              * default constructor, which do not accept error message
              */
-            explicit EFileCannotBeOverwritten();
+            EFileCannotBeOverwritten() noexcept;
 
             /**
              * the constructor serves to create an exception and get the cause of the error

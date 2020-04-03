@@ -16,14 +16,14 @@ namespace File2DProcessingTools {
 
     public:
 
-        CSvgFileWriter() = default;
+        CSvgFileWriter() noexcept = default;
 
         /**
          * Constructor for adjusting canvas size
          * @param height -canvas height
          * @param width - canvas width
          */
-        CSvgFileWriter(unsigned int height, unsigned int width);
+        CSvgFileWriter(unsigned int height, unsigned int width) noexcept;
 
         /**
          * The main method of writing points to a file

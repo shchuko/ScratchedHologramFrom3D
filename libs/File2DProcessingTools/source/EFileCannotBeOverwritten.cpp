@@ -4,7 +4,7 @@
 namespace File2DProcessingTools {
     namespace Exceptions {
 
-        EFileCannotBeOverwritten::EFileCannotBeOverwritten() = default;
+        EFileCannotBeOverwritten::EFileCannotBeOverwritten() noexcept = default;
 
         EFileCannotBeOverwritten::EFileCannotBeOverwritten(std::string error) noexcept : m_error(std::move(error)) {}
 
