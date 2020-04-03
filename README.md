@@ -6,8 +6,8 @@
 
 (in develop, no releases)
 
-Tool to transform a 3D-model into scratches picture, that can be engraved onto semi-reflective material (vinil, aluminium) amd used to show fake-holograph.
+Tool to transform a 3D-model into scratches picture, that can be engraved onto semi-reflective material (vinil, aluminium) and used to show fake-hologram.
 
-*A hologram example:*
+## A hologram example
 
 ![GIF](https://github.com/shchuko/ScratchedHologramFrom3D/blob/master/examples-pictures/scratch-holo-example.gif)
