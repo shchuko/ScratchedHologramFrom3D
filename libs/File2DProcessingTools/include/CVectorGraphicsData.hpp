@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "../../Geometry2D/include/CLineSegment2D.hpp"
+#include <cfloat>
+#include <limits>
+#include "CLineSegment2D.hpp"
 
 namespace File2DProcessingTools {
 
@@ -14,15 +16,22 @@ namespace File2DProcessingTools {
 
     private:
         std::vector<Geometry2D::CLineSegment2D> _data;
+        double min_x = std::numeric_limits<double >::max();
+        double min_y = std::numeric_limits<double >::max();
+        double max_x = -std::numeric_limits<double >::max();
+        double max_y = -std::numeric_limits<double >::max();
 
     public:
 
 
         CVectorGraphicsData() = default;
+
         CVectorGraphicsData(const CVectorGraphicsData &data) = default;
+
         CVectorGraphicsData(CVectorGraphicsData &&data) = default;
 
         CVectorGraphicsData &operator=(const CVectorGraphicsData &data) = default;
+
         CVectorGraphicsData &operator=(CVectorGraphicsData &&data) = default;
 
         /**
@@ -47,6 +56,19 @@ namespace File2DProcessingTools {
          * @return list of CLineSegment2D
          */
         const std::vector<Geometry2D::CLineSegment2D> &getLineSegments() const noexcept;
+
+        double getMaxX() const;
+
+        double getMaxY() const;
+
+        double getMinX() const;
+
+        double getMinY() const;
+
+    private:
+
+        void checkRange(const Geometry2D::CLineSegment2D &line_segment);
+
     };
 
 }
