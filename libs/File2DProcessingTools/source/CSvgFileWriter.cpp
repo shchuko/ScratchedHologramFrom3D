@@ -9,39 +9,35 @@ namespace File2DProcessingTools {
     void File2DProcessingTools::CSvgFileWriter::write(std::string filepath,
                                                       const File2DProcessingTools::CVectorGraphicsData &data,
                                                       bool write_force) {
-        checkFile(filepath, write_force);
         std::ofstream svg_file(filepath);
-        std::stringstream stream;
+        checkFile(filepath, svg_file, write_force);
 
         std::pair<double, double> max(data.getMaxX(), data.getMaxY());
         std::pair<double, double> min(data.getMinX(), data.getMinY());
 
-        doAnalysis(max, min);
-        writeBeginning(stream);
-        writePoints(data, stream, max, min);
-        writeEnd(stream);
-        svg_file << stream.str();
+        updateWidthHeight(max, min);
+        writeBeginning(svg_file);
+        writePoints(data, svg_file, max, min);
+        writeEnding(svg_file);
         svg_file.close();
     }
 
     void CSvgFileWriter::writeMul(std::string filepath, const std::vector<CVectorGraphicsData> &data,
                                   bool write_force) {
 
-        checkFile(filepath, write_force);
         std::ofstream svg_file(filepath);
-        std::stringstream stream;
+        checkFile(filepath, svg_file, write_force);
 
 
-        std::pair<double, double> max = getMax(data);
-        std::pair<double, double> min = getMin(data);
+        std::pair<double, double> max = getMaxXY(data);
+        std::pair<double, double> min = getMinXY(data);
 
-        doAnalysis(max, min);
-        writeBeginning(stream);
+        updateWidthHeight(max, min);
+        writeBeginning(svg_file);
         for (const auto &item : data) {
-            writePoints(item, stream, max, min);
+            writePoints(item, svg_file, max, min);
         }
-        writeEnd(stream);
-        svg_file << stream.str();
+        writeEnding(svg_file);
         svg_file.close();
     }
 
@@ -66,40 +62,38 @@ namespace File2DProcessingTools {
                (double) _width / width : (double) _height / height;
     }
 
-    void CSvgFileWriter::writeBeginning(std::stringstream &stream) {
+    void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) {
 
-        stream << "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
-        stream << "<svg height = \"" << _height << "px\"  width = \""
-               << _width << "px\">\n";
+        svg_file << "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
+        svg_file << "<svg height = \"" << _height << "px\"  width = \""
+                 << _width << "px\">\n";
 
     }
 
     void CSvgFileWriter::writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
-                                     std::stringstream &stream, std::pair<double, double> max,
+                                     std::ofstream &svg_file, std::pair<double, double> max,
                                      std::pair<double, double> min) {
         for (const auto &line : data.getLineSegments()) {
-            stream << "<path d=\"M "
-                   << scale * (line.getFirstPoint().getX() - min.first) << " "
-                   << scale * (max.second - min.second - (line.getFirstPoint().getY() - min.second))
-                   << " L "
-                   << scale * (line.getSecondPoint().getX() - min.first) << " "
-                   << scale * (max.second - min.second - (line.getSecondPoint().getY() - min.second))
-                   << " L\" stroke=\"black\" stroke-width=\"1\"  />\n";
+            svg_file << "<path d=\"M "
+                     << scale * (line.getFirstPoint().getX() - min.first) << " "
+                     << scale * (max.second - min.second - (line.getFirstPoint().getY() - min.second))
+                     << " L "
+                     << scale * (line.getSecondPoint().getX() - min.first) << " "
+                     << scale * (max.second - min.second - (line.getSecondPoint().getY() - min.second))
+                     << " L\" stroke=\"black\" stroke-width=\"1\"  />\n";
         }
     }
 
-    void CSvgFileWriter::writeEnd(std::stringstream &stream) {
-        stream << "</svg>\n";
+    void CSvgFileWriter::writeEnding(std::ofstream &svg_file) {
+        svg_file << "</svg>\n";
     }
 
-    void CSvgFileWriter::checkFile(const std::string &filepath, bool write_force) {
+    void CSvgFileWriter::checkFile(const std::string &filepath, std::ofstream &svg_file, bool write_force) {
 
         if (!isFileExists(filepath, write_force))
             throw File2DProcessingTools::Exceptions::EFileAlreadyExistsException(
                     "Pass write_force = true to overwrite the existing file.");
 
-
-        std::ofstream svg_file(filepath);
 
         if (!svg_file.is_open()) {
             throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("Couldn't be opened");
@@ -109,10 +103,9 @@ namespace File2DProcessingTools {
             svg_file.close();
             throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("File write errored.");
         }
-        svg_file.close();
     }
 
-    std::pair<double, double> CSvgFileWriter::getMax(const std::vector<CVectorGraphicsData> &data) {
+    std::pair<double, double> CSvgFileWriter::getMaxXY(const std::vector<CVectorGraphicsData> &data) {
         std::pair<double, double> max(-std::numeric_limits<double>::max(), -std::numeric_limits<double>::min());
         for (const auto &item : data) {
             if (item.getMaxX() > max.first) {
@@ -125,7 +118,7 @@ namespace File2DProcessingTools {
         return max;
     }
 
-    std::pair<double, double> CSvgFileWriter::getMin(const std::vector<CVectorGraphicsData> &data) {
+    std::pair<double, double> CSvgFileWriter::getMinXY(const std::vector<CVectorGraphicsData> &data) {
         std::pair<double, double> min(std::numeric_limits<double>::max(), std::numeric_limits<double>::min());
         for (const auto &item : data) {
             if (item.getMinX() < min.first) {
@@ -138,7 +131,7 @@ namespace File2DProcessingTools {
         return min;
     }
 
-    void CSvgFileWriter::doAnalysis(std::pair<double, double> max, std::pair<double, double> min) {
+    void CSvgFileWriter::updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) {
         int max_x = std::ceil(max.first);
         int min_x = std::ceil(min.first);
         int max_y = std::ceil(max.second);
