@@ -13,7 +13,7 @@ set_target_properties(ScratchProjectionMathsUnitTests
 
 add_test(
         NAME
-        AppLibUnitTests
+        ScratchProjectionMathsUnitTests
         COMMAND
-        ${CMAKE_BINARY_DIR}/bin/AppLibUnitTests
+        ${CMAKE_BINARY_DIR}/bin/ScratchProjectionMathsUnitTests
 )
