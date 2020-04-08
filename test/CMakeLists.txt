@@ -1,19 +1,19 @@
 file(GLOB TEST_SRC_FILES ./*.cpp)
 
 
-add_executable(HeadSourceUnitTests ${TEST_SRC_FILES})
-target_include_directories(HeadSourceUnitTests PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-target_link_libraries(HeadSourceUnitTests gtest gtest_main)
-target_link_libraries(HeadSourceUnitTests app_lib)
+add_executable(ScratchProjectionMathsUnitTests ${TEST_SRC_FILES})
+target_include_directories(ScratchProjectionMathsUnitTests PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+target_link_libraries(ScratchProjectionMathsUnitTests gtest gtest_main)
+target_link_libraries(ScratchProjectionMathsUnitTests ScratchProjectionMaths)
 
-set_target_properties(HeadSourceUnitTests
+set_target_properties(ScratchProjectionMathsUnitTests
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
 add_test(
         NAME
-        HeadSourceUnitTests
+        ScratchProjectionMathsUnitTests
         COMMAND
-        ${CMAKE_BINARY_DIR}/bin/HeadSourceUnitTests
+        ${CMAKE_BINARY_DIR}/bin/ScratchProjectionMathsUnitTests
 )
