@@ -1,6 +1,6 @@
 add_executable(ScratchedHologramFrom3DCLI main)
 
-target_link_libraries(ScratchedHologramFrom3DCLI app_lib)
+target_link_libraries(ScratchedHologramFrom3DCLI ScratchProjectionMaths)
 
 target_link_libraries(ScratchedHologramFrom3DCLI CliTools)
 target_link_libraries(ScratchedHologramFrom3DCLI File2DProcessingTools)

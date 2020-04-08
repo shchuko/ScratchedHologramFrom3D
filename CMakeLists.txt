@@ -17,8 +17,8 @@ include_directories(${COMMON_INCLUDES})
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/source/*.cpp)
 
-add_library(app_lib SHARED ${SRC_FILES})
-set_target_properties(app_lib
+add_library(ScratchProjectionMaths SHARED ${SRC_FILES})
+set_target_properties(ScratchProjectionMaths
         PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
@@ -36,11 +36,11 @@ add_subdirectory(libs/Geometry3D)
 
 find_package(Threads REQUIRED)
 
-target_link_libraries(app_lib Geometry3D)
-target_link_libraries(app_lib Geometry2D)
-target_link_libraries(app_lib CliTools)
-target_link_libraries(app_lib File2DProcessingTools)
-target_link_libraries(app_lib File3DProcessingTools)
-target_link_libraries(app_lib ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(ScratchProjectionMaths Geometry3D)
+target_link_libraries(ScratchProjectionMaths Geometry2D)
+target_link_libraries(ScratchProjectionMaths CliTools)
+target_link_libraries(ScratchProjectionMaths File2DProcessingTools)
+target_link_libraries(ScratchProjectionMaths File3DProcessingTools)
+target_link_libraries(ScratchProjectionMaths ${CMAKE_THREAD_LIBS_INIT})
 
 add_subdirectory(test)
