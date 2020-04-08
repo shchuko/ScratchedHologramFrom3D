@@ -34,10 +34,13 @@ add_subdirectory(libs/File3DProcessingTools)
 add_subdirectory(libs/Geometry2D)
 add_subdirectory(libs/Geometry3D)
 
+find_package(Threads REQUIRED)
+
 target_link_libraries(app_lib Geometry3D)
 target_link_libraries(app_lib Geometry2D)
 target_link_libraries(app_lib CliTools)
 target_link_libraries(app_lib File2DProcessingTools)
 target_link_libraries(app_lib File3DProcessingTools)
+target_link_libraries(app_lib ${CMAKE_THREAD_LIBS_INIT})
 
 add_subdirectory(test)
