@@ -16,14 +16,6 @@ namespace File2DProcessingTools {
 
     protected:
         void SetUp() override {
-            data_fixture.addLineSegments(
-                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(1, 2),
-                                               Geometry2D::CPoint2D(3, 4)));
-
-            data_fixture.addLineSegments(
-                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(5, 6),
-                                               Geometry2D::CPoint2D(7, 8)));
-
             DIR_SEPARATOR = getDirectorySeparator();
             PROJECT_ROOT = PROJECT_SOURCE_DIR;
             std::replace(PROJECT_ROOT.begin(), PROJECT_ROOT.end(), '/', DIR_SEPARATOR[0]);
@@ -34,12 +26,7 @@ namespace File2DProcessingTools {
 
         void TearDown() override {}
 
-
-        CVectorGraphicsData getFixtureCopy() {
-            return data_fixture;
-        }
-
-        static CVectorGraphicsData getSquareData() {
+        static CVectorGraphicsData getRhombusData() {
             File2DProcessingTools::CVectorGraphicsData cVectorGraphicsData;
 
             cVectorGraphicsData.addLineSegments(
@@ -53,10 +40,23 @@ namespace File2DProcessingTools {
             return cVectorGraphicsData;
         }
 
+        static CVectorGraphicsData getSquareData() {
+            File2DProcessingTools::CVectorGraphicsData cVectorGraphicsData;
+
+            cVectorGraphicsData.addLineSegments(
+                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(1024, 0), Geometry2D::CPoint2D(2048, 0)));
+            cVectorGraphicsData.addLineSegments(
+                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(2048, 0), Geometry2D::CPoint2D(2048, 1024)));
+            cVectorGraphicsData.addLineSegments(
+                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(2048, 1024), Geometry2D::CPoint2D(1024, 1024)));
+            cVectorGraphicsData.addLineSegments(
+                    Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(1024, 1024), Geometry2D::CPoint2D(1024, 0)));
+            return cVectorGraphicsData;
+        }
+
         std::string TEST_RESOURCES_DIR;
         std::string SVG_PATH;
         std::string DIR_SEPARATOR;
-        CVectorGraphicsData data_fixture;
 
 
     private:
@@ -78,7 +78,7 @@ namespace File2DProcessingTools {
             check_file.close();
             isExist = true;
             CSvgFileWriter writer(1024, 1024);
-            ASSERT_THROW(writer.write(SVG_PATH, getFixtureCopy(), false),
+            ASSERT_THROW(writer.write(SVG_PATH, getRhombusData(), false),
                          File2DProcessingTools::Exceptions::EFileAlreadyExistsException);
             EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
 
@@ -93,7 +93,7 @@ namespace File2DProcessingTools {
 
         try {
             CSvgFileWriter writer;
-            writer.write(SVG_PATH, getFixtureCopy(), true);
+            writer.write(SVG_PATH, getRhombusData(), true);
             EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
         } catch (std::exception &ex) {
             isExist = false;
@@ -108,7 +108,7 @@ namespace File2DProcessingTools {
         try {
             CSvgFileWriter writer(1024, 1024);;
 
-            writer.write(SVG_PATH, getSquareData(), false);
+            writer.write(SVG_PATH, getRhombusData(), false);
             std::ifstream standard_file(TEST_RESOURCES_DIR + DIR_SEPARATOR + "rhombus.svg");
             EXPECT_TRUE(standard_file.is_open()) << "Failed to open standard file.\n";
 
@@ -126,7 +126,52 @@ namespace File2DProcessingTools {
                 }
             }
             std::getline(test_file, line_test_file);
-            if (!line_standard_file.empty() || !line_test_file.empty()){
+            if (!line_standard_file.empty() || !line_test_file.empty()) {
+                isStandard = false;
+                m_error = "File sizes differ.\n";
+            }
+            standard_file.close();
+            test_file.close();
+            EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
+        } catch (std::exception &ex) {
+            m_error = ex.what();
+            isStandard = false;
+        }
+
+
+        EXPECT_TRUE(isStandard) << m_error;
+
+    }
+
+    TEST_F(CSvgFileWriterFixture, CSvgFileWriter_writeMul_syntax_Test) {
+        std::vector<CVectorGraphicsData> data;
+        data.push_back(getRhombusData());
+        data.push_back(getSquareData());
+
+        bool isStandard = true;
+        std::string m_error;
+        try {
+            CSvgFileWriter writer(1024, 1024);;
+
+            writer.writeMul(SVG_PATH, data, false);
+            std::ifstream standard_file(TEST_RESOURCES_DIR + DIR_SEPARATOR + "rhombus-cube.svg");
+            EXPECT_TRUE(standard_file.is_open()) << "Failed to open standard file.\n";
+
+            std::ifstream test_file(SVG_PATH);
+            EXPECT_TRUE(test_file.is_open()) << "Failed to open test file.\n";
+
+            std::string line_standard_file;
+            std::string line_test_file;
+            while ((std::getline(standard_file, line_standard_file)) && (std::getline(test_file, line_test_file))) {
+                if (line_standard_file != line_test_file) {
+                    m_error.append("actual: ").append(line_test_file).append(
+                            ", but expected: ").append(line_standard_file);
+                    isStandard = false;
+                    break;
+                }
+            }
+            std::getline(test_file, line_test_file);
+            if (!line_standard_file.empty() || !line_test_file.empty()) {
                 isStandard = false;
                 m_error = "File sizes differ.\n";
             }

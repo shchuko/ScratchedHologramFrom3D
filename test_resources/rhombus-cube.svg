@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<svg height = "1024px"  width = "1024px">
+<path d="M 256 512 L 512 256 L" stroke="black" stroke-width="1"  />
+<path d="M 512 256 L 256 0 L" stroke="black" stroke-width="1"  />
+<path d="M 256 0 L 0 256 L" stroke="black" stroke-width="1"  />
+<path d="M 0 256 L 256 512 L" stroke="black" stroke-width="1"  />
+<path d="M 512 512 L 1024 512 L" stroke="black" stroke-width="1"  />
+<path d="M 1024 512 L 1024 0 L" stroke="black" stroke-width="1"  />
+<path d="M 1024 0 L 512 0 L" stroke="black" stroke-width="1"  />
+<path d="M 512 0 L 512 512 L" stroke="black" stroke-width="1"  />
+</svg>
