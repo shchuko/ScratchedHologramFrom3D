@@ -58,7 +58,7 @@ namespace File2DProcessingTools {
 
         double scaling(unsigned int height, unsigned int width);
 
-        static void checkFile(const std::string &filepath, std::ofstream &svg_file, bool write_force);
+        static void tryOpenFile(const std::string &filepath, std::ofstream &svg_file, bool write_force);
 
         void updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min);
 
