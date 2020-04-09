@@ -153,7 +153,7 @@ namespace File2DProcessingTools {
         try {
             CSvgFileWriter writer(1024, 1024);;
 
-            writer.writeMul(SVG_PATH, data, false);
+            writer.writeMul(SVG_PATH, data, true);
             std::ifstream standard_file(TEST_RESOURCES_DIR + DIR_SEPARATOR + "rhombus-cube.svg");
             EXPECT_TRUE(standard_file.is_open()) << "Failed to open standard file.\n";
 
