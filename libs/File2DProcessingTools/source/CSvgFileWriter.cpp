@@ -20,6 +20,10 @@ namespace File2DProcessingTools {
         writeBeginning(svg_file);
         writePoints(data, svg_file, max, min);
         writeEnding(svg_file);
+        if (!svg_file.good()) {
+            svg_file.close();
+            throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("File write errored.");
+        }
         svg_file.close();
     }
 
@@ -39,6 +43,10 @@ namespace File2DProcessingTools {
             writePoints(item, svg_file, max, min);
         }
         writeEnding(svg_file);
+        if (!svg_file.good()) {
+            svg_file.close();
+            throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("File write errored.");
+        }
         svg_file.close();
     }
 
@@ -101,10 +109,6 @@ namespace File2DProcessingTools {
             throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("Couldn't be opened");
         }
 
-        if (svg_file.bad()) {
-            svg_file.close();
-            throw File2DProcessingTools::Exceptions::EFileCannotBeOverwritten("File write errored.");
-        }
         svg_file.close();
     }
 
