@@ -13,12 +13,13 @@
 
 namespace ScratchProjectionMaths {
 
-    class CProjectionAnalyzer {
+    class CScratchProjectionAnalyzer {
     private:
         constexpr static double PI_2 =
                 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899 / 2.0;
         double projection_width = 0.0;
         Geometry3D::CVector3D pure_calculation_move_vector{0.0, 0.0, 0.0};
+        Geometry3D::CPoint3D viewer_point{0.0, 0.0, 0.0};
 
     public:
         /**
@@ -29,11 +30,11 @@ namespace ScratchProjectionMaths {
          * @param object_disk_distance Distance between the object center and projection disk
          * @param deep Do deep analysis with rotating object and calculating pretty accurate result. [Not implemented]
          */
-        explicit CProjectionAnalyzer(const File3DProcessingTools::CObject3DData &object,
-                                     double object_viewer_distance,
-                                     double object_viewer_angle_rad,
-                                     double object_disk_distance,
-                                     bool deep = false);
+        explicit CScratchProjectionAnalyzer(const File3DProcessingTools::CObject3DData &object,
+                                            double object_viewer_distance,
+                                            double object_viewer_angle_rad,
+                                            double object_disk_distance,
+                                            bool deep = false);
 
         /**
          * Get projection width
@@ -58,5 +59,9 @@ namespace ScratchProjectionMaths {
          * @return Object move vector
          */
         Geometry3D::CVector3D getCalculationMoveVector(double spacing_width) const noexcept;
+
+        Geometry3D::CPoint3D getViewerPoint() const noexcept;
+
+        Geometry3D::CPoint3D getViewerPoint(double spacing_width) const noexcept;
     };
 }

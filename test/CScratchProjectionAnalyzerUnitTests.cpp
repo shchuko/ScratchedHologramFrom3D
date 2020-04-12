@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <CProjectionAnalyzer.hpp>
+#include <CScratchProjectionAnalyzer.hpp>
 #include <CObject3DData.hpp>
 
 #include <tuple>
@@ -9,7 +9,7 @@
 #include <CPoint3D.hpp>
 #include <CPolygon.hpp>
 
-namespace CProjectionAnalyzerUnitTestsNS {
+namespace CScratchProjectionAnalyzerUnitTestsNS {
     using namespace ScratchProjectionMaths;
     using namespace File3DProcessingTools;
 
@@ -117,57 +117,51 @@ namespace CProjectionAnalyzerUnitTestsNS {
         CObject3DData *p_object_3d = nullptr;
     };
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_5_10cm_get_width_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_get_width_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 10.0;
 
-        CProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
 
-        double expected_width = 8.978278835123632;
-        EXPECT_DOUBLE_EQ(expected_width, analyzer.getProjectionWidth());
+        double expected_projection_width = 8.978278835123632;
+        EXPECT_DOUBLE_EQ(expected_projection_width, analyzer.getProjectionWidth());
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_5_10cm_get_recom_spacing_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_get_recom_spacing_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 10.0;
 
-        CProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
 
-        double expected_width = 8.978278835123632;
-        double expected_recommended_spacing = expected_width / 2;
+        double expected_projection_width = 8.978278835123632;
+        double expected_recommended_spacing = expected_projection_width / 2;
         EXPECT_DOUBLE_EQ(expected_recommended_spacing, analyzer.getRecommendedSpacingWidth());
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_5_10cm_get_recom_move_vec_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_get_recom_move_vec_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 10.0;
 
-        CProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
-
-        double expected_width = 8.978278835123632;
-        double expected_recommended_spacing = expected_width / 2;
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
 
         Geometry3D::CVector3D pure_move_vec{18.896857656088315, 0.0, obj_disk_distance};
 
-        Geometry3D::CVector3D expected_recommended_move_vector = pure_move_vec;
-        expected_recommended_move_vector.setX(expected_recommended_move_vector.getX() + expected_recommended_spacing);
-
-        EXPECT_EQ(expected_recommended_move_vector, analyzer.getCalculationMoveVector());
+        EXPECT_EQ(pure_move_vec, analyzer.getCalculationMoveVector());
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_5_10cm_get_manual_move_vec_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_get_manual_move_vec_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 10.0;
 
-        CProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
 
         Geometry3D::CVector3D pure_move_vec{18.896857656088315, 0.0, obj_disk_distance};
         Geometry3D::CVector3D expected_manual_move_vec = pure_move_vec;
@@ -177,33 +171,64 @@ namespace CProjectionAnalyzerUnitTestsNS {
         EXPECT_EQ(expected_manual_move_vec, analyzer.getCalculationMoveVector(manual_spacing_width));
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_0m_pi_5_10cm_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_recommended_get_viewer_point_Test) {
+        // Let it be 1 [unit] == 1 [cm]
+        double obj_view_distance = 100.0;
+        double view_angle = PI_VAL / 5;
+        double obj_disk_distance = 10.0;
+
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
+
+        Geometry3D::CPoint3D expected_viewer{99.79855709358306,
+                                             0.0,
+                                             68.778525229247322};
+
+        EXPECT_EQ(expected_viewer, analyzer.getViewerPoint());
+    }
+
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_10cm_manual_get_viewer_point_Test) {
+        // Let it be 1 [unit] == 1 [cm]
+        double obj_view_distance = 100.0;
+        double view_angle = PI_VAL / 5;
+        double obj_disk_distance = 10.0;
+
+        CScratchProjectionAnalyzer analyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance);
+
+        double manual_spacing_width = 12.2432;
+        Geometry3D::CPoint3D expected_viewer{99.79855709358306 + manual_spacing_width,
+                                             0.0,
+                                             68.778525229247322};
+
+        EXPECT_EQ(expected_viewer, analyzer.getViewerPoint(manual_spacing_width));
+    }
+
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_0m_pi_5_10cm_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 0.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 10.0;
 
-        EXPECT_THROW(CProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
+        EXPECT_THROW(CScratchProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
                      Exceptions::EWrongObjectsPosition);
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_10cm_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_10cm_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL;
         double obj_disk_distance = 10.0;
 
-        EXPECT_THROW(CProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
+        EXPECT_THROW(CScratchProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
                      Exceptions::EWrongObjectsPosition);
     }
 
-    TEST_F(CObject3DDataCubeFixture, CProjectionAnalyzer_1m_pi_5_0cm_Test) {
+    TEST_F(CObject3DDataCubeFixture, CScratchProjectionAnalyzer_1m_pi_5_0cm_Test) {
         // Let it be 1 [unit] == 1 [cm]
         double obj_view_distance = 100.0;
         double view_angle = PI_VAL / 5;
         double obj_disk_distance = 0;
 
-        EXPECT_THROW(CProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
+        EXPECT_THROW(CScratchProjectionAnalyzer(*p_object_3d, obj_view_distance, view_angle, obj_disk_distance),
                      Exceptions::EWrongObjectsPosition);
     }
 }
