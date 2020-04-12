@@ -29,6 +29,10 @@ namespace File3DProcessingTools {
         std::vector<CPolygon> polygons;
 
     public:
+        CObject3DData() noexcept = default;
+
+        CObject3DData(const CObject3DData& object3d_data) noexcept;
+
         /**
          * Add vertex to vertex storage
          * @param vertex Vertex to add

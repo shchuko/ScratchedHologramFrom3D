@@ -51,4 +51,16 @@ namespace File3DProcessingTools {
     void CObject3DData::forEachNormalVector(const std::function<void(Geometry3D::CVector3D &vec)> &func) noexcept {
         std::for_each(std::begin(polygons_normals), std::end(polygons_normals), func);
     }
+
+    CObject3DData::CObject3DData(const CObject3DData &object3d_data) noexcept {
+        this->vertexes = object3d_data.vertexes;
+        this->polygons_normals = object3d_data.polygons_normals;
+        this->edges = object3d_data.edges;
+        this->polygons = object3d_data.polygons;
+
+        for (auto &edge_data : edges) {
+            auto &points_pair = edge_data.first;
+            edge_data.second.update(vertexes[points_pair.first], vertexes[points_pair.second]);
+        }
+    }
 }
