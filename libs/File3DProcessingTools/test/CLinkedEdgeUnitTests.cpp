@@ -27,6 +27,31 @@ namespace CLinkedEdgeUnitTestsNS {
                             << "Wrong edge line direction";
     }
 
+    TEST(CLinkedEdge, CLinkedEdge_update_Test) {
+        CPoint3D point_begin{1.0, 2.0, 3.0};
+        CPoint3D point_end{4.0, 5.0, 6.0};
+
+        CLinkedEdge edge{point_begin, point_end};
+        EXPECT_EQ(&point_begin, &edge.getLineLinkedVector().getPointBegin()) << "point_begin is not linked to edge";
+        EXPECT_EQ(&point_end, &edge.getLineLinkedVector().getPointEnd()) << "point_end is not linked to edge";
+
+        CPoint3D point_begin_new{2.0, 1.0, 4.0};
+        CPoint3D point_end_new{6.0, 4.0, 3.0};
+        edge.update(point_begin_new, point_end_new);
+        EXPECT_EQ(&point_begin_new, &edge.getLineLinkedVector().getPointBegin())
+                            << "point_begin is not linked to edge after update";
+        EXPECT_EQ(&point_end_new, &edge.getLineLinkedVector().getPointEnd())
+                            << "point_end is not linked to edge after update";
+
+        auto line = edge.getLinkedLine();
+
+        CLinkedVector3D direction_vector_new(point_begin_new, point_end_new);
+        CLinkedLine3D expected_line(direction_vector_new, point_begin_new);
+
+        EXPECT_EQ(CLinkedLine3D::RelationType::OVERLAP, expected_line.getRelationType(line))
+                            << "Wrong edge line direction after update";
+    }
+
     TEST(CLinkedEdge, CLinkedLine3D_isPointOnEdge_True_Test) {
         CPoint3D point_begin{1.0, 2.0, 3.0};
         CPoint3D point_end{4.0, 5.0, 6.0};

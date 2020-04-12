@@ -27,6 +27,13 @@ namespace File3DProcessingTools {
         CLinkedEdge(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept;
 
         /**
+         * Update edge begin and end points
+         * @param _point_begin New edge begin point
+         * @param _point_end New edge end point
+         */
+        void update(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept;
+
+        /**
          * Copy constructor
          * @param edge Edge to copy
          */

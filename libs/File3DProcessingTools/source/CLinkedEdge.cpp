@@ -66,4 +66,11 @@ namespace File3DProcessingTools {
     CLinkedEdge::CLinkedEdge(const CLinkedEdge &edge)
             : linked_vector{edge.linked_vector.getPointBegin(), edge.linked_vector.getPointEnd()},
               linked_line{linked_vector, linked_vector.getPointBegin()} {}
+
+    void CLinkedEdge::update(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept {
+        linked_vector.setPointBegin(_point_begin);
+        linked_vector.setPointEnd(_point_end);
+
+        linked_line.setLinkedPoint(_point_begin);
+    }
 }
