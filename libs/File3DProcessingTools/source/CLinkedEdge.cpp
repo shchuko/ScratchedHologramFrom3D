@@ -73,4 +73,12 @@ namespace File3DProcessingTools {
 
         linked_line.setLinkedPoint(_point_begin);
     }
+
+    bool CLinkedEdge::isMarked() const noexcept {
+        return marked;
+    }
+
+    void CLinkedEdge::setMarked(bool marked_value) noexcept {
+        marked = marked_value;
+    }
 }

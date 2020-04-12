@@ -164,4 +164,17 @@ namespace CLinkedEdgeUnitTestsNS {
         EXPECT_TRUE(std::isinf(crossing_point.getZ())) << "Z is not NaN: " << crossing_point.getZ();
     }
 
+    TEST(CLinkedEdge, CLinkedEdge_setMarked_isMarked_Test) {
+        CPoint3D point_begin{-4.0, -5.0, 6.0};
+        CPoint3D point_end{-6.0, -1.0, 12.0};
+        CLinkedEdge edge(point_begin, point_end);
+
+        EXPECT_FALSE(edge.isMarked()) << "Edge marked is not false by default";
+
+        edge.setMarked(true);
+        EXPECT_TRUE(edge.isMarked());
+        edge.setMarked(false);
+        EXPECT_FALSE(edge.isMarked());
+    }
+
 }

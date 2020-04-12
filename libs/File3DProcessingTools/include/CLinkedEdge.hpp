@@ -17,6 +17,7 @@ namespace File3DProcessingTools {
     private:
         Geometry3D::CLinkedVector3D linked_vector;
         Geometry3D::CLinkedLine3D linked_line;
+        bool marked = false;
 
     public:
         /**
@@ -72,6 +73,18 @@ namespace File3DProcessingTools {
          * @return Point object if crossing exists, {NaN, NaN, NaN} if not, {INF, INF, INF} if there's overlap line&edge
          */
         Geometry3D::CPoint3D getLineCrossingPoint(const Geometry3D::CLinkedLine3D &line) const noexcept;
+
+        /**
+         * Mark edge
+         * @param marked_value Set edge marked flag
+         */
+        void setMarked(bool marked_value) noexcept;
+
+        /**
+         * Get edge marked status
+         * @return True if marked, false if not
+         */
+        bool isMarked() const noexcept;
 
     private:
         CLinkedEdge(Geometry3D::CPoint3D &&point1, Geometry3D::CPoint3D &&point2);
