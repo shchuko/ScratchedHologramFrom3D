@@ -53,6 +53,7 @@ namespace Geometry3DCPoint3DTests {
         EXPECT_DOUBLE_EQ(point.getX(), 0.0);
         EXPECT_DOUBLE_EQ(point.getY(), 0.0);
         EXPECT_DOUBLE_EQ(point.getZ(), 0.0);
+        EXPECT_FALSE(point.isMarked());
     }
 
     TEST_F(CPoint3DFixture, CPoint3D_BuildFromCoordinatesConstructor_Test) {
@@ -192,5 +193,13 @@ namespace Geometry3DCPoint3DTests {
         new_z = nextRandomDouble();
         c_point_3d_fixture->setZ(new_z);
         EXPECT_DOUBLE_EQ(new_z, c_point_3d_fixture->getZ());
+    }
+
+    TEST_F(CPoint3DFixture, CPoint3D_set_getMarked_Test) {
+        c_point_3d_fixture->setMarked(true);
+        EXPECT_TRUE(c_point_3d_fixture->isMarked());
+
+        c_point_3d_fixture->setMarked(false);
+        EXPECT_FALSE(c_point_3d_fixture->isMarked());
     }
 }

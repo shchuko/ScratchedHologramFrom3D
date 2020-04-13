@@ -60,4 +60,12 @@ namespace Geometry3D {
     void CPoint3D::setZ(double _z) {
         CPoint3D::z = _z;
     }
+
+    bool CPoint3D::isMarked() const {
+        return marked;
+    }
+
+    void CPoint3D::setMarked(bool _marked) {
+        CPoint3D::marked = _marked;
+    }
 }

@@ -12,6 +12,7 @@ namespace Geometry3D {
         double x = 0.0;
         double y = 0.0;
         double z = 0.0;
+        bool marked = false;
 
     public:
         /**
@@ -115,5 +116,17 @@ namespace Geometry3D {
          * @param z New Z value
          */
         void setZ(double z);
+
+        /**
+         * Get marked flag
+         * @return Marked flag
+         */
+        bool isMarked() const;
+
+        /**
+         * Set marked flag
+         * @param marked Marked flag value
+         */
+        void setMarked(bool marked);
     };
 }
