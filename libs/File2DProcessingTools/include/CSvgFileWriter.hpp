@@ -44,6 +44,19 @@ namespace File2DProcessingTools {
         */
         void writeMul(std::string filepath, const std::vector<CVectorGraphicsData> &data, bool write_force) override;
 
+        void setCanvasHeight(unsigned int height_px) override;
+
+        // Input data should be scaled to width
+        // Height should be recalculated by input data aspect ratio
+        void setCanvasWidth(unsigned int width_px) override;
+
+        // Input data should be scaled to fit height and width
+        void setCanvasSize(unsigned int height_px, unsigned int width_px) override;
+
+        // Padding.first = vertical  (up-side, down-side) padding width in pixels
+        // Padding.second = horizontal (left-side, right-side) padding width in pixels
+        // Rescale input data to fit if needed
+        void setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_зч = std::make_pair(0, 0)) override;
 
     private:
 
