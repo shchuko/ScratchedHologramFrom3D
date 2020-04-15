@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <limits>
+#include "Geometry3DBase.hpp"
 
 namespace Geometry3D {
     /**

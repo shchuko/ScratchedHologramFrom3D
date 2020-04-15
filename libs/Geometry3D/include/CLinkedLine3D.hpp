@@ -1,8 +1,10 @@
 #pragma once
 
-#include <AVector3D.hpp>
-#include <CPoint3D.hpp>
-#include <CVector3D.hpp>
+#include "AVector3D.hpp"
+#include "CPoint3D.hpp"
+#include "CVector3D.hpp"
+#include "Geometry3DBase.hpp"
+
 
 namespace Geometry3D {
     /**

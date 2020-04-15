@@ -56,7 +56,7 @@ double Geometry3D::AVector3D::getAngleCos(const Geometry3D::AVector3D &vector) c
 }
 
 bool Geometry3D::AVector3D::isEqualDouble(double x, double y) noexcept {
-    return std::fabs(x - y) < std::numeric_limits<double>::epsilon();
+    return std::fabs(x - y) < LIB_GEOMETRY3D_EPSILON;
 }
 
 double Geometry3D::AVector3D::getNormalizedX() const noexcept {

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <AVector3D.hpp>
+#include "Geometry3DBase.hpp"
+#include "AVector3D.hpp"
 
 namespace Geometry3D {
 

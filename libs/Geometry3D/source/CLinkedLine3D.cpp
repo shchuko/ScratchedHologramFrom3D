@@ -23,7 +23,7 @@ const Geometry3D::CPoint3D &Geometry3D::CLinkedLine3D::getLinkedPoint() const no
 
 Geometry3D::CLinkedLine3D::RelationType
 Geometry3D::CLinkedLine3D::getRelationType(const Geometry3D::CLinkedLine3D &line) const noexcept {
-    if (getCoplanarCheckDeterminant(line) != 0) {
+    if (!isEqualDouble(getCoplanarCheckDeterminant(line), 0.0)) {
         return RelationType::SKEW;
     }
 
@@ -48,7 +48,6 @@ Geometry3D::CPoint3D Geometry3D::CLinkedLine3D::getCrossingPoint(const Geometry3
         double pv_y = this->p_linked_point->getY();
         double pv_z = this->p_linked_point->getZ();
 
-
         double s_x = line.p_direction_vector->getX();
         double s_y = line.p_direction_vector->getY();
         double s_z = line.p_direction_vector->getZ();
@@ -58,18 +57,35 @@ Geometry3D::CPoint3D Geometry3D::CLinkedLine3D::getCrossingPoint(const Geometry3
         double ps_z = line.p_linked_point->getZ();
 
 
-        double numerator_x = pv_x * v_y * s_x - ps_x * s_y * v_x - pv_y * v_x * s_x + ps_y * v_x * s_x;
-        double denominator_x = v_y * s_x - s_y * v_x;
+        double numerator_x_from_y = pv_x * v_y * s_x - ps_x * s_y * v_x - pv_y * v_x * s_x + ps_y * v_x * s_x;
+        double denominator_x_from_y = v_y * s_x - s_y * v_x;
+        double crossing_point_x = numerator_x_from_y / denominator_x_from_y;
 
-        double numerator_y = pv_y * v_x * s_y - ps_y * s_x * v_y - pv_x * v_y * s_y + ps_x * v_y * s_y;
-        double denominator_y = v_x * s_y - s_x * v_y;
+        double numerator_y_from_x = pv_y * v_x * s_y - ps_y * s_x * v_y - pv_x * v_y * s_y + ps_x * v_y * s_y;
+        double denominator_y_from_x = v_x * s_y - s_x * v_y;
+        double crossing_point_y = numerator_y_from_x / denominator_y_from_x;
 
-        double numerator_z = pv_z * v_y * s_z - ps_z * s_y * v_z - pv_y * v_z * s_z + ps_y * v_z * s_z;
-        double denominator_z = v_y * s_z - s_y * v_z;
+        double numerator_z_from_y = pv_z * v_y * s_z - ps_z * s_y * v_z - pv_y * v_z * s_z + ps_y * v_z * s_z;
+        double denominator_z_from_y = v_y * s_z - s_y * v_z;
+        double crossing_point_z = numerator_z_from_y / denominator_z_from_y;
 
-        double crossing_point_x = numerator_x / denominator_x;
-        double crossing_point_y = numerator_y / denominator_y;
-        double crossing_point_z = numerator_z / denominator_z;
+        if (!std::isnormal(crossing_point_x)) {
+            double numerator_x_from_z = pv_x * v_z * s_x - ps_x * s_z * v_x - pv_z * v_x * s_x + ps_z * v_x * s_x;
+            double denominator_x_from_z = v_z * s_x - s_z * v_x;
+            crossing_point_x = numerator_x_from_z / denominator_x_from_z;
+        }
+
+        if (!std::isnormal(crossing_point_y)) {
+            double numerator_y_from_z = pv_y * v_z * s_y - ps_y * s_z * v_y - pv_z * v_y * s_y + ps_z * v_y * s_y;
+            double denominator_y_from_z = v_z * s_y - s_z * v_y;
+            crossing_point_y = numerator_y_from_z / denominator_y_from_z;
+        }
+
+        if (!std::isnormal(crossing_point_z)) {
+            double numerator_z_from_x = pv_z * v_x * s_z - ps_z * s_x * v_z - pv_x * v_z * s_z + ps_x * v_z * s_z;
+            double denominator_z_from_x = v_x * s_z - s_x * v_z;
+            crossing_point_z = numerator_z_from_x / denominator_z_from_x;
+        }
 
         return {crossing_point_x, crossing_point_y, crossing_point_z};
     }
@@ -191,5 +207,5 @@ double Geometry3D::CLinkedLine3D::getLinePointZ(double known_coordinate,
 }
 
 bool Geometry3D::CLinkedLine3D::isEqualDouble(double x, double y) noexcept {
-    return std::fabs(x - y) < std::numeric_limits<double>::epsilon();
+    return std::fabs(x - y) < LIB_GEOMETRY3D_EPSILON;
 }

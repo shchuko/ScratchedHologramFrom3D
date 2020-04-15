@@ -1,0 +1,3 @@
+#pragma once
+
+#define LIB_GEOMETRY3D_EPSILON 0.000000001
