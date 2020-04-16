@@ -56,18 +56,25 @@ namespace File3DProcessingTools {
         double mul_y = y_vec_first * y_vec_second;
         double mul_z = z_vec_first * z_vec_second;
 
-        return mul_x <= 0 && mul_y <= 0 && mul_z <= 0;
+        auto f_equals_d = [](double a, double b) -> bool {
+            constexpr double EPSILON{0.000000001};
+            return std::abs(a - b) <= EPSILON;
+        };
+
+        return (f_equals_d(mul_x, 0.0) || mul_x < 0.0) &&
+               (f_equals_d(mul_y, 0.0) || mul_y < 0.0) &&
+               (f_equals_d(mul_z, 0.0) || mul_z < 0.0);
     }
 
     CLinkedEdge::CLinkedEdge(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept
-            : linked_vector{_point_begin, _point_end}
-            , linked_line{linked_vector, linked_vector.getPointBegin()} {}
+            : linked_vector{_point_begin, _point_end}, linked_line{linked_vector, linked_vector.getPointBegin()} {}
 
     CLinkedEdge::CLinkedEdge(const CLinkedEdge &edge)
             : linked_vector{edge.linked_vector.getPointBegin(), edge.linked_vector.getPointEnd()},
               linked_line{linked_vector, linked_vector.getPointBegin()} {}
 
-    void CLinkedEdge::update(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept {
+    void
+    CLinkedEdge::update(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept {
         linked_vector.setPointBegin(_point_begin);
         linked_vector.setPointEnd(_point_end);
 

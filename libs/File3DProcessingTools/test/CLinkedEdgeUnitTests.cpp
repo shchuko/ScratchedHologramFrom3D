@@ -53,8 +53,8 @@ namespace CLinkedEdgeUnitTestsNS {
     }
 
     TEST(CLinkedEdge, CLinkedLine3D_isPointOnEdge_True_Test) {
-        CPoint3D point_begin{1.0, 2.0, 3.0};
-        CPoint3D point_end{4.0, 5.0, 6.0};
+        CPoint3D point_begin{21.940672063136443, 1.195676, 15.447499000000001};
+        CPoint3D point_end{22.038279063136443, 1.0736680000000001, 15.337692000000001};
 
         CLinkedEdge edge{point_begin, point_end};
 
@@ -63,7 +63,9 @@ namespace CLinkedEdgeUnitTestsNS {
         double point_z = (point_begin.getZ() + point_end.getZ()) / 2;
 
         CPoint3D point_on_line{point_x, point_y, point_z};
+        CPoint3D point_on_line_second{21.940672063136446, 1.195676, 15.447499000000002};
         EXPECT_TRUE(edge.isPointOnEdge(point_on_line)) << "Point between line edges is detected 'Not on edge'";
+        EXPECT_TRUE(edge.isPointOnEdge(point_on_line_second));
         EXPECT_TRUE(edge.isPointOnEdge(point_begin)) << "point_begin id detected 'Not on edge'";
         EXPECT_TRUE(edge.isPointOnEdge(point_end)) << "point_end id detected 'Not on edge'";
     }

@@ -3,7 +3,7 @@
 #include <CPoint3D.hpp>
 #include <CLinkedVector3D.hpp>
 #include <CLinkedLine3D.hpp>
-
+#include <Geometry3DOperators.hpp>
 
 #include <cmath>
 #include <limits>
