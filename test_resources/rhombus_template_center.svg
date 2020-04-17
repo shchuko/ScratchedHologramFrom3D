@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<svg height = "1024px"  width = "1024px" xmlns="http://www.w3.org/2000/svg">
+<line x1="512" y1="924" x2="924" y2="512" fill="none" stroke="black" stroke-width="1"  />
+<line x1="924" y1="512" x2="512" y2="100" fill="none" stroke="black" stroke-width="1"  />
+<line x1="512" y1="100" x2="100" y2="512" fill="none" stroke="black" stroke-width="1"  />
+<line x1="100" y1="512" x2="512" y2="924" fill="none" stroke="black" stroke-width="1"  />
+</svg>
