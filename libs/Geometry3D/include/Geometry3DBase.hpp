@@ -1,7 +1,6 @@
 #pragma once
 
-#include <limits>
-#include <algorithm>
+#include <cmath>
 
 namespace Geometry3D {
 
@@ -10,7 +9,7 @@ namespace Geometry3D {
     template<typename FLOATING_POINT_T>
     bool
     isEqualDouble(FLOATING_POINT_T a, FLOATING_POINT_T b, FLOATING_POINT_T epsilon = LIB_GEOMETRY3D_EPSILON) noexcept {
-        return std::abs(a - b) < epsilon;
+        return std::fabs(a - b) < epsilon;
     }
 
 }
