@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "CVectorGraphicsData.hpp"
 
 namespace File2DProcessingTools {
@@ -65,5 +67,20 @@ namespace File2DProcessingTools {
         return min_y;
     }
 
+    CVectorGraphicsData::CColor_T::CColor_T(unsigned int red, unsigned int green, unsigned int blue) {
+        color_rgb = "rgb(" + std::to_string(red % 256) + ", " + std::to_string(green % 256) + ", " +
+                    std::to_string(blue % 256) + ")";
+    }
 
+    CVectorGraphicsData::CColor_T::CColor_T(std::string color_hex) {
+        this->color_hex = color_hex.replace(0, 1, "#")[7];
+    }
+
+    std::string CVectorGraphicsData::CColor_T::getHexStr() {
+        return color_rgb;
+    }
+
+    std::string CVectorGraphicsData::CColor_T::getRGBStr() {
+        return color_rgb;
+    }
 }

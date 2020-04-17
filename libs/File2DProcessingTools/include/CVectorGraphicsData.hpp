@@ -3,6 +3,7 @@
 #include <vector>
 #include <cfloat>
 #include <limits>
+#include "string"
 #include "CLineSegment2D.hpp"
 
 namespace File2DProcessingTools {
@@ -21,6 +22,19 @@ namespace File2DProcessingTools {
         double max_x = -std::numeric_limits<double >::max();
         double max_y = -std::numeric_limits<double >::max();
         std::vector<unsigned int> width;
+
+        class CColor_T {
+        private:
+            std::string color_rgb{};
+            std::string color_hex{};
+        public:
+            CColor_T(unsigned int red, unsigned int green, unsigned int blue);
+            explicit CColor_T(std::string color_hex);
+
+            std::string getHexStr();
+            std::string getRGBStr();
+
+        };
 
     public:
 
