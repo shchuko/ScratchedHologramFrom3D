@@ -206,6 +206,3 @@ double Geometry3D::CLinkedLine3D::getLinePointZ(double known_coordinate,
     return ((known_coordinate - p_y) * v_z / v_y) + p_z;
 }
 
-bool Geometry3D::CLinkedLine3D::isEqualDouble(double x, double y) noexcept {
-    return std::fabs(x - y) < LIB_GEOMETRY3D_EPSILON;
-}

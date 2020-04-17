@@ -159,13 +159,5 @@ namespace Geometry3D {
          * @return Determinant.
          */
         double getCoplanarCheckDeterminant(const CLinkedLine3D &line) const noexcept;
-
-        /**
-         * Check equals of two doubles.
-         * @param x Input X.
-         * @param y Input Y.
-         * @return True of false.
-         */
-        static inline bool isEqualDouble(double x, double y) noexcept;
     };
 }

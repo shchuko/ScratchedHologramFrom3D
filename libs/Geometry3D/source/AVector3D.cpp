@@ -71,13 +71,9 @@ double Geometry3D::AVector3D::getAngleCos(const Geometry3D::AVector3D &vector) c
             sqrt(second_vector_x * second_vector_x + second_vector_y * second_vector_y +
                  second_vector_z * second_vector_z);
 
-    if (denominator != 0)
+    if (!isEqualDouble(denominator,0.0))
         return numerator / denominator;
-    return 1;
-}
-
-bool Geometry3D::AVector3D::isEqualDouble(double x, double y) noexcept {
-    return std::fabs(x - y) < LIB_GEOMETRY3D_EPSILON;
+    return 1.0;
 }
 
 double Geometry3D::AVector3D::getNormalizedX() const noexcept {
