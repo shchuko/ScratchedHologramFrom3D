@@ -70,7 +70,7 @@ namespace File2DProcessingTools {
     void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) const {
         svg_file << "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
         svg_file << "<svg height = \"" << _height << "px\"  width = \""
-                 << _width << "px\" " << "xmlns=\"http://www.w3.org/2000/svg\">\n" ;
+                 << _width << "px\" " << "xmlns=\"http://www.w3.org/2000/svg\">\n";
     }
 
 
@@ -78,15 +78,18 @@ namespace File2DProcessingTools {
                                      std::ofstream &svg_file, std::pair<double, double> max,
                                      std::pair<double, double> min) const {
         for (const auto &line : data.getLineSegments()) {
-            svg_file << "<path d=\"M "
-                     << scale * (line.getFirstPoint().getX() - min.first) + double(padding_horizontal) / 2 << " "
+            svg_file << "<line "
+                     << "x1=\""
+                     << scale * (line.getFirstPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << "y1=\""
                      << scale * (max.second - min.second - (line.getFirstPoint().getY() - min.second)) +
-                        double(padding_vertical) / 2
-                     << " L "
-                     << scale * (line.getSecondPoint().getX() - min.first) + double(padding_horizontal) / 2 << " "
+                        double(padding_vertical) / 2 << "\" "
+                        << "x2=\""
+                     << scale * (line.getSecondPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << "y2=\""
                      << scale * (max.second - min.second - (line.getSecondPoint().getY() - min.second)) +
-                        double(padding_vertical) / 2
-                     << " L\" stroke=\"black\" stroke-width=\"1\"  />\n";
+                        double(padding_vertical) / 2 << "\""
+                     << " fill=\"none\" stroke=\"black\" stroke-width=\"1\"  />\n";
         }
     }
 

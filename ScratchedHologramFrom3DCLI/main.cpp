@@ -131,7 +131,8 @@ int main(int argv, char** args) {
     cVectorGraphicsData.addLineSegments(Geometry2D::CLineSegment2D(    Geometry2D::CPoint2D(850,-450), Geometry2D::CPoint2D(850,-350)));
 
     File2DProcessingTools::CSvgFileWriter cSvgFileWriter(1024, 1024);
-    cSvgFileWriter.write(R"(C:\Users\mrNer\CLionProjects/files/test2.svg)", cVectorGraphicsData, true);
+    cSvgFileWriter.setAlignmentCenter(std::pair<unsigned  int, unsigned int>(0, 500));
+    cSvgFileWriter.write(R"(C:\Users\mrNer\CLionProjects/files/test.svg)", cVectorGraphicsData, true);
 
     CAppRunner appRunner;
     return appRunner.run();
