@@ -29,7 +29,7 @@ namespace File2DProcessingTools {
         // Padding.first = vertical  (up-side, down-side) padding width in pixels
         // Padding.second = horizontal (left-side, right-side) padding width in pixels
         // Rescale input data to fit if needed
-        virtual void setAlignmentCenter(std::pair<unsigned int, unsigned int>padding_px)  = 0;
+        virtual bool setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px)  = 0;
 
     };
 }

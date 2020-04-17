@@ -188,4 +188,104 @@ namespace File2DProcessingTools {
 
     }
 
+    TEST_F(CSvgFileWriterFixture, CSvgFileWriter_setCanvasHeight_with_height_default_Test) {
+        CSvgFileWriter cSvgFileWriter(100, 100);
+        cSvgFileWriter.setCanvasHeight(200);
+        cSvgFileWriter.write(SVG_PATH, getRhombusData(), true);
+        std::ifstream reader(SVG_PATH);
+        EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
+        std::string line_file;
+        bool checker = false;
+        const std::string template_line = R"(<svg height = "200px"  width = "100px">)";
+        while (std::getline(reader, line_file)) {
+            if (line_file == template_line) {
+                checker = true;
+                break;
+            }
+        }
+        EXPECT_TRUE(checker);
+        reader.close();
+        EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
+    }
+
+
+    TEST_F(CSvgFileWriterFixture, CSvgFileWriter_setCanvasHeight_with_width_default_Test) {
+        CSvgFileWriter cSvgFileWriter(100, 100);
+        cSvgFileWriter.setCanvasWidth(200);
+        cSvgFileWriter.write(SVG_PATH, getRhombusData(), true);
+        std::ifstream reader(SVG_PATH);
+        EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
+        std::string line_file;
+        bool checker = false;
+        const std::string template_line = R"(<svg height = "100px"  width = "200px">)";
+        while (std::getline(reader, line_file)) {
+            if (line_file == template_line) {
+                checker = true;
+                break;
+            }
+        }
+        EXPECT_TRUE(checker);
+        reader.close();
+        EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
+    }
+
+
+    TEST_F(CSvgFileWriterFixture, CSvgFileWriter_setCanvasHeight_with_width_and_height_default_Test) {
+        CSvgFileWriter cSvgFileWriter(100, 100);
+        cSvgFileWriter.setCanvasSize(200, 200);
+        cSvgFileWriter.write(SVG_PATH, getRhombusData(), true);
+        std::ifstream reader(SVG_PATH);
+        EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
+        std::string line_file;
+        bool checker = false;
+        const std::string template_line = R"(<svg height = "200px"  width = "200px">)";
+        while (std::getline(reader, line_file)) {
+            if (line_file == template_line) {
+                checker = true;
+                break;
+            }
+        }
+        EXPECT_TRUE(checker);
+        reader.close();
+        EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
+    }
+
+    TEST_F(CSvgFileWriterFixture, CSvgFileWriter_setAligmentCenter_Test) {
+        std::string m_error;
+        bool isStandard = true;
+        try {
+            CSvgFileWriter cSvgFileWriter(1024, 1024);
+            cSvgFileWriter.setAlignmentCenter(std::pair<unsigned int, unsigned int>(200, 200));
+            cSvgFileWriter.write(SVG_PATH, getRhombusData(), true);
+            std::ifstream standard_file(TEST_RESOURCES_DIR + DIR_SEPARATOR + "rhombus_template_center.svg");
+            EXPECT_TRUE(standard_file.is_open()) << "Failed to open standard file.\n";
+
+            std::ifstream test_file(SVG_PATH);
+            EXPECT_TRUE(test_file.is_open()) << "Failed to open test file.\n";
+
+            std::string line_standard_file;
+            std::string line_test_file;
+            while ((std::getline(standard_file, line_standard_file)) && (std::getline(test_file, line_test_file))) {
+                if (line_standard_file != line_test_file) {
+                    m_error.append("actual: ").append(line_test_file).append(
+                            ", but expected: ").append(line_standard_file);
+                    isStandard = false;
+                    break;
+                }
+            }
+            std::getline(test_file, line_test_file);
+            if (!line_standard_file.empty() || !line_test_file.empty()) {
+                isStandard = false;
+                m_error = "File sizes differ.\n";
+            }
+            standard_file.close();
+            test_file.close();
+            EXPECT_TRUE(std::remove(SVG_PATH.c_str()) == 0) << "Failed to delete file.\n";
+        } catch (std::exception &ex) {
+            m_error = ex.what();
+            isStandard = false;
+        }
+        EXPECT_TRUE(isStandard) << m_error;
+    }
+
 }
