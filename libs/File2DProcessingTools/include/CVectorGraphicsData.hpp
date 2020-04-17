@@ -20,6 +20,7 @@ namespace File2DProcessingTools {
         double min_y = std::numeric_limits<double >::max();
         double max_x = -std::numeric_limits<double >::max();
         double max_y = -std::numeric_limits<double >::max();
+        std::vector<unsigned int> width;
 
     public:
 
@@ -38,7 +39,7 @@ namespace File2DProcessingTools {
          * Store line segment
          * @param line_segment Segment to store
          */
-        void addLineSegments(Geometry2D::CLineSegment2D line_segment) noexcept;
+        void addLineSegments(Geometry2D::CLineSegment2D line_segment, unsigned int width_pixels = 1) noexcept;
 
         /**
          * Add several CLineSegment2D objects
@@ -47,9 +48,7 @@ namespace File2DProcessingTools {
          * @param end End iterator
          */
         template<typename InputIterator>
-        void addLineSegments(InputIterator begin, InputIterator end) noexcept {
-            _data.insert(_data.end(), begin, end);
-        }
+        void addLineSegments(InputIterator begin, InputIterator end, unsigned int width_pixels = 1) noexcept;
 
         /**
          * Get all stored line segments

@@ -1,15 +1,25 @@
-#include "../../File2DProcessingTools/include/CVectorGraphicsData.hpp"
+#include "CVectorGraphicsData.hpp"
 
 namespace File2DProcessingTools {
 
-    void CVectorGraphicsData::addLineSegments(Geometry2D::CLineSegment2D line_segment) noexcept {
+    void
+    CVectorGraphicsData::addLineSegments(Geometry2D::CLineSegment2D line_segment, unsigned int width_pixels) noexcept {
         checkRange(line_segment);
         _data.emplace_back(line_segment);
+        width.emplace_back(width_pixels);
+    }
+
+    template<typename InputIterator>
+    void CVectorGraphicsData::addLineSegments(InputIterator begin, InputIterator end,
+                                              unsigned int width_pixels) noexcept {
+        _data.insert(_data.end(), begin, end);
+        width.emplace_back(width_pixels);
     }
 
     const std::vector<Geometry2D::CLineSegment2D> &CVectorGraphicsData::getLineSegments() const noexcept {
         return _data;
     }
+
 
     void CVectorGraphicsData::checkRange(const Geometry2D::CLineSegment2D &line_segment) {
         if (line_segment.getFirstPoint().getX() < min_x) {
@@ -54,5 +64,6 @@ namespace File2DProcessingTools {
     double CVectorGraphicsData::getMinY() const {
         return min_y;
     }
+
 
 }
