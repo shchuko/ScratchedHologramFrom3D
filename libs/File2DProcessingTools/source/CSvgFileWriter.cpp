@@ -68,12 +68,11 @@ namespace File2DProcessingTools {
     }
 
     void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) const {
-
         svg_file << "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
         svg_file << "<svg height = \"" << _height << "px\"  width = \""
-                 << _width << "px\">\n";
-
+                 << _width << "px\" " << "xmlns=\"http://www.w3.org/2000/svg\">\n" ;
     }
+
 
     void CSvgFileWriter::writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
                                      std::ofstream &svg_file, std::pair<double, double> max,
