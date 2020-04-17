@@ -196,7 +196,7 @@ namespace File2DProcessingTools {
         EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
         std::string line_file;
         bool checker = false;
-        const std::string template_line = R"(<svg height = "200px"  width = "100px">)";
+        const std::string template_line = R"(<svg height = "200px"  width = "100px" xmlns="http://www.w3.org/2000/svg">)";
         while (std::getline(reader, line_file)) {
             if (line_file == template_line) {
                 checker = true;
@@ -217,7 +217,7 @@ namespace File2DProcessingTools {
         EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
         std::string line_file;
         bool checker = false;
-        const std::string template_line = R"(<svg height = "100px"  width = "200px">)";
+        const std::string template_line = R"(<svg height = "100px"  width = "200px" xmlns="http://www.w3.org/2000/svg">)";
         while (std::getline(reader, line_file)) {
             if (line_file == template_line) {
                 checker = true;
@@ -238,7 +238,7 @@ namespace File2DProcessingTools {
         EXPECT_TRUE(reader.is_open()) << "Failed to open test file.\n";
         std::string line_file;
         bool checker = false;
-        const std::string template_line = R"(<svg height = "200px"  width = "200px">)";
+        const std::string template_line = R"(<svg height = "200px"  width = "200px" xmlns="http://www.w3.org/2000/svg">)";
         while (std::getline(reader, line_file)) {
             if (line_file == template_line) {
                 checker = true;
