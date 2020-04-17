@@ -1,10 +1,10 @@
-#include "CProjectionAnalyzer.hpp"
+#include "CScratchProjectionAnalyzer.hpp"
 
-ScratchProjectionMaths::CProjectionAnalyzer::CProjectionAnalyzer(const File3DProcessingTools::CObject3DData &object,
-                                                                 double object_viewer_distance,
-                                                                 double object_viewer_angle_rad,
-                                                                 double object_disk_distance,
-                                                                 bool deep) {
+ScratchProjectionMaths::CScratchProjectionAnalyzer::CScratchProjectionAnalyzer(const File3DProcessingTools::CObject3DData &object,
+                                                                               double object_viewer_distance,
+                                                                               double object_viewer_angle_rad,
+                                                                               double object_disk_distance,
+                                                                               bool deep) {
 
     if (object_viewer_distance <= 0.0) {
         throw Exceptions::EWrongObjectsPosition("Zero distance between the object and the viewer");
@@ -14,7 +14,7 @@ ScratchProjectionMaths::CProjectionAnalyzer::CProjectionAnalyzer(const File3DPro
         throw Exceptions::EWrongObjectsPosition("Zero distance between the object and the dist");
     }
 
-    if (object_viewer_angle_rad >= CProjectionAnalyzer::PI_2 || object_viewer_angle_rad <= 0.0) {
+    if (object_viewer_angle_rad >= CScratchProjectionAnalyzer::PI_2 || object_viewer_angle_rad <= 0.0) {
         throw Exceptions::EWrongObjectsPosition("Angle between object and viewer should be in (0, pi/2)");
     }
 
@@ -64,26 +64,37 @@ ScratchProjectionMaths::CProjectionAnalyzer::CProjectionAnalyzer(const File3DPro
     projection_width = std::abs(right_proj_border_point.getX() - left_proj_border_point.getX());
 
     // And for further projection calculations finding move vector coordinates
-    pure_calculation_move_vector.setX(object_center.getX() - left_proj_border_point.getX());
+    pure_calculation_move_vector.setX(- left_proj_border_point.getX());
     pure_calculation_move_vector.setY(0.0);
-    pure_calculation_move_vector.setZ(object_center.getZ() - left_proj_border_point.getZ());
+    pure_calculation_move_vector.setZ(object_center.getZ());
+
+    viewer_point = viewer.moveCopy(CVector3D(-left_proj_border_point.getX(), 0.0, 0.0));
 }
 
-double ScratchProjectionMaths::CProjectionAnalyzer::getProjectionWidth() const noexcept {
+double ScratchProjectionMaths::CScratchProjectionAnalyzer::getProjectionWidth() const noexcept {
     return projection_width;
 }
 
-double ScratchProjectionMaths::CProjectionAnalyzer::getRecommendedSpacingWidth() const noexcept {
+double ScratchProjectionMaths::CScratchProjectionAnalyzer::getRecommendedSpacingWidth() const noexcept {
     return projection_width / 2.0;
 }
 
 Geometry3D::CVector3D
-ScratchProjectionMaths::CProjectionAnalyzer::getCalculationMoveVector(double spacing_width) const noexcept {
-    Geometry3D::CVector3D move_vec = pure_calculation_move_vector;
-    move_vec.setX(move_vec.getX() + spacing_width);
-    return move_vec;
+ScratchProjectionMaths::CScratchProjectionAnalyzer::getCalculationMoveVector(double spacing_width) const noexcept {
+    return pure_calculation_move_vector + Geometry3D::CVector3D{spacing_width, 0.0, 0.0};
 }
 
-Geometry3D::CVector3D ScratchProjectionMaths::CProjectionAnalyzer::getCalculationMoveVector() const noexcept {
-    return getCalculationMoveVector(getRecommendedSpacingWidth());
+Geometry3D::CVector3D ScratchProjectionMaths::CScratchProjectionAnalyzer::getCalculationMoveVector() const noexcept {
+    return getCalculationMoveVector(0.0);
 }
+
+Geometry3D::CPoint3D
+ScratchProjectionMaths::CScratchProjectionAnalyzer::getViewerPoint(double spacing_width) const noexcept {
+    return viewer_point.moveCopy(Geometry3D::CVector3D{spacing_width, 0.0, 0.0});
+}
+
+Geometry3D::CPoint3D ScratchProjectionMaths::CScratchProjectionAnalyzer::getViewerPoint() const noexcept {
+    return getViewerPoint(0.0);
+}
+
+

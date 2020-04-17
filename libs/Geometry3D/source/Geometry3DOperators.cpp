@@ -16,16 +16,16 @@ Geometry3D::CVector3D Geometry3D::operator-(const Geometry3D::AVector3D &left, c
 
 bool Geometry3D::operator==(const Geometry3D::CPoint3D &first, const Geometry3D::CPoint3D &second) {
     return (&first) == (&second) ||
-           (std::fabs(first.getX() - second.getX()) <= std::numeric_limits<double>::epsilon() &&
-            std::fabs(first.getY() - second.getY()) <= std::numeric_limits<double>::epsilon() &&
-            std::fabs(first.getZ() - second.getZ()) <= std::numeric_limits<double>::epsilon());
+           (std::fabs(first.getX() - second.getX()) <= LIB_GEOMETRY3D_EPSILON &&
+            std::fabs(first.getY() - second.getY()) <= LIB_GEOMETRY3D_EPSILON &&
+            std::fabs(first.getZ() - second.getZ()) <= LIB_GEOMETRY3D_EPSILON);
 }
 
 bool Geometry3D::operator==(const Geometry3D::AVector3D &first, const Geometry3D::AVector3D &second) {
     return (&first) == (&second) ||
-           (std::fabs(first.getX() - second.getX()) <= std::numeric_limits<double>::epsilon() &&
-            std::fabs(first.getY() - second.getY()) <= std::numeric_limits<double>::epsilon() &&
-            std::fabs(first.getZ() - second.getZ()) <= std::numeric_limits<double>::epsilon());
+           (std::fabs(first.getX() - second.getX()) <= LIB_GEOMETRY3D_EPSILON &&
+            std::fabs(first.getY() - second.getY()) <= LIB_GEOMETRY3D_EPSILON &&
+            std::fabs(first.getZ() - second.getZ()) <= LIB_GEOMETRY3D_EPSILON);
 }
 
 bool Geometry3D::operator==(const Geometry3D::CLinkedLine3D &first, const Geometry3D::CLinkedLine3D &second) {

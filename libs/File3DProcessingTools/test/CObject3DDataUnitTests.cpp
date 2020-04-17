@@ -128,4 +128,12 @@ namespace CObject3DDataUnitTestsNS {
         EXPECT_EQ(normal_vectors, data.getPolygonNormals());
     }
 
+    TEST_F(CObject3DDataFixture, CObject3DData_setAllEdgesMarked_setEdgeMarked_Test) {
+        auto edge_key = *(data.getPolygons().begin()->getEdges().begin());
+        EXPECT_FALSE(data.getEdge(edge_key).isMarked());
+        data.setEdgeMarked(edge_key, true);
+        EXPECT_TRUE(data.getEdge(edge_key).isMarked());
+        data.setAllEdgesMarked(false);
+        EXPECT_FALSE(data.getEdge(edge_key).isMarked());
+    }
 }

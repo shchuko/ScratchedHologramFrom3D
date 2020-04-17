@@ -2,15 +2,13 @@
 
 #include <cmath>
 #include <limits>
+#include "Geometry3DBase.hpp"
 
 namespace Geometry3D {
     /**
      * @author github.com/Tulesha
      */
     class AVector3D {
-    private:
-        static inline bool isEqualDouble(double x, double y) noexcept;
-
     public:
         /**
          * Get x coordinate

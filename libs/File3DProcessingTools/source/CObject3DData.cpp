@@ -29,7 +29,7 @@ namespace File3DProcessingTools {
         return polygons;
     }
 
-    const CLinkedEdge &CObject3DData::getEdge(edge_map_key_t edge_key) {
+    const CLinkedEdge &CObject3DData::getEdge(const edge_map_key_t &edge_key) {
         return (edges.find(edge_key))->second;
     }
 
@@ -62,5 +62,15 @@ namespace File3DProcessingTools {
             auto &points_pair = edge_data.first;
             edge_data.second.update(vertexes[points_pair.first], vertexes[points_pair.second]);
         }
+    }
+
+    void CObject3DData::setAllEdgesMarked(bool marked_flag) noexcept {
+        for (auto &edge_pair : edges) {
+            edge_pair.second.setMarked(marked_flag);
+        }
+    }
+
+    void CObject3DData::setEdgeMarked(const edge_map_key_t &edge_key, bool marked_flag) noexcept {
+        edges.find(edge_key)->second.setMarked(marked_flag);
     }
 }

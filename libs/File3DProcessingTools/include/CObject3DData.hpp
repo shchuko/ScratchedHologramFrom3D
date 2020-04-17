@@ -31,7 +31,7 @@ namespace File3DProcessingTools {
     public:
         CObject3DData() noexcept = default;
 
-        CObject3DData(const CObject3DData& object3d_data) noexcept;
+        CObject3DData(const CObject3DData &object3d_data) noexcept;
 
         /**
          * Add vertex to vertex storage
@@ -68,7 +68,7 @@ namespace File3DProcessingTools {
          * @param edge_key Edge key stored in CPolygon object
          * @return Reference to Edge object
          */
-        const CLinkedEdge &getEdge(edge_map_key_t edge_key);
+        const CLinkedEdge &getEdge(const edge_map_key_t &edge_key);
 
         /**
          * Get array of polygons' normal vectors
@@ -87,6 +87,19 @@ namespace File3DProcessingTools {
          * @param func Transformation function
          */
         void forEachNormalVector(const std::function<void(Geometry3D::CVector3D &vec)> &func) noexcept;
+
+        /**
+         * Apply marked flag to all edges
+         * @param marked_flag Marked flag value
+         */
+        void setAllEdgesMarked(bool marked_flag) noexcept;
+
+        /**
+         * Set edge's marked flag
+         * @param edge_key Edge key to choose edge
+         * @param marked_flag Marked flag value
+         */
+        void setEdgeMarked(const edge_map_key_t &edge_key, bool marked_flag) noexcept;
 
     private:
         void addEdge(edge_map_key_t points_pair);

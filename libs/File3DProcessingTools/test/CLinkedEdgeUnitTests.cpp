@@ -53,8 +53,8 @@ namespace CLinkedEdgeUnitTestsNS {
     }
 
     TEST(CLinkedEdge, CLinkedLine3D_isPointOnEdge_True_Test) {
-        CPoint3D point_begin{1.0, 2.0, 3.0};
-        CPoint3D point_end{4.0, 5.0, 6.0};
+        CPoint3D point_begin{21.940672063136443, 1.195676, 15.447499000000001};
+        CPoint3D point_end{22.038279063136443, 1.0736680000000001, 15.337692000000001};
 
         CLinkedEdge edge{point_begin, point_end};
 
@@ -63,7 +63,9 @@ namespace CLinkedEdgeUnitTestsNS {
         double point_z = (point_begin.getZ() + point_end.getZ()) / 2;
 
         CPoint3D point_on_line{point_x, point_y, point_z};
+        CPoint3D point_on_line_second{21.940672063136446, 1.195676, 15.447499000000002};
         EXPECT_TRUE(edge.isPointOnEdge(point_on_line)) << "Point between line edges is detected 'Not on edge'";
+        EXPECT_TRUE(edge.isPointOnEdge(point_on_line_second ));
         EXPECT_TRUE(edge.isPointOnEdge(point_begin)) << "point_begin id detected 'Not on edge'";
         EXPECT_TRUE(edge.isPointOnEdge(point_end)) << "point_end id detected 'Not on edge'";
     }
@@ -162,6 +164,19 @@ namespace CLinkedEdgeUnitTestsNS {
         EXPECT_TRUE(std::isinf(crossing_point.getX())) << "X is not NaN: " << crossing_point.getX();
         EXPECT_TRUE(std::isinf(crossing_point.getY())) << "Y is not NaN: " << crossing_point.getY();
         EXPECT_TRUE(std::isinf(crossing_point.getZ())) << "Z is not NaN: " << crossing_point.getZ();
+    }
+
+    TEST(CLinkedEdge, CLinkedEdge_setMarked_isMarked_Test) {
+        CPoint3D point_begin{-4.0, -5.0, 6.0};
+        CPoint3D point_end{-6.0, -1.0, 12.0};
+        CLinkedEdge edge(point_begin, point_end);
+
+        EXPECT_FALSE(edge.isMarked()) << "Edge marked is not false by default";
+
+        edge.setMarked(true);
+        EXPECT_TRUE(edge.isMarked());
+        edge.setMarked(false);
+        EXPECT_FALSE(edge.isMarked());
     }
 
 }
