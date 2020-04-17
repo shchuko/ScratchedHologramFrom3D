@@ -65,7 +65,7 @@ namespace CLinkedEdgeUnitTestsNS {
         CPoint3D point_on_line{point_x, point_y, point_z};
         CPoint3D point_on_line_second{21.940672063136446, 1.195676, 15.447499000000002};
         EXPECT_TRUE(edge.isPointOnEdge(point_on_line)) << "Point between line edges is detected 'Not on edge'";
-        EXPECT_TRUE(edge.isPointOnEdge(point_on_line_second));
+        EXPECT_TRUE(edge.isPointOnEdge(point_on_line_second ));
         EXPECT_TRUE(edge.isPointOnEdge(point_begin)) << "point_begin id detected 'Not on edge'";
         EXPECT_TRUE(edge.isPointOnEdge(point_end)) << "point_end id detected 'Not on edge'";
     }

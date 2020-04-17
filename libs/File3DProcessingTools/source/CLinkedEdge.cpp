@@ -9,6 +9,10 @@ namespace File3DProcessingTools {
     }
 
     bool CLinkedEdge::isPointOnEdge(const Geometry3D::CPoint3D &point) const noexcept {
+        if (point == linked_vector.getPointBegin() || point == linked_vector.getPointEnd()) {
+            return true;
+        }
+
         return isPointBetweenEdgeEndings(point) && linked_line.isPointOnLine(point);
     }
 
@@ -56,14 +60,9 @@ namespace File3DProcessingTools {
         double mul_y = y_vec_first * y_vec_second;
         double mul_z = z_vec_first * z_vec_second;
 
-        auto f_equals_d = [](double a, double b) -> bool {
-            constexpr double EPSILON{0.000000001};
-            return std::abs(a - b) <= EPSILON;
-        };
-
-        return (f_equals_d(mul_x, 0.0) || mul_x < 0.0) &&
-               (f_equals_d(mul_y, 0.0) || mul_y < 0.0) &&
-               (f_equals_d(mul_z, 0.0) || mul_z < 0.0);
+        return (Geometry3D::isEqualDouble(mul_x, 0.0) || mul_x < 0.0) &&
+               (Geometry3D::isEqualDouble(mul_y, 0.0) || mul_y < 0.0) &&
+               (Geometry3D::isEqualDouble(mul_z, 0.0) || mul_z < 0.0);
     }
 
     CLinkedEdge::CLinkedEdge(const Geometry3D::CPoint3D &_point_begin, const Geometry3D::CPoint3D &_point_end) noexcept
