@@ -8,6 +8,7 @@
 
 namespace File2DProcessingTools {
 
+    class CColor_T;
 
     /**
      * Vector graphics storage
@@ -23,6 +24,8 @@ namespace File2DProcessingTools {
         double max_x = -std::numeric_limits<double>::max();
         double max_y = -std::numeric_limits<double>::max();
         std::vector<unsigned int> _widths;
+
+    public:
 
         class CColor_T {
         private:
@@ -97,10 +100,6 @@ namespace File2DProcessingTools {
 
         };
 
-        std::vector<CColor_T> _colors;
-
-    public:
-
 
         CVectorGraphicsData() = default;
 
@@ -143,7 +142,7 @@ namespace File2DProcessingTools {
 
         // Next color should be used for all next added objects
         // Default is black
-        void setNextColor(const CColor_T& color) noexcept;
+        void setNextColor(const CColor_T &color) noexcept;
 
         const std::vector<unsigned int> &getLineSegmentsWidths() const noexcept;
         const std::vector<CColor_T> &getLineSegmentsColors() const noexcept;
@@ -151,6 +150,8 @@ namespace File2DProcessingTools {
     private:
 
         void checkRange(const Geometry2D::CLineSegment2D &line_segment);
+        CColor_T _current_color = CColor_T(CColor_T::COLOR::BLACK);
+        std::vector<CColor_T> _colors;
 
     };
 

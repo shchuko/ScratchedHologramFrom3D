@@ -11,6 +11,7 @@ namespace File2DProcessingTools {
         checkRange(line_segment);
         _data.emplace_back(line_segment);
         _widths.emplace_back(width_pixels);
+        _colors.emplace_back(_current_color);
     }
 
     template<typename InputIterator>
@@ -18,6 +19,7 @@ namespace File2DProcessingTools {
                                               unsigned int width_pixels) noexcept {
         _data.insert(_data.end(), begin, end);
         _widths.emplace_back(width_pixels);
+        _colors.emplace_back(_current_color);
     }
 
     const std::vector<Geometry2D::CLineSegment2D> &CVectorGraphicsData::getLineSegments() const noexcept {
@@ -69,8 +71,8 @@ namespace File2DProcessingTools {
         return min_y;
     }
 
-    void CVectorGraphicsData::setNextColor(const CVectorGraphicsData::CColor_T& color) noexcept {
-        _colors.emplace_back(color);
+    void CVectorGraphicsData::setNextColor(const CVectorGraphicsData::CColor_T &color) noexcept {
+        _current_color = color;
     }
 
     const std::vector<unsigned int> &CVectorGraphicsData::getLineSegmentsWidths() const noexcept {
@@ -180,7 +182,7 @@ namespace File2DProcessingTools {
                 setColor(255, 255, 255);
                 break;
             case CVectorGraphicsData::CColor_T::COLOR::PINK :
-                setColor(153, 51, 153);
+                setColor(255, 20, 147);
                 break;
             case CVectorGraphicsData::CColor_T::COLOR::GREY :
                 setColor(160, 160, 160);

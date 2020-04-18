@@ -77,19 +77,23 @@ namespace File2DProcessingTools {
     void CSvgFileWriter::writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
                                      std::ofstream &svg_file, std::pair<double, double> max,
                                      std::pair<double, double> min) const {
-        for (const auto &line : data.getLineSegments()) {
+        auto colors = data.getLineSegmentsColors();
+        auto widths = data.getLineSegmentsWidths();
+        auto lines = data.getLineSegments();
+        for (long long unsigned int i = 0; i < lines.size(); ++i) {
             svg_file << "<line "
                      << "x1=\""
-                     << scale * (line.getFirstPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << scale * (lines[i].getFirstPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
                      << "y1=\""
-                     << scale * (max.second - min.second - (line.getFirstPoint().getY() - min.second)) +
+                     << scale * (max.second - min.second - (lines[i].getFirstPoint().getY() - min.second)) +
                         double(padding_vertical) / 2 << "\" "
-                        << "x2=\""
-                     << scale * (line.getSecondPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << "x2=\""
+                     << scale * (lines[i].getSecondPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
                      << "y2=\""
-                     << scale * (max.second - min.second - (line.getSecondPoint().getY() - min.second)) +
+                     << scale * (max.second - min.second - (lines[i].getSecondPoint().getY() - min.second)) +
                         double(padding_vertical) / 2 << "\""
-                     << " fill=\"none\" stroke=\"black\" stroke-width=\"1\"  />\n";
+                     << R"( fill="none" stroke=")" + colors[i].getHexStr() + "\" stroke-width=\"" +
+                        std::to_string(widths[i]) + "\"  />\n";
         }
     }
 
