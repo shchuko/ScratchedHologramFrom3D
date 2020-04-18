@@ -10,14 +10,14 @@ namespace File2DProcessingTools {
     CVectorGraphicsData::addLineSegments(Geometry2D::CLineSegment2D line_segment, unsigned int width_pixels) noexcept {
         checkRange(line_segment);
         _data.emplace_back(line_segment);
-        width.emplace_back(width_pixels);
+        _widths.emplace_back(width_pixels);
     }
 
     template<typename InputIterator>
     void CVectorGraphicsData::addLineSegments(InputIterator begin, InputIterator end,
                                               unsigned int width_pixels) noexcept {
         _data.insert(_data.end(), begin, end);
-        width.emplace_back(width_pixels);
+        _widths.emplace_back(width_pixels);
     }
 
     const std::vector<Geometry2D::CLineSegment2D> &CVectorGraphicsData::getLineSegments() const noexcept {
@@ -69,6 +69,18 @@ namespace File2DProcessingTools {
         return min_y;
     }
 
+    void CVectorGraphicsData::setNextColor(const CVectorGraphicsData::CColor_T& color) noexcept {
+        _colors.emplace_back(color);
+    }
+
+    const std::vector<unsigned int> &CVectorGraphicsData::getLineSegmentsWidths() const noexcept {
+        return _widths;
+    }
+
+    const std::vector<CVectorGraphicsData::CColor_T> &CVectorGraphicsData::getLineSegmentsColors() const noexcept {
+        return _colors;
+    }
+
     CVectorGraphicsData::CColor_T::CColor_T(uint8_t red, uint8_t green, uint8_t blue) {
         setColor(red, green, blue);
     }
@@ -112,6 +124,7 @@ namespace File2DProcessingTools {
 
         std::stringstream stream;
         stream << std::hex << color_hex;
+        _hex_color = '#' + color_hex;
         unsigned long int hex_value;
         stream >> hex_value;
 
@@ -173,6 +186,14 @@ namespace File2DProcessingTools {
                 setColor(160, 160, 160);
                 break;
         }
+    }
+
+    CVectorGraphicsData::CColor_T::CColor_T(CVectorGraphicsData::CColor_T::COLOR color) {
+        setColor(color);
+    }
+
+    CVectorGraphicsData::CColor_T::CColor_T() {
+        setColor(CVectorGraphicsData::CColor_T::COLOR::BLACK);
     }
 
 }

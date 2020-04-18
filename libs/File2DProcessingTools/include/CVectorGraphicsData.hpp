@@ -16,12 +16,13 @@ namespace File2DProcessingTools {
     class CVectorGraphicsData {
 
     private:
+
         std::vector<Geometry2D::CLineSegment2D> _data;
         double min_x = std::numeric_limits<double>::max();
         double min_y = std::numeric_limits<double>::max();
         double max_x = -std::numeric_limits<double>::max();
         double max_y = -std::numeric_limits<double>::max();
-        std::vector<unsigned int> width;
+        std::vector<unsigned int> _widths;
 
         class CColor_T {
         private:
@@ -38,6 +39,8 @@ namespace File2DProcessingTools {
                 RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, BLACK, WHITE, PINK, GREY
             };
 
+            CColor_T();
+
             /**
             * Set color from RGB palette
             * @param red - red level
@@ -45,6 +48,12 @@ namespace File2DProcessingTools {
             * @param blue - blue level
             */
             CColor_T(uint8_t red, uint8_t green, uint8_t blue);
+
+            /**
+             * Set color default CVectorGraphicsData::CColor_T::COLOR
+             * @param color - color name
+             */
+            explicit CColor_T(COLOR color);
 
             /**
              * Set color from HEX palette
@@ -88,6 +97,7 @@ namespace File2DProcessingTools {
 
         };
 
+        std::vector<CColor_T> _colors;
 
     public:
 
@@ -130,6 +140,13 @@ namespace File2DProcessingTools {
         double getMinX() const;
 
         double getMinY() const;
+
+        // Next color should be used for all next added objects
+        // Default is black
+        void setNextColor(const CColor_T& color) noexcept;
+
+        const std::vector<unsigned int> &getLineSegmentsWidths() const noexcept;
+        const std::vector<CColor_T> &getLineSegmentsColors() const noexcept;
 
     private:
 
