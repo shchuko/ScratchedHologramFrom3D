@@ -17,24 +17,77 @@ namespace File2DProcessingTools {
 
     private:
         std::vector<Geometry2D::CLineSegment2D> _data;
-        double min_x = std::numeric_limits<double >::max();
-        double min_y = std::numeric_limits<double >::max();
-        double max_x = -std::numeric_limits<double >::max();
-        double max_y = -std::numeric_limits<double >::max();
+        double min_x = std::numeric_limits<double>::max();
+        double min_y = std::numeric_limits<double>::max();
+        double max_x = -std::numeric_limits<double>::max();
+        double max_y = -std::numeric_limits<double>::max();
         std::vector<unsigned int> width;
 
         class CColor_T {
         private:
-            std::string color_rgb{};
-            std::string color_hex{};
+            uint8_t _red{};
+            uint8_t _green{};
+            uint8_t _blue{};
+            std::string _hex_color;
         public:
-            CColor_T(unsigned int red, unsigned int green, unsigned int blue);
-            explicit CColor_T(std::string color_hex);
 
+            /**
+             * Built-in color set
+             */
+            enum COLOR {
+                RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, BLACK, WHITE, PINK, GREY
+            };
+
+            /**
+            * Set color from RGB palette
+            * @param red - red level
+            * @param green - green level
+            * @param blue - blue level
+            */
+            CColor_T(uint8_t red, uint8_t green, uint8_t blue);
+
+            /**
+             * Set color from HEX palette
+             * @throws ENotAColorHex - If the color format is incorrect
+             * @param color_hex - hex color format (#FFF or #FFFFFF)
+             */
+            explicit CColor_T(std::string hex_color);
+
+            /**
+             * Set color from RGB palette
+             * @param red - red level
+             * @param green - green level
+             * @param blue - blue level
+             */
+            void setColor(uint8_t red, uint8_t green, uint8_t blue);
+
+            /**
+             * Set color from HEX palette
+             * @throws ENotAColorHex - If the color format is incorrect
+             * @param color_hex - hex color format (#FFF or #FFFFFF)
+             */
+            void setColor(std::string color_hex);
+
+            /**
+             * Set color default CVectorGraphicsData::CColor_T::COLOR
+             * @param color - color name
+             */
+            void setColor(COLOR color);
+
+            /**
+             * Getter HEX color string
+             * @return color ("#FFFFFF" format)
+             */
             std::string getHexStr();
-            std::string getRGBStr();
+
+            /**
+             * Getter RGB ccolor string
+             * @return color ("255, 255, 255" format)
+             */
+            std::string getRGBStr() const;
 
         };
+
 
     public:
 
