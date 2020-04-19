@@ -32,7 +32,7 @@ namespace File2DProcessingTools {
                     File2DProcessingTools::CVectorGraphicsData::CColor_T::COLOR::GREEN);
 
 
-            //Д
+            //D
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-1150, 200), Geometry2D::CPoint2D(-1150, 250)), 2);
             cVectorGraphicsData.addLineSegments(
@@ -70,7 +70,7 @@ namespace File2DProcessingTools {
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-880, 450), Geometry2D::CPoint2D(-850, 250)), 2);
             cVectorGraphicsData.setNextColor(color);
-            //А
+            //A
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-500, 100), Geometry2D::CPoint2D(-350, 500)), 2);
             cVectorGraphicsData.addLineSegments(
@@ -97,7 +97,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-280, 350), Geometry2D::CPoint2D(-250, 250)), 2);
             color.setColor(File2DProcessingTools::CVectorGraphicsData::CColor_T::COLOR::RED);
             cVectorGraphicsData.setNextColor(color);
-            //Н
+            //N
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(100, 500), Geometry2D::CPoint2D(200, 500)), 2);
             cVectorGraphicsData.addLineSegments(
@@ -124,7 +124,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(100, 100), Geometry2D::CPoint2D(100, 500)), 2);
             color.setColor(File2DProcessingTools::CVectorGraphicsData::CColor_T::COLOR::ORANGE);
             cVectorGraphicsData.setNextColor(color);
-            //Я
+            //YA
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(700, 100), Geometry2D::CPoint2D(700, 200)), 3);
             cVectorGraphicsData.addLineSegments(
@@ -161,7 +161,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(950, 350), Geometry2D::CPoint2D(850, 350)), 3);
             color.setColor(File2DProcessingTools::CVectorGraphicsData::CColor_T::COLOR::BLUE);
             cVectorGraphicsData.setNextColor(color);
-            //П
+            //P
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-1100, -700), Geometry2D::CPoint2D(-1100, -300)), 4);
             cVectorGraphicsData.addLineSegments(
@@ -180,7 +180,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-1000, -700), Geometry2D::CPoint2D(-1100, -700)), 4);
             color.setColor("#FFA5D1");
             cVectorGraphicsData.setNextColor(color);
-            //И
+            //I
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-500, -700), Geometry2D::CPoint2D(-500, -300)), 4);
             cVectorGraphicsData.addLineSegments(
@@ -205,7 +205,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(-400, -700), Geometry2D::CPoint2D(-500, -700)), 4);
             color.setColor(255, 0, 255);
             cVectorGraphicsData.setNextColor(color);
-            //Д
+            //D
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(100, -700), Geometry2D::CPoint2D(50, -600)), 4);
             cVectorGraphicsData.addLineSegments(
@@ -240,7 +240,7 @@ namespace File2DProcessingTools {
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(350, -600), Geometry2D::CPoint2D(250, -600)), 4);
             color.setColor("#ABC");
             cVectorGraphicsData.setNextColor(color);
-            //Р
+            //R
             cVectorGraphicsData.addLineSegments(
                     Geometry2D::CLineSegment2D(Geometry2D::CPoint2D(700, -700), Geometry2D::CPoint2D(700, -300)), 5);
             cVectorGraphicsData.addLineSegments(
