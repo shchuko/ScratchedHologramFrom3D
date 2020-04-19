@@ -6,7 +6,6 @@
 #include <CSvgFileWriter.hpp>
 #include <EFileAlreadyExistsException.hpp>
 #include <algorithm>
-#include <EFileCannotBeOverwritten.hpp>
 
 namespace File2DProcessingTools {
 
