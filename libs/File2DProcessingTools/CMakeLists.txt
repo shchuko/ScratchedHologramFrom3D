@@ -3,7 +3,7 @@ project(File2DProcessingTools)
 file(GLOB File2DProcessingTools_SOURCES ./source/*.cpp)
 file(GLOB File2DProcessingTools_HEADERS ./include/*.hpp)
 
-add_library(File2DProcessingTools SHARED ${File2DProcessingTools_SOURCES} ${File2DProcessingTools_HEADERS} include/ENotAColorHex.hpp source/ENotAColorHex.cpp)
+add_library(File2DProcessingTools SHARED ${File2DProcessingTools_SOURCES} ${File2DProcessingTools_HEADERS})
 target_include_directories(File2DProcessingTools PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(File2DProcessingTools Geometry2D)

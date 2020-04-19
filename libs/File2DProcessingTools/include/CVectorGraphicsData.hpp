@@ -3,7 +3,7 @@
 #include <vector>
 #include <cfloat>
 #include <limits>
-#include "string"
+#include <string>
 #include "CLineSegment2D.hpp"
 
 namespace File2DProcessingTools {

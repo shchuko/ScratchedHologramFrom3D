@@ -1,4 +1,4 @@
-#include "ENotAColorHex.hpp"
+#include <ENotAColorHex.hpp>
 #include <gtest/gtest.h>
 #include <CVectorGraphicsData.hpp>
 
