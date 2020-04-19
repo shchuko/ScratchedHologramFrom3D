@@ -50,47 +50,48 @@ namespace File2DProcessingTools {
          * set canvas Width
          * @param height_px - canvas height
         */
-        void setCanvasHeight(unsigned int height_px) override;
+        void setCanvasHeight(unsigned int height_px) noexcept override;
 
         /**
          * set canvas Width
          * @param width_px - canvas width
         */
-        void setCanvasWidth(unsigned int width_px) override;
+        void setCanvasWidth(unsigned int width_px) noexcept override;
 
         /**
          * Set canvas size
          * @param height_px - canvas height
          * @param width_px - canvas width
          */
-        void setCanvasSize(unsigned int height_px, unsigned int width_px) override;
+        void setCanvasSize(unsigned int height_px, unsigned int width_px) noexcept override;
 
         /** Padding.first = vertical  (up-side, down-side) padding width in pixels
         * Padding.second = horizontal (left-side, right-side) padding width in pixels
         * Rescale input data to fit if needed
         */
-        bool setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px) override;
+        bool setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px) noexcept override;
 
     private:
 
-        void writeBeginning(std::ofstream &svg_file) const;
+        void writeBeginning(std::ofstream &svg_file) const noexcept;
 
-        static void writeEnding(std::ofstream &svg_file);
+        static void writeEnding(std::ofstream &svg_file) noexcept;
 
         void writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
-                         std::ofstream &svg_file, std::pair<double, double> max, std::pair<double, double> min) const;
+                         std::ofstream &svg_file, std::pair<double, double> max,
+                         std::pair<double, double> min) const noexcept;
 
         static bool isFileExists(const std::string &filepath, bool write_force);
 
-        double scaling(unsigned int height, unsigned int width) const;
+        double scaling(unsigned int height, unsigned int width) const noexcept;
 
         static void tryOpenFile(const std::string &filepath, std::ofstream &svg_file, bool write_force);
 
-        void updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min);
+        void updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) noexcept;
 
-        static std::pair<double, double> getMaxXY(const std::vector<CVectorGraphicsData> &data);
+        static std::pair<double, double> getMaxXY(const std::vector<CVectorGraphicsData> &data) noexcept;
 
-        static std::pair<double, double> getMinXY(const std::vector<CVectorGraphicsData> &data);
+        static std::pair<double, double> getMinXY(const std::vector<CVectorGraphicsData> &data) noexcept;
 
     };
 
