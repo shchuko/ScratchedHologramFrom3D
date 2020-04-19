@@ -123,7 +123,11 @@ namespace File2DProcessingTools {
          * @param end End iterator
          */
         template<typename InputIterator>
-        void addLineSegments(InputIterator begin, InputIterator end, unsigned int width_pixels = 1) noexcept;
+        void addLineSegments(InputIterator begin, InputIterator end, unsigned int width_pixels = 1) noexcept {
+            _data.insert(_data.end(), begin, end);
+            _widths.emplace_back(width_pixels);
+            _colors.emplace_back(_current_color);
+        }
 
         /**
          * Get all stored line segments

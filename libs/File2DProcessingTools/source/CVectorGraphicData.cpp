@@ -14,13 +14,6 @@ namespace File2DProcessingTools {
         _colors.emplace_back(_current_color);
     }
 
-    template<typename InputIterator>
-    void CVectorGraphicsData::addLineSegments(InputIterator begin, InputIterator end,
-                                              unsigned int width_pixels) noexcept {
-        _data.insert(_data.end(), begin, end);
-        _widths.emplace_back(width_pixels);
-        _colors.emplace_back(_current_color);
-    }
 
     const std::vector<Geometry2D::CLineSegment2D> &CVectorGraphicsData::getLineSegments() const noexcept {
         return _data;
