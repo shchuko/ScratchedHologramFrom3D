@@ -1,8 +1,7 @@
 #include "CSvgFileWriter.hpp"
 #include <iostream>
-#include <EFileAlreadyExistsException.hpp>
-#include <EFileCannotBeOverwritten.hpp>
-#include <iomanip>
+#include "EFileAlreadyExistsException.hpp"
+#include "EFileCannotBeOverwritten.hpp"
 
 namespace File2DProcessingTools {
 
@@ -63,12 +62,12 @@ namespace File2DProcessingTools {
         return true;
     }
 
-    double CSvgFileWriter::scaling(unsigned int height, unsigned int width) const {
+    double CSvgFileWriter::scaling(unsigned int height, unsigned int width) const noexcept {
         return (double) (_width - padding_horizontal) / width < (double) (_height - padding_vertical) / height ?
                (double) (_width - padding_horizontal) / width : (double) (_height - padding_vertical) / height;
     }
 
-    void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) const {
+    void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) const noexcept {
         svg_file << "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n";
         svg_file << "<svg height = \"" << _height << "px\"  width = \""
                  << _width << "px\" " << "xmlns=\"http://www.w3.org/2000/svg\">\n";
@@ -77,7 +76,7 @@ namespace File2DProcessingTools {
 
     void CSvgFileWriter::writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
                                      std::ofstream &svg_file, std::pair<double, double> max,
-                                     std::pair<double, double> min) const {
+                                     std::pair<double, double> min) const noexcept {
         auto colors = data.getLineSegmentsColors();
         auto widths = data.getLineSegmentsWidths();
         auto lines = data.getLineSegments();
@@ -98,7 +97,7 @@ namespace File2DProcessingTools {
         }
     }
 
-    void CSvgFileWriter::writeEnding(std::ofstream &svg_file) {
+    void CSvgFileWriter::writeEnding(std::ofstream &svg_file) noexcept {
         svg_file << "</svg>\n";
     }
 
@@ -115,7 +114,7 @@ namespace File2DProcessingTools {
 
     }
 
-    std::pair<double, double> CSvgFileWriter::getMaxXY(const std::vector<CVectorGraphicsData> &data) {
+    std::pair<double, double> CSvgFileWriter::getMaxXY(const std::vector<CVectorGraphicsData> &data) noexcept {
         std::pair<double, double> max(-std::numeric_limits<double>::max(), -std::numeric_limits<double>::min());
         for (const auto &item : data) {
             if (item.getMaxX() > max.first) {
@@ -128,7 +127,7 @@ namespace File2DProcessingTools {
         return max;
     }
 
-    std::pair<double, double> CSvgFileWriter::getMinXY(const std::vector<CVectorGraphicsData> &data) {
+    std::pair<double, double> CSvgFileWriter::getMinXY(const std::vector<CVectorGraphicsData> &data) noexcept {
         std::pair<double, double> min(std::numeric_limits<double>::max(), std::numeric_limits<double>::min());
         for (const auto &item : data) {
             if (item.getMinX() < min.first) {
@@ -141,7 +140,7 @@ namespace File2DProcessingTools {
         return min;
     }
 
-    void CSvgFileWriter::updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) {
+    void CSvgFileWriter::updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) noexcept {
         int max_x = std::ceil(max.first);
         int min_x = std::ceil(min.first);
         int max_y = std::ceil(max.second);
@@ -162,20 +161,20 @@ namespace File2DProcessingTools {
         }
     }
 
-    void CSvgFileWriter::setCanvasHeight(unsigned int height_px) {
+    void CSvgFileWriter::setCanvasHeight(unsigned int height_px) noexcept {
         _height = height_px;
     }
 
-    void CSvgFileWriter::setCanvasWidth(unsigned int width_px) {
+    void CSvgFileWriter::setCanvasWidth(unsigned int width_px) noexcept {
         _width = width_px;
     }
 
-    void CSvgFileWriter::setCanvasSize(unsigned int height_px, unsigned int width_px) {
+    void CSvgFileWriter::setCanvasSize(unsigned int height_px, unsigned int width_px) noexcept  {
         _height = height_px;
         _width = width_px;
     }
 
-    bool CSvgFileWriter::setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px) {
+    bool CSvgFileWriter::setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px) noexcept {
         if (padding_px.first >= _width || padding_px.second >= _height) {
             return false;
         }

@@ -37,7 +37,7 @@ namespace File2DProcessingTools {
             /**
              * Built-in color set
              */
-            enum COLOR {
+            enum class COLOR {
                 RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, BLACK, WHITE, PINK, GREY
             };
 
@@ -49,13 +49,13 @@ namespace File2DProcessingTools {
             * @param green - green level
             * @param blue - blue level
             */
-            CColor_T(uint8_t red, uint8_t green, uint8_t blue);
+            CColor_T(uint8_t red, uint8_t green, uint8_t blue) noexcept;
 
             /**
              * Set color default CVectorGraphicsData::CColor_T::COLOR
              * @param color - color name
              */
-            explicit CColor_T(COLOR color);
+            explicit CColor_T(COLOR color) noexcept;
 
             /**
              * Set color from HEX palette
@@ -70,7 +70,7 @@ namespace File2DProcessingTools {
              * @param green - green level
              * @param blue - blue level
              */
-            void setColor(uint8_t red, uint8_t green, uint8_t blue);
+            void setColor(uint8_t red, uint8_t green, uint8_t blue) noexcept;
 
             /**
              * Set color from HEX palette
@@ -83,19 +83,19 @@ namespace File2DProcessingTools {
              * Set color default CVectorGraphicsData::CColor_T::COLOR
              * @param color - color name
              */
-            void setColor(COLOR color);
+            void setColor(COLOR color) noexcept;
 
             /**
              * Getter HEX color string
              * @return color ("#FFFFFF" format)
              */
-            std::string getHexStr();
+            std::string getHexStr() const noexcept;
 
             /**
              * Getter RGB ccolor string
              * @return color ("255, 255, 255" format)
              */
-            std::string getRGBStr() const;
+            std::string getRGBStr() const noexcept;
 
         };
 
@@ -135,24 +135,26 @@ namespace File2DProcessingTools {
          */
         const std::vector<Geometry2D::CLineSegment2D> &getLineSegments() const noexcept;
 
-        double getMaxX() const;
+        double getMaxX() const noexcept;
 
-        double getMaxY() const;
+        double getMaxY() const noexcept;
 
-        double getMinX() const;
+        double getMinX() const noexcept;
 
-        double getMinY() const;
+        double getMinY() const noexcept;
 
         // Next color should be used for all next added objects
         // Default is black
         void setNextColor(const CColor_T &color) noexcept;
 
         const std::vector<unsigned int> &getLineSegmentsWidths() const noexcept;
+
         const std::vector<CColor_T> &getLineSegmentsColors() const noexcept;
 
     private:
 
-        void checkRange(const Geometry2D::CLineSegment2D &line_segment);
+        void checkRange(const Geometry2D::CLineSegment2D &line_segment) noexcept;
+
         CColor_T _current_color;
         std::vector<CColor_T> _colors;
 

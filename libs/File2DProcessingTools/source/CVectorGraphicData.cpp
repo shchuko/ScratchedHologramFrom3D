@@ -1,7 +1,6 @@
 #include <utility>
-#include <ENotAColorHex.hpp>
+#include "ENotAColorHex.hpp"
 #include <sstream>
-
 #include "CVectorGraphicsData.hpp"
 
 namespace File2DProcessingTools {
@@ -20,7 +19,7 @@ namespace File2DProcessingTools {
     }
 
 
-    void CVectorGraphicsData::checkRange(const Geometry2D::CLineSegment2D &line_segment) {
+    void CVectorGraphicsData::checkRange(const Geometry2D::CLineSegment2D &line_segment) noexcept {
         if (line_segment.getFirstPoint().getX() < min_x) {
             min_x = line_segment.getFirstPoint().getX();
         }
@@ -48,19 +47,19 @@ namespace File2DProcessingTools {
 
     }
 
-    double CVectorGraphicsData::getMaxX() const {
+    double CVectorGraphicsData::getMaxX() const noexcept {
         return max_x;
     }
 
-    double CVectorGraphicsData::getMaxY() const {
+    double CVectorGraphicsData::getMaxY() const noexcept {
         return max_y;
     }
 
-    double CVectorGraphicsData::getMinX() const {
+    double CVectorGraphicsData::getMinX() const noexcept {
         return min_x;
     }
 
-    double CVectorGraphicsData::getMinY() const {
+    double CVectorGraphicsData::getMinY() const noexcept {
         return min_y;
     }
 
@@ -76,7 +75,7 @@ namespace File2DProcessingTools {
         return _colors;
     }
 
-    CVectorGraphicsData::CColor_T::CColor_T(uint8_t red, uint8_t green, uint8_t blue) {
+    CVectorGraphicsData::CColor_T::CColor_T(uint8_t red, uint8_t green, uint8_t blue) noexcept{
         setColor(red, green, blue);
     }
 
@@ -85,7 +84,7 @@ namespace File2DProcessingTools {
         setColor(std::move(hex_color));
     }
 
-    void CVectorGraphicsData::CColor_T::setColor(uint8_t red, uint8_t green, uint8_t blue) {
+    void CVectorGraphicsData::CColor_T::setColor(uint8_t red, uint8_t green, uint8_t blue) noexcept {
         _red = red;
         _green = green;
         _blue = blue;
@@ -141,15 +140,15 @@ namespace File2DProcessingTools {
         _blue = blue;
     }
 
-    std::string CVectorGraphicsData::CColor_T::getHexStr() {
+    std::string CVectorGraphicsData::CColor_T::getHexStr() const noexcept {
         return _hex_color;
     }
 
-    std::string CVectorGraphicsData::CColor_T::getRGBStr() const {
+    std::string CVectorGraphicsData::CColor_T::getRGBStr() const noexcept {
         return std::to_string(_red) + ", " + std::to_string(_green) + ", " + std::to_string(_blue);
     }
 
-    void CVectorGraphicsData::CColor_T::setColor(CVectorGraphicsData::CColor_T::COLOR color) {
+    void CVectorGraphicsData::CColor_T::setColor(CVectorGraphicsData::CColor_T::COLOR color) noexcept {
         switch (color) {
             case CVectorGraphicsData::CColor_T::COLOR::RED :
                 setColor(255, 0, 0);
@@ -184,7 +183,7 @@ namespace File2DProcessingTools {
         }
     }
 
-    CVectorGraphicsData::CColor_T::CColor_T(CVectorGraphicsData::CColor_T::COLOR color) {
+    CVectorGraphicsData::CColor_T::CColor_T(CVectorGraphicsData::CColor_T::COLOR color) noexcept {
         setColor(color);
     }
 
