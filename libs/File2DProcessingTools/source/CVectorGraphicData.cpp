@@ -194,8 +194,5 @@ namespace File2DProcessingTools {
         setColor(color);
     }
 
-    CVectorGraphicsData::CColor_T::CColor_T() {
-        setColor(CVectorGraphicsData::CColor_T::COLOR::BLACK);
-    }
 
 }

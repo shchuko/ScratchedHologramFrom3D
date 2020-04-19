@@ -29,10 +29,10 @@ namespace File2DProcessingTools {
 
         class CColor_T {
         private:
-            uint8_t _red{};
-            uint8_t _green{};
-            uint8_t _blue{};
-            std::string _hex_color;
+            uint8_t _red = 0;
+            uint8_t _green = 0;
+            uint8_t _blue = 0;
+            std::string _hex_color = "#000";
         public:
 
             /**
@@ -42,7 +42,7 @@ namespace File2DProcessingTools {
                 RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, BLACK, WHITE, PINK, GREY
             };
 
-            CColor_T();
+            CColor_T() = default;
 
             /**
             * Set color from RGB palette
@@ -150,7 +150,7 @@ namespace File2DProcessingTools {
     private:
 
         void checkRange(const Geometry2D::CLineSegment2D &line_segment);
-        CColor_T _current_color = CColor_T(CColor_T::COLOR::BLACK);
+        CColor_T _current_color;
         std::vector<CColor_T> _colors;
 
     };
