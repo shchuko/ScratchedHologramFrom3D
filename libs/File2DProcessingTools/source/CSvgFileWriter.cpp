@@ -2,6 +2,7 @@
 #include <iostream>
 #include <EFileAlreadyExistsException.hpp>
 #include <EFileCannotBeOverwritten.hpp>
+#include <iomanip>
 
 namespace File2DProcessingTools {
 

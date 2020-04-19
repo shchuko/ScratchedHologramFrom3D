@@ -8,7 +8,6 @@
 
 namespace File2DProcessingTools {
 
-    class CColor_T;
 
     /**
      * Vector graphics storage

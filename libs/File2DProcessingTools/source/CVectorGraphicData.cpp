@@ -143,8 +143,9 @@ namespace File2DProcessingTools {
             green = (green << 4U) + green;
             blue = (blue << 4U) + blue;
         }
-
-        setColor(red, green, blue);
+        _red = red;
+        _green = green;
+        _blue = blue;
     }
 
     std::string CVectorGraphicsData::CColor_T::getHexStr() {
