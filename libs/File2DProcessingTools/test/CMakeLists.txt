@@ -1,6 +1,6 @@
 file(GLOB File2DProcessingTools_TEST_SOURCES ./*.cpp)
 
-add_executable(File2DProcessingToolsUnitTests ${File2DProcessingTools_TEST_SOURCES})
+add_executable(File2DProcessingToolsUnitTests ${File2DProcessingTools_TEST_SOURCES} ENotAColorHexUnitTests.cpp)
 
 target_include_directories(File2DProcessingToolsUnitTests PRIVATE ${File2DProcessingTools_SOURCE_DIR}/include)
 target_include_directories(File2DProcessingToolsUnitTests PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
