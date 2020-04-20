@@ -15,7 +15,7 @@ namespace CliTools {
             options_long_names.insert(std::make_pair(long_name, options.size()));
         }
 
-        option_parsed_flags.emplace_back(false);
+        option_parsed_flags.push_back(false);
         options.emplace_back(option);
     }
 
