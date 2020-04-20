@@ -33,4 +33,18 @@ target_link_libraries(ScratchedHologramFrom3DAppLib ${CMAKE_THREAD_LIBS_INIT})
 add_executable(ScratchedHologramFrom3DApp source/main.cpp)
 target_link_libraries(ScratchedHologramFrom3DApp ScratchedHologramFrom3DAppLib)
 
+set_target_properties(ScratchedHologramFrom3DApp
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        )
+
+set_target_properties(ScratchedHologramFrom3DAppLib
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        )
+
 add_subdirectory(test)
