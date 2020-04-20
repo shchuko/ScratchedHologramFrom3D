@@ -6,7 +6,7 @@ else
   rm -rf build/* || exit 1;
 fi
 
-CLI_BUILD_TARGET="ScratchedHologramFrom3DCLI";
+CLI_BUILD_TARGET="ScratchedHologramFrom3DApp";
 BUILD_NAME="$CLI_BUILD_TARGET"-"$TRAVIS_TAG"-"$TRAVIS_OS_NAME";
 
 cd "build" &&
