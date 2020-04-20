@@ -1,10 +1,17 @@
 #pragma once
 
 
-#include "COption.hpp"
-#include <vector>
+#include <string>
 #include <stack>
+#include <vector>
 #include <unordered_map>
+
+
+#include "EOptionNotPresentInDictionary.hpp"
+#include "ERequiredOptionNotPresent.hpp"
+#include "EUnrecognizedOptionParsed.hpp"
+#include "EValuedOptionWithoutValue.hpp"
+#include "COption.hpp"
 
 namespace CliTools {
 
@@ -17,15 +24,17 @@ namespace CliTools {
     private:
 
         // Storage : key - short name, value : index of option
-        std::unordered_map<char, int> short_name_options;
+        std::unordered_map<char, unsigned long> options_short_names;
         // Storage : key - long name, value : index of option
-        std::unordered_map<std::string, int> long_name_options;
+        std::unordered_map<std::string, unsigned long> options_long_names;
         // Storage : key - index of option in vector of options, value : value of option
-        std::unordered_map<unsigned int, std::string> options_value;
+        std::unordered_map<unsigned long, std::string> options_values;
+
         std::vector<COption> options;
-        std::vector<bool> is_has_option;
-        // Variables without '-'
-        std::vector<std::string> independent_variable;
+        std::vector<bool> option_parsed_flags;
+
+        // Passed values without '-'
+        std::vector<std::string> not_optioned_values;
 
     public:
 
@@ -34,34 +43,34 @@ namespace CliTools {
          * @param argv - The number of entered parameters
          * @param args - Parameter List
          */
-        void parse(int argc, char **args);
+        void parse(int argc, const char *const *args);
 
         /**
          * Add options in dictionary
          * @param option - option data object
          */
-        void addOption(COption option);
+        void addOption(const COption &option) noexcept;
 
         /**
          * Checking for options in the dictionary
          * @param short_name_option - short name of option
          * @return TRUE if there is an option in the dictionary
          */
-        bool isOptionPresent(char short_name_option);
+        bool isOptionPresent(char short_name_option) const;
 
         /**
          * Checking for options in the dictionary
          * @param long_name_option - long name of option
          * @return TRUE if there is an option in the dictionary
          */
-        bool isOptionPresent(const std::string& long_name_option);
+        bool isOptionPresent(const std::string &long_name_option) const;
 
         /**
          * Getting option value
          * @param short_name_option - short name of option
          * @return option value
          */
-        std::string getOptionValue(char short_name_option);
+        std::string getOptionValue(char short_name_option) const;
 
 
         /**
@@ -69,28 +78,30 @@ namespace CliTools {
          * @param long_name_option - long name of option
          * @return option value
          */
-        std::string getOptionValue(const std::string &long_name_option);
+        std::string getOptionValue(const std::string &long_name_option) const;
 
         /**
          * Getting count of arguments without options
          * @return count of arguments without options
          */
-        unsigned int getPureArgsCount();
+        unsigned long getPureArgsCount() const noexcept;
 
         /**
          * Getting argument without option by index
          * @param arg_index - index of argument without option
          * @return value of argument without option
          */
-        std::string getPureArg(unsigned int arg_index);
+        std::string getPureArg(unsigned long arg_index) const noexcept;
 
     private:
 
-        void parseShortOption(std::string short_option, std::stack<int> &sequence);
+        void tryParseShortOption(const std::string &short_options, std::stack<unsigned long> &sequence);
 
-        void checkLongOption(const std::string& long_option, std::stack<int> &sequence);
+        void tryParseLongOption(const std::string &long_name, std::stack<unsigned long> &sequence);
 
-        void parseOptionsOnValid();
+        void checkRequiredOptionsPresent();
+
+        void checkOptionsWithArgHaveArg();
 
     };
 }

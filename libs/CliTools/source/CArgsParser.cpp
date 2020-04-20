@@ -1,56 +1,47 @@
-#include <string>
-#include <EOptionNotPresentInDictionary.hpp>
-#include <iostream>
-#include <ERequiredOptionNotPresent.hpp>
-#include <EUnrecognizedOptionParsed.hpp>
-#include <stack>
-#include <EValuedOptionWithoutValue.hpp>
 #include "CArgsParser.hpp"
 
-class iterator;
+
 namespace CliTools {
 
-    void CArgsParser::addOption(COption option) {
-
+    void CArgsParser::addOption(const COption &option) noexcept {
         char short_name = option.getShortName();
         std::string long_name = option.getLongName();
 
         if (short_name != '\0') {
-            short_name_options.insert(std::pair<char, int>(short_name, options.size()));
+            options_short_names.insert(std::make_pair(short_name, options.size()));
         }
 
         if (!long_name.empty()) {
-            long_name_options.insert(std::pair<std::string, int>(long_name, options.size()));
+            options_long_names.insert(std::make_pair(long_name, options.size()));
         }
 
-        is_has_option.push_back(false);
-        options.push_back(option);
-
+        option_parsed_flags.emplace_back(false);
+        options.emplace_back(option);
     }
 
-    bool CArgsParser::isOptionPresent(char short_name_option) {
-        auto it_short_name = short_name_options.find(short_name_option);
+    bool CArgsParser::isOptionPresent(char short_name_option) const {
+        auto it_short_name = options_short_names.find(short_name_option);
 
-        if (it_short_name == short_name_options.end()) {
+        if (it_short_name == options_short_names.end()) {
             std::string error = std::string("Option name not found: ") + short_name_option;
             throw Exceptions::EOptionNotPresentInDictionary(error);
         }
-        return short_name_options.find(short_name_option) != short_name_options.end();
+        return option_parsed_flags[it_short_name->second];
     }
 
 
-    bool CArgsParser::isOptionPresent(const std::string &long_name_option) {
-        auto it_long_name = long_name_options.find(long_name_option);
-        if (it_long_name == long_name_options.end()) {
+    bool CArgsParser::isOptionPresent(const std::string &long_name_option) const {
+        auto it_long_name = options_long_names.find(long_name_option);
+        if (it_long_name == options_long_names.end()) {
             std::string error = std::string("Option name not found: ") + long_name_option;
             throw Exceptions::EOptionNotPresentInDictionary(error);
         }
-        return long_name_options.find(long_name_option) != long_name_options.end();
+        return option_parsed_flags[it_long_name->second];
     }
 
-    std::string CArgsParser::getOptionValue(const char short_name_option) {
-        auto it_short_name = short_name_options.find(short_name_option);
-        if (it_short_name == short_name_options.end()) {
+    std::string CArgsParser::getOptionValue(const char short_name_option) const {
+        auto it_short_name = options_short_names.find(short_name_option);
+        if (it_short_name == options_short_names.end()) {
             std::string error = std::string("Option name not found: ") + short_name_option;
             throw Exceptions::EOptionNotPresentInDictionary(error);
         }
@@ -59,12 +50,12 @@ namespace CliTools {
             return "";
         }
 
-        return options_value[short_name_options[short_name_option]];
+        return options_values.find(it_short_name->second)->second;
     }
 
-    std::string CArgsParser::getOptionValue(const std::string &long_name_option) {
-        auto it_long_name = long_name_options.find(long_name_option);
-        if (it_long_name == long_name_options.end()) {
+    std::string CArgsParser::getOptionValue(const std::string &long_name_option) const {
+        auto it_long_name = options_long_names.find(long_name_option);
+        if (it_long_name == options_long_names.end()) {
             std::string error = "Option name not found: " + long_name_option;
             throw Exceptions::EOptionNotPresentInDictionary(error);
         }
@@ -73,42 +64,42 @@ namespace CliTools {
             return "";
         }
 
-        return options_value[long_name_options[long_name_option]];
+        return options_values.find(it_long_name->second)->second;
     }
 
-    unsigned int CArgsParser::getPureArgsCount() {
-        return independent_variable.size();
+    unsigned long CArgsParser::getPureArgsCount() const noexcept {
+        return not_optioned_values.size();
     }
 
-    std::string CArgsParser::getPureArg(unsigned int arg_index) {
-        if (independent_variable.size() <= arg_index) {
+    std::string CArgsParser::getPureArg(unsigned long arg_index) const noexcept {
+        if (not_optioned_values.size() <= arg_index) {
             return "";
         }
-        return independent_variable[arg_index];
+        return not_optioned_values[arg_index];
     }
 
-    void CArgsParser::parse(int argc, char **args) {
-        std::stack<int> sequence;
+    void CArgsParser::parse(int argc, const char *const *args) {
+        std::stack<unsigned long> sequence;
         for (int i = 1; i < argc; ++i) {
-
             if (args[i][0] == '-' && args[i][1] != '-') {
                 std::string short_option = std::string(args[i]);
-                parseShortOption(short_option, sequence);
+                tryParseShortOption(short_option, sequence);
             }
 
             if (args[i][0] == '-' && args[i][1] == '-') {
                 std::string long_name = std::string(args[i]).substr(2);
-                checkLongOption(long_name, sequence);
+                tryParseLongOption(long_name, sequence);
             }
 
             if (args[i][0] != '-') {
                 if (sequence.empty()) {
-                    independent_variable.emplace_back(args[i]);
+                    not_optioned_values.emplace_back(args[i]);
                 } else {
                     while (!sequence.empty()) {
-                        if (options[sequence.top()].isHasArgument()) {
+                        unsigned int option_index = sequence.top();
+                        if (options[option_index].isHasArgument()) {
                             std::string value = args[i];
-                            options_value[sequence.top()] = value;
+                            options_values[option_index] = value;
                             sequence.pop();
                         }
                     }
@@ -117,14 +108,13 @@ namespace CliTools {
 
         }
 
-        parseOptionsOnValid();
-
-
+        checkRequiredOptionsPresent();
+        checkOptionsWithArgHaveArg();
     }
 
-    void CArgsParser::parseOptionsOnValid() {
-        for (int i = 0; i < int(options.size()); ++i) {
-            if (options[i].isRequired() && !is_has_option[i]) {
+    void CArgsParser::checkRequiredOptionsPresent() {
+        for (unsigned long i = 0; i < options.size(); ++i) {
+            if (options[i].isRequired() && !option_parsed_flags[i]) {
                 if (!options[i].getLongName().empty()) {
                     std::string error = std::string("Required option not entered: --") + options[i].getLongName();
                     throw Exceptions::ERequiredOptionNotPresent(error);
@@ -132,31 +122,31 @@ namespace CliTools {
                     std::string error = std::string("Required option not entered: -") + options[i].getShortName();
                     throw Exceptions::ERequiredOptionNotPresent(error);
                 }
-
             }
-            auto it_option_value = options_value.find(i);
-            if (options[i].isHasArgument() && it_option_value == options_value.end()) {
+        }
+    }
+
+    void CArgsParser::checkOptionsWithArgHaveArg() {
+        for (unsigned long i = 0; i < options.size(); ++i) {
+            auto it_option_value = options_values.find(i);
+            if (options[i].isHasArgument() && it_option_value == options_values.end()) {
                 if (!options[i].getLongName().empty()) {
-                    std::string error =
-                            "after option --" + options[i].getLongName() + ", which takes a value, there is no value";
+                    std::string error = "Option without value: --" + options[i].getLongName();
                     throw Exceptions::EValuedOptionWithoutValue(error);
                 } else if (options[i].getShortName() != '\0') {
-                    std::string error = std::string("after option -") + options[i].getShortName() +
-                                        std::string(", which takes a value, there is no value");
+                    std::string error = std::string("Option without value: -") + options[i].getShortName();
                     throw Exceptions::EValuedOptionWithoutValue(error);
                 }
             }
-
         }
-
-
     }
 
-    void CArgsParser::parseShortOption(std::string short_options, std::stack<int> &sequence) {
-        for (int j = 1; j < int(short_options.size()); ++j) {
-            auto it_short_name = short_name_options.find(short_options[j]);
-            if (it_short_name != short_name_options.end()) {
-                is_has_option[it_short_name->second] = true;
+
+    void CArgsParser::tryParseShortOption(const std::string &short_options, std::stack<unsigned long> &sequence) {
+        for (unsigned long j = 1; j < short_options.size(); ++j) {
+            auto it_short_name = options_short_names.find(short_options[j]);
+            if (it_short_name != options_short_names.end()) {
+                option_parsed_flags[it_short_name->second] = true;
                 sequence.push(it_short_name->second);
             } else {
                 std::string error = std::string("No options in the dictionary: -") + short_options[j];
@@ -165,10 +155,10 @@ namespace CliTools {
         }
     }
 
-    void CArgsParser::checkLongOption(const std::string& long_name, std::stack<int> &sequence) {
-        auto it_long_name = long_name_options.find(long_name);
-        if (it_long_name != long_name_options.end()) {
-            is_has_option[it_long_name->second] = true;
+    void CArgsParser::tryParseLongOption(const std::string &long_name, std::stack<unsigned long> &sequence) {
+        auto it_long_name = options_long_names.find(long_name);
+        if (it_long_name != options_long_names.end()) {
+            option_parsed_flags[it_long_name->second] = true;
             sequence.push(it_long_name->second);
         } else {
             std::string error = std::string("No options in the dictionary: --") + long_name;

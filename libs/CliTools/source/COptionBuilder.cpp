@@ -1,17 +1,15 @@
 #include "COptionBuilder.hpp"
 
-#include "EOptionBuildError.hpp"
-
 namespace CliTools{
 
     // Add short option name
-    COptionBuilder& COptionBuilder::addShortName(char shortOption) {
+    COptionBuilder& COptionBuilder::addShortName(char shortOption) noexcept {
         cOption.shortName = shortOption;
         return *this;
     }
 
     //Add long option name
-    COptionBuilder& COptionBuilder::addLongName(const std::string& longOption) {
+    COptionBuilder& COptionBuilder::addLongName(const std::string& longOption) noexcept {
         cOption.longName = longOption;
         return *this;
     }
@@ -19,14 +17,14 @@ namespace CliTools{
     // Set argument to option
     // argument - argument to option
     // option_required - Is the argument required
-    COptionBuilder& COptionBuilder::setValue(bool has_argument, bool option_required) {
+    COptionBuilder& COptionBuilder::setValue(bool has_argument, bool option_required) noexcept {
         cOption.option_required = option_required;
         cOption.has_argument = has_argument;
         return *this;
     }
 
     // Add description to option for information about it
-    COptionBuilder& COptionBuilder::addDescription(const std::string& description) {
+    COptionBuilder& COptionBuilder::addDescription(const std::string& description) noexcept {
         cOption.description = description;
         return *this;
     }
@@ -38,11 +36,11 @@ namespace CliTools{
             throw Exceptions::EOptionBuildError("Not enough arguments: full name option, short name option");
         }
 
-        return cOption;
+        return COption(cOption);
     }
 
     // Clear builder data
-    void COptionBuilder::reset() {
+    void COptionBuilder::reset() noexcept {
         cOption.shortName = '\0';
         cOption.longName = "";
         cOption.description = "";
