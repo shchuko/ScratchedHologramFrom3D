@@ -10,11 +10,8 @@
 namespace CliTools {
 
     class CArgsParserFixture : public ::testing::Test {
-
     protected:
-
         void SetUp() override {
-
             //  test parse string
             char file_name[] = "test_file.txt";
             char shorts_name_first[] = "-tr";
@@ -49,7 +46,6 @@ namespace CliTools {
 
 
             cArgsParser.parse(6, test_args);
-
         }
 
         void TearDown() override {
@@ -128,22 +124,28 @@ namespace CliTools {
         EXPECT_TRUE(cArgsParser.isOptionPresent('t'));
     }
 
+    TEST_F(CArgsParserFixture, CArgsParser_addOption_isOptionPresent_with_short_name_False_Test) {
+        EXPECT_FALSE(cArgsParser.isOptionPresent('u'));
+    }
+
 
     TEST_F(CArgsParserFixture, CArgsParser_addOption_isOptionPresent_with_long_name_Test) {
         EXPECT_TRUE(cArgsParser.isOptionPresent("test_long_name_t"));
     }
 
+    TEST_F(CArgsParserFixture, CArgsParser_addOption_isOptionPresent_with_long_name_False_Test) {
+        EXPECT_FALSE(cArgsParser.isOptionPresent("test_long_name_u"));
+    }
+
     TEST_F(CArgsParserFixture, CArgsParser_getOptionValue_with_short_name_Test) {
         const char *expected = "text_second";
-        const char *actual = cArgsParser.getOptionValue('t').c_str();
-        EXPECT_STREQ(expected, actual);
+        EXPECT_STREQ(expected, cArgsParser.getOptionValue('t').c_str());
     }
 
 
     TEST_F(CArgsParserFixture, CArgsParser_getOptionValue_with_long_name_Test) {
         const char *expected = "";
-        const char *actual = cArgsParser.getOptionValue("test_long_name_u").c_str();
-        EXPECT_STREQ(expected, actual);
+        EXPECT_STREQ(expected, cArgsParser.getOptionValue("test_long_name_u").c_str());
     }
 
     TEST_F(CArgsParserFixture, CArgsParser_getOptionValue_Test_with_long_name_Test_exception_checking) {
