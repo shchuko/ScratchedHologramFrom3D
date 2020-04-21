@@ -25,7 +25,7 @@ namespace ScratchProjectionMaths {
         constexpr static double PI_VAL =
                 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899;
 
-        File3DProcessingTools::CObject3DData object;
+        File3DProcessingTools::CObject3DData &object;
         Geometry3D::CPoint3D viewer;
         Geometry3D::CVector3D object_viewer_vec;
 
@@ -51,13 +51,13 @@ namespace ScratchProjectionMaths {
     public:
         /**
          * Setup CScratchProjectionBuilder
-         * @param _object Object to build projection of
+         * @param _object Object to build projection of. Will be modified!
          * @param _viewer Viewer point (can be got from CScratchProjectionAnalyzer)
          * @param _step_width Width between two scratches of one projection. Should be > 0
          * @param _object_convex_flag True of object is convex, false if not or if not only one object
          * @throw std::logic_exception is _step_width <= 0
          */
-        CScratchProjectionBuilder(const File3DProcessingTools::CObject3DData &_object,
+        CScratchProjectionBuilder(File3DProcessingTools::CObject3DData &_object,
                                   Geometry3D::CPoint3D _viewer,
                                   double _step_width,
                                   bool _object_convex_flag = false);
@@ -70,6 +70,7 @@ namespace ScratchProjectionMaths {
 
         /**
          * Build projection
+         * @param out_data Vector Graphics 2D data object to write results in
          * @param _move_vec Object move vector (can be got from CScratchProjectionAnalyzer)
          * @param angle_begin Angle begin projection building from [0, 2pi)
          * @param angle_end Angle end projection building on [0, 2pi)
@@ -78,9 +79,9 @@ namespace ScratchProjectionMaths {
          * @return CVectorGraphicsData object with projection scratches
          * @throw std::logic_error if parameters are not in permitted range
          */
-        File2DProcessingTools::CVectorGraphicsData
-        build(const Geometry3D::AVector3D &_move_vec, double angle_begin, double angle_end, double angle_step,
-              double _scratch_len);
+        void build(File2DProcessingTools::CVectorGraphicsData &out_data,
+                   const Geometry3D::AVector3D &_move_vec, double angle_begin, double angle_end, double angle_step,
+                   double _scratch_len);
 
         /**
          * Set scratch line width
