@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_compile_definitions(PROJECT_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
-
+add_compile_definitions(PROJECT_VERSION_DEF="${PROJECT_VERSION}")
 add_subdirectory(./extern)
 
 add_subdirectory(libs/CliTools)
@@ -29,6 +29,12 @@ target_include_directories(ScratchedHologramFrom3DAppLib PUBLIC ${CMAKE_CURRENT_
 
 find_package(Threads REQUIRED)
 target_link_libraries(ScratchedHologramFrom3DAppLib ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(ScratchedHologramFrom3DAppLib CliTools)
+target_link_libraries(ScratchedHologramFrom3DAppLib File2DProcessingTools)
+target_link_libraries(ScratchedHologramFrom3DAppLib File3DProcessingTools)
+target_link_libraries(ScratchedHologramFrom3DAppLib ScratchProjectionMaths)
+target_link_libraries(ScratchedHologramFrom3DAppLib Geometry3D)
+
 
 add_executable(ScratchedHologramFrom3DApp source/main.cpp)
 target_link_libraries(ScratchedHologramFrom3DApp ScratchedHologramFrom3DAppLib)

@@ -5,6 +5,6 @@
 
 
 TEST(CAppRunner, run) {
-    EXPECT_EQ(0, CAppRunner().run());
+//    EXPECT_EQ(0, ScratchedHologramFrom3D::CAppRunner().run());
 }
 
