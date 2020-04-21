@@ -112,6 +112,13 @@ namespace CliTools {
 
         }
 
+        if (option_parsed_flags[help_option_index]) {
+            reset();
+            help_option_parsed = true;
+            option_parsed_flags[help_option_index] = true;
+            return;
+        }
+
         checkRequiredOptionsPresent();
         checkOptionsWithArgHaveArg();
     }
@@ -176,6 +183,7 @@ namespace CliTools {
         options_short_names.clear();
         options_long_names.clear();
         std::fill(option_parsed_flags.begin(), option_parsed_flags.end(), false);
+        help_option_parsed = false;
     }
 
     std::string CArgsParser::getHelpMessage() const noexcept {
@@ -207,6 +215,33 @@ namespace CliTools {
         }
 
         return stream.str();
+    }
+
+    void CArgsParser::addHelpOption(const COption &help_option) noexcept {
+        if (help_option_enabled) {
+            return;
+        }
+
+
+        char short_name = help_option.getShortName();
+        std::string long_name = help_option.getLongName();
+
+        if (short_name != '\0') {
+            options_short_names.insert(std::make_pair(short_name, options.size()));
+        }
+
+        if (!long_name.empty()) {
+            options_long_names.insert(std::make_pair(long_name, options.size()));
+        }
+
+        option_parsed_flags.push_back(false);
+        options.emplace_back(help_option);
+        help_option_enabled = true;
+        help_option_index = options.size() - 1;
+    }
+
+    bool CArgsParser::isHelpParsed() const noexcept {
+        return help_option_parsed;
     }
 
 

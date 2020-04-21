@@ -36,6 +36,10 @@ namespace CliTools {
         // Passed values without '-'
         std::vector<std::string> not_optioned_values;
 
+        unsigned long help_option_index = 0;
+        bool help_option_enabled = false;
+        bool help_option_parsed = false;
+
     public:
 
         /**
@@ -50,6 +54,18 @@ namespace CliTools {
          * @param option - option data object
          */
         void addOption(const COption &option) noexcept;
+
+        /**
+         * Add help option. If present, disables throwing parse exceptions. Only first invoke makes changes
+         * @param help_option Help option
+         */
+        void addHelpOption(const COption &help_option) noexcept;
+
+        /**
+         * Check is help option parsed.
+         * @return True if parsed, otherwise false
+         */
+        bool isHelpParsed() const noexcept;
 
         /**
          * Checking for options in the dictionary
