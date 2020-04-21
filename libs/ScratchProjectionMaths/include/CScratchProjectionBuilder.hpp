@@ -47,6 +47,7 @@ namespace ScratchProjectionMaths {
 
         std::vector<bool> polygons_visible_flags;
 
+        unsigned int line_width = 1;
     public:
         /**
          * Setup CScratchProjectionBuilder
@@ -81,6 +82,12 @@ namespace ScratchProjectionMaths {
         build(const Geometry3D::AVector3D &_move_vec, double angle_begin, double angle_end, double angle_step,
               double _scratch_len);
 
+        /**
+         * Set scratch line width
+         * @param width Line width in pixels
+         */
+        void setScratchLineWidthPixels(unsigned int width);
+
     private:
         static inline void rotateOz(double &x, double &y, double rotate_angle) noexcept;
 
@@ -107,6 +114,6 @@ namespace ScratchProjectionMaths {
 
         Geometry3D::CPoint3D getPolygonPlaneViewLineCrossingPoint(const File3DProcessingTools::CPolygon &p) noexcept;
 
-        static void addProjectionCenterScratches(File2DProcessingTools::CVectorGraphicsData &out_data) noexcept;
+        void addProjectionCenterScratches(File2DProcessingTools::CVectorGraphicsData &out_data) const noexcept;
     };
 }
