@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(ScratchedHologramFrom3D VERSION 0.0.0)
+project(ScratchedHologramFrom3D VERSION 0.0.1)
 
 enable_testing()
+
+set(CMAKE_INSTALL_PATH "$ORIGIN")
+set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set(CMAKE_CXX_STANDARD 11)
@@ -24,7 +27,7 @@ file(GLOB App_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 file(GLOB App_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 list(REMOVE_ITEM App_SOURCES main.cpp)
 
-add_library(ScratchedHologramFrom3DAppLib ${App_HEADERS} ${App_SOURCES})
+add_library(ScratchedHologramFrom3DAppLib SHARED ${App_HEADERS} ${App_SOURCES})
 target_include_directories(ScratchedHologramFrom3DAppLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 find_package(Threads REQUIRED)

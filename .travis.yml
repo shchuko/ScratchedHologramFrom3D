@@ -1,56 +1,50 @@
 language: cpp
-
 os:
-  - linux
-  - osx
-
+- linux
+- osx
 compiler:
-  - gcc
-  - clang
-
+- gcc
+- clang
 env:
   matrix:
-    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
-    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
-    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-
-
+#  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+#  - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+  - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+  global:
+    secure: A3oHRlVs9L7GIVuZJbA9mnX/rzZIlBBzoPH02IXRTjOrVMROyp0DO5oLPFS0eNGxJQUEyPzile2rLLUA5cbvP6Q+HVR4C1onNeRrYhwJdyKS+33SveszqYC3Cl+T3MZDX+auaUMdGH/2OyVseiOmb1TK18L2ayRenR++tEizTIGwuLsdqk2f7lldnQg+kUmY4sm1t+SyaDoEeSrmjpAClqnu31bvbdC9dMtfCYJ2T9CLry28TuZJbAm/cmHJmIMHsvFLeTA4Q0koE/8GizSakDgzg/DpVqHY/JQ/nmNMUEEm7hENKQooOLB9Yq6Q1vApsa6ntw3Nqm0XI3a0bo6T7DC06Zq/W3g0DROHGCwedVOOBgrSbyDXPwWQ123cQtNgtKYD0H6tBQeSMBqdqn/V2eD72w4bbCKULZU0pdgsa5h6unw9qVMQ8whbmD/D8tA3Km2l0QlbRTs2kRrHSsffdc/3Ju52YCjKFNYKrkLoIGxqDoNSYwY5jRgCpTfx5wPFWiUogLXCY7+ReukLhteRvlfPzkqP0Ti8UY7lltDu7sRoyrdk48REk4kuPSqlnlEYBVuyoCno4tVRLhb5KtxTKY4ZQTDcJOf1HpcX+RqkdTA6XptGCG/9rGJsRfKYeN8l8xYw7WUjljYe/NIjyMkKTslvPeO2YvMsEpg20i4W084=
 jobs:
   exclude:
-    - os: osx
-      compiler: gcc
-    - os: osx
-      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-    - os: osx
-      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-
+  - os: osx
+    compiler: gcc
+#  - os: osx
+#    env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+  - os: osx
+    env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install git-lfs; git lfs install; fi
-
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install git-lfs; git lfs install; fi
 before_script:
-  - git lfs pull
-
+- git lfs pull
 install:
-  - source ci/travis/install-$TRAVIS_OS_NAME.sh
-
+- source ci/travis/install-$TRAVIS_OS_NAME.sh
 script:
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
-  - cmake --build .
-  - ctest --output-on-failure -VV
-  - cd -
-
+- mkdir build
+- cd build
+- cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
+- cmake --build .
+- ctest --output-on-failure -VV
+- cd -
 before_deploy:
-  - source ci/travis/create-deploy-tar-$TRAVIS_OS_NAME.sh
+- source ci/travis/create-deploy-tar-$TRAVIS_OS_NAME.sh
 
 deploy:
+  skip_cleanup: true
   provider: releases
-  file: build/out/*.gz
-  overwrite: true
-  cleanup: false
   api_key:
-    secure: XpwlZS95BCuoAWVNgkwKXR3Mz+ttRSVgUGS+cK3k2WCwD5/nqlKtd7xVy+v8YdnQv4rGq3rpzlVAVvagWC9jtxttS4cn5BVroTyFndmwbSUnZBNCYdXQyqiiYqNLyNvZsl35+Y0lqHPnG8qnNSyKLXwFMNgTeHNlrB8J6OX4iOWA/NS5dOVZokzhk/8t85oK2FMrZFkPC79nN2RWYM4nwJJnopeN8GSOS/3moCM6hmb4mgFyjh+LeNkcZTCPGK8wJ5yA7ayEkD07OkgqlihjCAUF3549EvIZRA9ToO8rKxZL/u3L6R5OoP4ndHkgrrCHPa8QPksCRVpL3DqCC2KBaouafnrergZ98lf+SX4jA8XTeEJShibsiTydv6dreFtIbudPk0L+d90Xb9P771zjDJaP0pdeabb4AA/OYWZKjdRLIwgUN1z/52QUzu8RexXNwY2l5vmOD9CRqFabxcxHnUanLDw4dMBCaqytLrkSC4NLNnjHHco+TRdoPohWwvRNfI+6uqrb4ld1D2cRh0mNSpjKmO6nKSAmYdt/mC2HzXPVBevhncOa1G8vU//F88PQ7aZoSexIhqm4mmuGw9OSjhY/kIzugd64vBIgfFl1WX6lHaAk8tTf40dn6aFhcfow7jxPcnZ8zLENbtj/Y6/RismFwVF4pkNnu4UNbacnKBQ=
+    secure: Dns/n5dQQ5bFTsAN2lpteYl0hb7pHff+WpyrB9UTfuTMQv0iUtHIq/wV/iiwj9nW4OLEymTtsV/kmXydxHIcxhAKRpRtQuuPFT84sPF1aDClqsF5KGxI5hE2UpKADvKlIVOPuZluzUaw8Q/knTmDrhE3MkF9tVxQWZL0Up2wJxQe+XcPLeqMRr3lGtAKXtinOT6JmElp+gWYyOUz4qOrHoK3Bt581dcwhrl8RWhI1q5+ok/SMvc+ofyxPjR8yhNFz3lfs/pe3+UyazIbPYhnBw3j6JKXanR7ZpkHAw6cZDD7gWFXkfn1SZ0Xm52PNd6flRSq9w0yfIQcF1dDIezMvJHUlqakmuYHgp+U81F3Ql62eWrTguBlHjOg5ZxSMKn8Fk4NiVJpBzNQK787M+iWRsQvem+ErPRQNFR0bpxvHKTWsV95IPgty2DidJ/kwC+chR2E6ae1tM0CzMxYv8EV3Hb2/VlkhiQs52R0cXSMywuIHRWmMc/q94+D4rwHJg3M2vuQX55Gl/mAPd9Zz++RZ8bahXJBvCh7WpUdIzlTbRimH8YNvXnqKDWdY2eMaR/qO62Bf1sfuXr1D86/0JJsssYjq4HNFt02IenFQaDWIAsLVdcw/p31d4jGKuxHtgf+maBeYLHEiBjzv9GCTXKuQg3fgEt1dAhrXj83PMORzSg=
+  file: build/out/$BUILD_NAME.tar.gz
+  overwrite: true
   on:
+    repo: shchuko/ScratchedHologramFrom3D
     tags: true
+

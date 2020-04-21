@@ -4,9 +4,9 @@
 
 # ScratchedHologramFrom3D
 
-(in develop, no releases)
-
 Tool to transform a 3D-model into scratches picture, that can be engraved onto semi-reflective material (vinil, aluminium) and used to show fake-hologram.
+
+For more information check project wiki
 
 ## A hologram example
 

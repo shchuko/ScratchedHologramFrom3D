@@ -42,7 +42,7 @@ after_test:
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=../temp/install -G "MinGW Makefiles" ..
   - set target_name=ScratchedHologramFrom3DApp
-  - set build_name=%target_name%_%APPVEYOR_REPO_TAG_NAME%_mingw32
+  - set build_name=%target_name%_%APPVEYOR_REPO_TAG_NAME%_mingw32_win
   - mingw32-make -j8 %target_name%
   - mkdir %build_name%
   - mkdir %build_name%\bin
