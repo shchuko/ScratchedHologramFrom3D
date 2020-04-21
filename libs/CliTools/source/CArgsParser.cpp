@@ -99,20 +99,25 @@ namespace CliTools {
                 if (sequence.empty()) {
                     not_optioned_values.emplace_back(args[i]);
                 } else {
+                    bool option_value_written = false;
                     while (!sequence.empty()) {
                         unsigned int option_index = sequence.top();
+                        sequence.pop();
                         if (options[option_index].isHasArgument()) {
                             std::string value = args[i];
                             options_values.emplace(option_index, value);
-                            sequence.pop();
+                            option_value_written = true;
                         }
+                    }
+                    if (!option_value_written) {
+                        not_optioned_values.emplace_back(args[i]);
                     }
                 }
             }
 
         }
 
-        if (option_parsed_flags[help_option_index]) {
+        if (help_option_enabled && option_parsed_flags[help_option_index]) {
             reset();
             help_option_parsed = true;
             option_parsed_flags[help_option_index] = true;
@@ -139,6 +144,10 @@ namespace CliTools {
 
     void CArgsParser::checkOptionsWithArgHaveArg() {
         for (unsigned long i = 0; i < options.size(); ++i) {
+            if (!option_parsed_flags[i]) {
+                continue;
+            }
+
             auto it_option_value = options_values.find(i);
             if (options[i].isHasArgument() && it_option_value == options_values.end()) {
                 if (!options[i].getLongName().empty()) {
