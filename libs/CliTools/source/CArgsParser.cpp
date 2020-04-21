@@ -190,19 +190,19 @@ namespace CliTools {
         std::stringstream stream;
         std::string::size_type max_long_name = std::numeric_limits<std::string::size_type>::min();
 
-        for (auto option: options) {
+        for (const auto& option: options) {
             if(option.getLongName().size() > max_long_name)
                 max_long_name = option.getLongName().size();
         }
 
-        for (auto option: options) {
+        for (const auto& option: options) {
 
             std::string name_short = option.getShortName() == '\0' ? "" : std::string("-") + option.getShortName() + ", ";
             stream << std::left << std::setw(4) << name_short;
 
 
             std::string name_long = option.getLongName().empty() ? "" : "--" + option.getLongName() + " ";
-            stream << std::left << std::setw( max_long_name+ 3) << name_long;
+            stream << std::left << std::setw(static_cast<int>(max_long_name + 3U)) << name_long;
 
             std::string has_arg = !option.isHasArgument() ? "" : "[arg]";
             stream << std::left << std::setw(5) << has_arg;
