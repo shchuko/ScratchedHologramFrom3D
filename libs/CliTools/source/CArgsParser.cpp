@@ -1,3 +1,7 @@
+#include <sstream>
+#include <iomanip>
+#include <iostream>
+#include <limits>
 #include "CArgsParser.hpp"
 
 
@@ -99,7 +103,7 @@ namespace CliTools {
                         unsigned int option_index = sequence.top();
                         if (options[option_index].isHasArgument()) {
                             std::string value = args[i];
-                            options_values[option_index] = value;
+                            options_values.emplace(option_index, value);
                             sequence.pop();
                         }
                     }
@@ -164,6 +168,45 @@ namespace CliTools {
             std::string error = std::string("No options in the dictionary: --") + long_name;
             throw Exceptions::EUnrecognizedOptionParsed(error);
         }
+    }
+
+    void CArgsParser::reset() noexcept {
+        options_values.clear();
+        not_optioned_values.clear();
+        options_short_names.clear();
+        options_long_names.clear();
+        std::fill(option_parsed_flags.begin(), option_parsed_flags.end(), false);
+    }
+
+    std::string CArgsParser::getHelpMessage() const noexcept {
+        std::stringstream stream;
+        std::string::size_type max_long_name = std::numeric_limits<std::string::size_type>::min();
+
+        for (auto option: options) {
+            if(option.getLongName().size() > max_long_name)
+                max_long_name = option.getLongName().size();
+        }
+
+        for (auto option: options) {
+
+            std::string name_short = option.getShortName() == '\0' ? "" : std::string("-") + option.getShortName() + ", ";
+            stream << std::left << std::setw(4) << name_short;
+
+
+            std::string name_long = option.getLongName().empty() ? "" : "--" + option.getLongName() + " ";
+            stream << std::left << std::setw( max_long_name+ 3) << name_long;
+
+            std::string has_arg = !option.isHasArgument() ? "" : "[arg]";
+            stream << std::left << std::setw(5) << has_arg;
+
+            std::string has_req = !option.isRequired() ? "" : " {required}";
+            stream << std::left << std::setw(11) << has_req;
+
+            stream << " - " << option.getDescription() << std::endl;
+
+        }
+
+        return stream.str();
     }
 
 
