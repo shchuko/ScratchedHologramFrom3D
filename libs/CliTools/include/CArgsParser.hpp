@@ -93,6 +93,10 @@ namespace CliTools {
          */
         std::string getPureArg(unsigned long arg_index) const noexcept;
 
+        void reset() noexcept;
+
+        std::string getHelpMessage() const noexcept;
+
     private:
 
         void tryParseShortOption(const std::string &short_options, std::stack<unsigned long> &sequence);
