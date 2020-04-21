@@ -28,12 +28,12 @@ namespace File3DProcessingTools {
         std::ifstream fin;
         std::string next_line;
 
-        bool parseNextLine(CObject3DData &output_data) noexcept;
+        bool parseNextLine(CObject3DData &output_data);
 
-        void parseVertexData(CObject3DData &output_data) noexcept;
+        void parseVertexData(CObject3DData &output_data);
 
-        void parseNormalVectorData(CObject3DData &output_data) noexcept;
+        void parseNormalVectorData(CObject3DData &output_data);
 
-        bool parsePolygonData(CObject3DData &output_data) noexcept;
+        bool parsePolygonData(CObject3DData &output_data);
     };
 }

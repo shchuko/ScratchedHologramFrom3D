@@ -9,6 +9,7 @@
 
 namespace EFile3DReadErrorUnitTestsNS {
     using namespace File3DProcessingTools;
+    using namespace File3DProcessingTools::Exceptions;
 
     TEST(EFile3DReadError, EFile3DReadError_defaut_constructor_what_Test) {
         EFile3DReadError exception;

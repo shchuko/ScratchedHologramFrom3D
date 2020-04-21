@@ -10,30 +10,32 @@
 
 
 namespace File3DProcessingTools {
-    /**
-     * 3D-File reading exception
-     */
-    class EFile3DReadError : public std::exception {
-    private:
-        std::string cause;
-
-    public:
+    namespace Exceptions {
         /**
-         * Default constructor
+         * 3D-File reading exception
          */
-        EFile3DReadError() = default;
+        class EFile3DReadError : public std::exception {
+        private:
+            std::string cause;
 
-        /**
-         * Parametrized constructor with cause message
-         * @param _cause Exception throw reason description
-         */
-        explicit EFile3DReadError(std::string _cause);
+        public:
+            /**
+             * Default constructor
+             */
+            EFile3DReadError() = default;
 
-        /**
-         * Get exception throw reason
-         * @return Exception throw reason description
-         */
-        const char *what() const noexcept override;
-    };
+            /**
+             * Parametrized constructor with cause message
+             * @param _cause Exception throw reason description
+             */
+            explicit EFile3DReadError(std::string _cause);
 
+            /**
+             * Get exception throw reason
+             * @return Exception throw reason description
+             */
+            const char *what() const noexcept override;
+        };
+
+    }
 }
