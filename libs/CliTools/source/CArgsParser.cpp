@@ -99,17 +99,29 @@ namespace CliTools {
                 if (sequence.empty()) {
                     not_optioned_values.emplace_back(args[i]);
                 } else {
+                    bool option_value_written = false;
                     while (!sequence.empty()) {
                         unsigned int option_index = sequence.top();
+                        sequence.pop();
                         if (options[option_index].isHasArgument()) {
                             std::string value = args[i];
                             options_values.emplace(option_index, value);
-                            sequence.pop();
+                            option_value_written = true;
                         }
+                    }
+                    if (!option_value_written) {
+                        not_optioned_values.emplace_back(args[i]);
                     }
                 }
             }
 
+        }
+
+        if (help_option_enabled && option_parsed_flags[help_option_index]) {
+            reset();
+            help_option_parsed = true;
+            option_parsed_flags[help_option_index] = true;
+            return;
         }
 
         checkRequiredOptionsPresent();
@@ -132,6 +144,10 @@ namespace CliTools {
 
     void CArgsParser::checkOptionsWithArgHaveArg() {
         for (unsigned long i = 0; i < options.size(); ++i) {
+            if (!option_parsed_flags[i]) {
+                continue;
+            }
+
             auto it_option_value = options_values.find(i);
             if (options[i].isHasArgument() && it_option_value == options_values.end()) {
                 if (!options[i].getLongName().empty()) {
@@ -176,25 +192,26 @@ namespace CliTools {
         options_short_names.clear();
         options_long_names.clear();
         std::fill(option_parsed_flags.begin(), option_parsed_flags.end(), false);
+        help_option_parsed = false;
     }
 
     std::string CArgsParser::getHelpMessage() const noexcept {
         std::stringstream stream;
         std::string::size_type max_long_name = std::numeric_limits<std::string::size_type>::min();
 
-        for (auto option: options) {
+        for (const auto& option: options) {
             if(option.getLongName().size() > max_long_name)
                 max_long_name = option.getLongName().size();
         }
 
-        for (auto option: options) {
+        for (const auto& option: options) {
 
             std::string name_short = option.getShortName() == '\0' ? "" : std::string("-") + option.getShortName() + ", ";
             stream << std::left << std::setw(4) << name_short;
 
 
             std::string name_long = option.getLongName().empty() ? "" : "--" + option.getLongName() + " ";
-            stream << std::left << std::setw( max_long_name+ 3) << name_long;
+            stream << std::left << std::setw(static_cast<int>(max_long_name + 3U)) << name_long;
 
             std::string has_arg = !option.isHasArgument() ? "" : "[arg]";
             stream << std::left << std::setw(5) << has_arg;
@@ -207,6 +224,33 @@ namespace CliTools {
         }
 
         return stream.str();
+    }
+
+    void CArgsParser::addHelpOption(const COption &help_option) noexcept {
+        if (help_option_enabled) {
+            return;
+        }
+
+
+        char short_name = help_option.getShortName();
+        std::string long_name = help_option.getLongName();
+
+        if (short_name != '\0') {
+            options_short_names.insert(std::make_pair(short_name, options.size()));
+        }
+
+        if (!long_name.empty()) {
+            options_long_names.insert(std::make_pair(long_name, options.size()));
+        }
+
+        option_parsed_flags.push_back(false);
+        options.emplace_back(help_option);
+        help_option_enabled = true;
+        help_option_index = options.size() - 1;
+    }
+
+    bool CArgsParser::isHelpParsed() const noexcept {
+        return help_option_parsed;
     }
 
 

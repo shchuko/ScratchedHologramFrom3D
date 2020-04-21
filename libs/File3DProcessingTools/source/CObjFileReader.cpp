@@ -7,19 +7,27 @@ namespace File3DProcessingTools {
     void CObjFileReader::readFile(const std::string &filepath, CObject3DData &output_data) {
         fin.open(filepath);
         if (!fin.is_open()) {
-            throw EFile3DReadError("File_open_error");
+            throw Exceptions::EFile3DReadError("File_open_error");
         }
 
         while (!fin.eof()) {
             std::getline(fin, next_line);
-            if (!parseNextLine(output_data)) {
-                throw EFile3DReadError("No_normals_data_in_obj_file");
+            bool parse_line_success = false;
+            try {
+                parse_line_success = parseNextLine(output_data);
+            } catch (...) {
+                fin.close();
+                throw Exceptions::EFile3DReadError("File content parsing error");
+            }
+            if (!parse_line_success) {
+                fin.close();
+                throw Exceptions::EFile3DReadError("No_normals_data_in_obj_file");
             }
         }
         fin.close();
     }
 
-    bool CObjFileReader::parseNextLine(CObject3DData &output_data) noexcept {
+    bool CObjFileReader::parseNextLine(CObject3DData &output_data) {
         if (next_line.size() < 2)
             return true;
 
@@ -40,7 +48,7 @@ namespace File3DProcessingTools {
         return true;
     }
 
-    void CObjFileReader::parseVertexData(CObject3DData &output_data) noexcept {
+    void CObjFileReader::parseVertexData(CObject3DData &output_data) {
         std::array<double, 3> coordinates{};
         int fill_index = 0;
 
@@ -70,7 +78,7 @@ namespace File3DProcessingTools {
         output_data.addVertex({coordinates[0], coordinates[1], coordinates[2]});
     }
 
-    void CObjFileReader::parseNormalVectorData(CObject3DData &output_data) noexcept {
+    void CObjFileReader::parseNormalVectorData(CObject3DData &output_data) {
         std::array<double, 3> coordinates{};
         int fill_index = 0;
 
@@ -99,7 +107,7 @@ namespace File3DProcessingTools {
         output_data.addPolygonNormal({coordinates[0], coordinates[1], coordinates[2]});
     }
 
-    bool CObjFileReader::parsePolygonData(CObject3DData &output_data) noexcept {
+    bool CObjFileReader::parsePolygonData(CObject3DData &output_data) {
         std::vector<vrtx_size_t> polygon_vertexes{};
         nrml_size_t polygon_normal_index;
         long int vertex_number;

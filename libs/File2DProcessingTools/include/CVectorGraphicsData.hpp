@@ -4,6 +4,11 @@
 #include <cfloat>
 #include <limits>
 #include <string>
+#include <utility>
+#include <sstream>
+#include <iomanip>
+
+#include "ENotAColorHex.hpp"
 #include "CLineSegment2D.hpp"
 
 namespace File2DProcessingTools {

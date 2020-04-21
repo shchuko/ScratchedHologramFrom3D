@@ -9,6 +9,7 @@
 
 namespace CObjFileReaderUnitTestsNS {
     using namespace File3DProcessingTools;
+    using namespace File3DProcessingTools::Exceptions;
 
     class CObjFileReaderFixture : public ::testing::Test {
     private:

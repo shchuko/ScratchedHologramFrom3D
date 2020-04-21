@@ -5,7 +5,7 @@
 #include "CScratchProjectionBuilder.hpp"
 
 ScratchProjectionMaths::CScratchProjectionBuilder::CScratchProjectionBuilder(
-        const File3DProcessingTools::CObject3DData &_object, Geometry3D::CPoint3D _viewer, double _step_width,
+        File3DProcessingTools::CObject3DData &_object, Geometry3D::CPoint3D _viewer, double _step_width,
         bool _object_convex_flag)
         : object{_object}, viewer{_viewer},
           convex_flag{_object_convex_flag}, view_vec{viewer, viewer}, view_line{view_vec, viewer} {
@@ -25,8 +25,9 @@ void ScratchProjectionMaths::CScratchProjectionBuilder::setStepWidth(double _ste
     step_width = _step_width;
 }
 
-File2DProcessingTools::CVectorGraphicsData
-ScratchProjectionMaths::CScratchProjectionBuilder::build(const Geometry3D::AVector3D &_move_vec, double angle_begin,
+void
+ScratchProjectionMaths::CScratchProjectionBuilder::build(File2DProcessingTools::CVectorGraphicsData &out_data,
+                                                         const Geometry3D::AVector3D &_move_vec, double angle_begin,
                                                          double angle_end, double angle_step, double _scratch_len) {
     // Throws exceptions
     checkAngles(angle_begin, angle_end, angle_step);
@@ -41,13 +42,14 @@ ScratchProjectionMaths::CScratchProjectionBuilder::build(const Geometry3D::AVect
 
     updateObjectViewerVec();
 
-    File2DProcessingTools::CVectorGraphicsData out_data;
-
     current_angle = 0.0;
     next_angle = angle_begin;
     doFirstMove();
     doRotateStep();
     updatePolygonsVisibleFlags();
+
+    using Color_T = File2DProcessingTools::CVectorGraphicsData::CColor_T;
+    out_data.setNextColor(Color_T{Color_T::COLOR::BLACK});
 
     while (current_angle < angle_end) {
         updatePolygonsVisibleFlags();
@@ -64,9 +66,14 @@ ScratchProjectionMaths::CScratchProjectionBuilder::build(const Geometry3D::AVect
     scratch_len_2 = 0.0;
     view_vec.setPointEnd(viewer);
 
+    out_data.setNextColor(Color_T{Color_T::COLOR::RED});
     addProjectionCenterScratches(out_data);
 
-    return out_data;
+
+    // Reset
+    current_angle = 0.0;
+    next_angle = 0.0;
+    std::fill(std::begin(polygons_visible_flags), std::end(polygons_visible_flags), true);
 }
 
 void ScratchProjectionMaths::CScratchProjectionBuilder::rotateOz(double &x, double &y, double rotate_angle) noexcept {
@@ -105,16 +112,17 @@ void ScratchProjectionMaths::CScratchProjectionBuilder::doFirstMove() noexcept {
 }
 
 void
-ScratchProjectionMaths::CScratchProjectionBuilder::checkAngles(double _angle_begin, double _angle_end, double _d_angle) {
-    if (_angle_begin >= PI_VAL * 2 || _angle_begin < 0.0) {
+ScratchProjectionMaths::CScratchProjectionBuilder::checkAngles(double _angle_begin, double _angle_end,
+                                                               double _d_angle) {
+    if (_angle_begin > PI_VAL * 2 || _angle_begin < 0.0) {
         throw std::logic_error("angle_begin should be in [0, 2Pi)");
     }
 
-    if (_angle_end >= PI_VAL * 2 || _angle_end < 0.0) {
+    if (_angle_end > PI_VAL * 2 || _angle_end < 0.0) {
         throw std::logic_error("angle_end should be in [0, 2Pi)");
     }
 
-    if (_d_angle >= PI_VAL * 2 || _d_angle < 0.0) {
+    if (_d_angle > PI_VAL * 2 || _d_angle < 0.0) {
         throw std::logic_error("d_angle should be in [0, 2Pi)");
     }
 
@@ -225,7 +233,7 @@ void ScratchProjectionMaths::CScratchProjectionBuilder::doPolygonEdgesProjection
                         edge_proj_begin.getY() + scratch_vec_half.getY()};
                 Geometry2D::CPoint2D scratch_end_point = {edge_proj_begin.getX() - scratch_vec_half.getX(),
                                                           edge_proj_begin.getY() - scratch_vec_half.getY()};
-                out_data.addLineSegments({scratch_begin_point, scratch_end_point});
+                out_data.addLineSegments({scratch_begin_point, scratch_end_point}, line_width);
             } else {
                 double rotated_proj_x = edge_proj_begin.getX();
                 double rotated_proj_y = edge_proj_begin.getY();
@@ -244,7 +252,7 @@ void ScratchProjectionMaths::CScratchProjectionBuilder::doPolygonEdgesProjection
                             edge_proj_begin.getX() - scratch_vec_half.getX(),
                             edge_proj_begin.getY() - scratch_vec_half.getY()};
 
-                    out_data.addLineSegments({scratch_begin_point, scratch_end_point});
+                    out_data.addLineSegments({scratch_begin_point, scratch_end_point}, line_width);
                 }
             }
 
@@ -397,17 +405,21 @@ Geometry3D::CPoint3D ScratchProjectionMaths::CScratchProjectionBuilder::getPolyg
 }
 
 void ScratchProjectionMaths::CScratchProjectionBuilder::addProjectionCenterScratches(
-        File2DProcessingTools::CVectorGraphicsData &out_data) noexcept {
+        File2DProcessingTools::CVectorGraphicsData &out_data) const noexcept {
     out_data.addLineSegments({{-0.5, 0},
-                              {0.5,  0}});
+                              {0.5,  0}}, line_width);
     out_data.addLineSegments({{0, -0.5},
-                              {0, 0.5}});
+                              {0, 0.5}}, line_width);
     out_data.addLineSegments({{-0.5, -0.1},
-                              {-0.5, 0.1}});
+                              {-0.5, 0.1}}, line_width);
     out_data.addLineSegments({{0.5, -0.1},
-                              {0.5, 0.1}});
+                              {0.5, 0.1}}, line_width);
     out_data.addLineSegments({{-0.1, -0.5},
-                              {0.1,  -0.5}});
+                              {0.1,  -0.5}}, line_width);
     out_data.addLineSegments({{-0.1, 0.5},
-                              {0.1,  0.5}});
+                              {0.1,  0.5}}, line_width);
+}
+
+void ScratchProjectionMaths::CScratchProjectionBuilder::setScratchLineWidthPixels(unsigned int width) {
+    line_width = width;
 }

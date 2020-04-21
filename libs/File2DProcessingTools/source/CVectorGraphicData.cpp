@@ -1,6 +1,3 @@
-#include <utility>
-#include "ENotAColorHex.hpp"
-#include <sstream>
 #include "CVectorGraphicsData.hpp"
 
 namespace File2DProcessingTools {
@@ -95,7 +92,7 @@ namespace File2DProcessingTools {
         value |= (static_cast<unsigned int>(blue) << 0U);
 
         std::stringstream stream;
-        stream << '#' << std::uppercase << std::hex << value;
+        stream << '#' << std::uppercase << std::setw(6) << std::setfill('0') << std::left << std::hex << value;
         _hex_color = stream.str();
 
     }

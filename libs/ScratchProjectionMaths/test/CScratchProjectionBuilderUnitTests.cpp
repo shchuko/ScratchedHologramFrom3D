@@ -34,22 +34,22 @@ namespace CProjectionBuilderUnitTestsNS {
         CVector3D move_vector;
         CScratchProjectionBuilder builder(in_data, {0, 0, 0}, 1);
 
-        EXPECT_NO_THROW(builder.build(move_vector, 0.1, 3.14, 0.3, 0.1));
+        EXPECT_NO_THROW(builder.build(out_data, move_vector, 0.1, 3.14, 0.3, 0.1));
 
         // 2nd arg
-        EXPECT_THROW(builder.build(move_vector, -0.1, 3.14, 0.3, 0.1), std::logic_error);
-        EXPECT_THROW(builder.build(move_vector, 6.284, 3.14, 0.3, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, -0.1, 3.14, 0.3, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 6.284, 3.14, 0.3, 0.1), std::logic_error);
 
         // 3rd arg
-        EXPECT_THROW(builder.build(move_vector, 0.1, -0.1, 0.3, 0.1), std::logic_error);
-        EXPECT_THROW(builder.build(move_vector, 0.1, 6.284, 0.3, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 0.1, -0.1, 0.3, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 0.1, 6.284, 0.3, 0.1), std::logic_error);
 
         // 4th arg
-        EXPECT_THROW(builder.build(move_vector, 0.1, 0.2, -0.1, 0.1), std::logic_error);
-        EXPECT_THROW(builder.build(move_vector, 0.1, 0.3, 6.284, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 0.1, 0.2, -0.1, 0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 0.1, 0.3, 6.284, 0.1), std::logic_error);
 
         // 5th arg
-        EXPECT_THROW(builder.build(move_vector, 0.1, 0.2, 0.2, -0.1), std::logic_error);
+        EXPECT_THROW(builder.build(out_data, move_vector, 0.1, 0.2, 0.2, -0.1), std::logic_error);
     }
 
 }
