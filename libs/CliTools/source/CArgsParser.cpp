@@ -85,7 +85,7 @@ namespace CliTools {
     void CArgsParser::parse(int argc, const char *const *args) {
         std::stack<unsigned long> sequence;
         for (int i = 1; i < argc; ++i) {
-            if (args[i][0] == '-' && args[i][1] != '-') {
+            if (args[i][0] == '-' && args[i][1] != '-' && !std::isdigit(args[i][1])) {
                 std::string short_option = std::string(args[i]);
                 tryParseShortOption(short_option, sequence);
             }
@@ -95,7 +95,7 @@ namespace CliTools {
                 tryParseLongOption(long_name, sequence);
             }
 
-            if (args[i][0] != '-') {
+            if (args[i][0] != '-' || std::isdigit(args[i][1])) {
                 if (sequence.empty()) {
                     not_optioned_values.emplace_back(args[i]);
                 } else {

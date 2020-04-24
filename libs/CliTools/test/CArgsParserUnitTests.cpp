@@ -129,6 +129,34 @@ namespace CliTools {
         EXPECT_TRUE(isExpected);
     }
 
+    TEST(CArgsParser, CArgsParser_parse_Negative_numbers_Test) {
+        COptionBuilder cOptionBuilder;
+        cOptionBuilder.addShortName('t');
+        cOptionBuilder.setValue(true, false);
+        CArgsParser cArgsParser;
+        cArgsParser.addOption(cOptionBuilder.build());
+        cOptionBuilder.reset();
+        cOptionBuilder.addShortName('r');
+        cOptionBuilder.setValue(true, false);
+        cArgsParser.addOption(cOptionBuilder.build());
+        char name_option1[] = "-t";
+        char name_option2[] = "-r";
+        char argument1[] = "-14";
+        char argument2[] = "test";
+        char **test_parse = new char *[5];
+        test_parse[1] = name_option1;
+        test_parse[2] = argument1;
+        test_parse[3] = name_option2;
+        test_parse[4] = argument2;
+        bool isExpected = true;
+        try {
+            cArgsParser.parse(5, test_parse);
+        } catch (...) {
+            isExpected = false;
+        }
+        EXPECT_TRUE(isExpected);
+    }
+
     TEST_F(CArgsParserFixture, CArgsParser_addOption_isOptionPresent_with_short_name_Test) {
         EXPECT_TRUE(cArgsParser.isOptionPresent('t'));
     }
