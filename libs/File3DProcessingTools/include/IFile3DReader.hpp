@@ -20,5 +20,9 @@ namespace File3DProcessingTools {
          * @throw File3DProcessingTools::EFile3DReadError if file can't be read
          */
         virtual void readFile(const std::string &filepath, CObject3DData& output_data) = 0;
+
+        virtual ~IFile3DReader() = 0;
     };
+
+    inline IFile3DReader::~IFile3DReader() = default;
 }
