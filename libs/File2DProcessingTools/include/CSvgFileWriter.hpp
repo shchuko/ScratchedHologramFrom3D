@@ -23,7 +23,7 @@ namespace File2DProcessingTools {
 
     public:
 
-        CSvgFileWriter() noexcept = default;
+        CSvgFileWriter() = default;
 
         /**
          * Constructor for adjusting canvas size
