@@ -3,7 +3,12 @@ project(CliTools)
 file(GLOB CliTools_SOURCES ./source/*.cpp)
 file(GLOB CliTools_HEADERS ./include/*.hpp)
 
-add_library(CliTools SHARED ${CliTools_SOURCES} ${CliTools_HEADERS})
+if (SCRATCH_STATIC_LIB_LINKING)
+    add_library(CliTools STATIC ${CliTools_SOURCES} ${CliTools_HEADERS})
+else (SCRATCH_STATIC_LIB_LINKING)
+    add_library(CliTools SHARED ${CliTools_SOURCES} ${CliTools_HEADERS})
+endif (SCRATCH_STATIC_LIB_LINKING)
+
 target_include_directories(CliTools PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set_target_properties(CliTools
@@ -13,4 +18,6 @@ set_target_properties(CliTools
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
-add_subdirectory(test)
+if (NOT DISABLE_TESTING)
+    add_subdirectory(test)
+endif (NOT DISABLE_TESTING)
