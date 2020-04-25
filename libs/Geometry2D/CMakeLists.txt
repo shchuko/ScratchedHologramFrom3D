@@ -3,7 +3,12 @@ project(Geometry2D)
 file(GLOB Geometry2D_SOURCES ./source/*.cpp)
 file(GLOB Geometry2D_HEADERS ./include/*.hpp)
 
-add_library(Geometry2D SHARED ${Geometry2D_SOURCES} ${Geometry2D_HEADERS})
+if (SCRATCH_STATIC_LIB_LINKING)
+    add_library(Geometry2D STATIC ${Geometry2D_SOURCES} ${Geometry2D_HEADERS})
+else (SCRATCH_STATIC_LIB_LINKING)
+    add_library(Geometry2D SHARED ${Geometry2D_SOURCES} ${Geometry2D_HEADERS})
+endif (SCRATCH_STATIC_LIB_LINKING)
+
 target_include_directories(Geometry2D PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set_target_properties(Geometry2D
@@ -13,4 +18,6 @@ set_target_properties(Geometry2D
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
-add_subdirectory(test)
+if (NOT DISABLE_TESTING)
+    add_subdirectory(test)
+endif (NOT DISABLE_TESTING)
