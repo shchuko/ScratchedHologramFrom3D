@@ -87,7 +87,7 @@ namespace CliTools {
         for (int i = 1; i < argc; ++i) {
             if (args[i][0] == '-' && args[i][1] != '-' && !std::isdigit(args[i][1])) {
                 std::string short_option = std::string(args[i]);
-                tryParseShortOption(short_option, sequence);
+                 tryParseShortOption(short_option, sequence);
             }
 
             if (args[i][0] == '-' && args[i][1] == '-') {

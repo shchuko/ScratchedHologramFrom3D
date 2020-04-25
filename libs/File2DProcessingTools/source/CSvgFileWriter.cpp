@@ -46,7 +46,7 @@ namespace File2DProcessingTools {
         svg_file.close();
     }
 
-    CSvgFileWriter::CSvgFileWriter(unsigned int height, unsigned int width) noexcept {
+    CSvgFileWriter::CSvgFileWriter(double height, double width) noexcept {
         _height = height;
         _width = width;
     }
@@ -62,7 +62,7 @@ namespace File2DProcessingTools {
         return true;
     }
 
-    double CSvgFileWriter::scaling(unsigned int height, unsigned int width) const noexcept {
+    double CSvgFileWriter::scaling(double  height, double  width) const noexcept {
         return (double) (_width - padding_horizontal) / width < (double) (_height - padding_vertical) / height ?
                (double) (_width - padding_horizontal) / width : (double) (_height - padding_vertical) / height;
     }
@@ -141,17 +141,17 @@ namespace File2DProcessingTools {
     }
 
     void CSvgFileWriter::updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) noexcept {
-        int max_x = std::ceil(max.first);
-        int min_x = std::ceil(min.first);
-        int max_y = std::ceil(max.second);
-        int min_y = std::ceil(min.second);
-        unsigned int width = max_x - min_x;
-        unsigned int height = max_y - min_y;
+        double max_x = max.first;
+        double min_x = min.first;
+        double max_y = max.second;
+        double min_y = min.second;
+        double width = max_x - min_x;
+        double height = max_y - min_y;
         if (_height > 0 && _width > 0) {
             scale = scaling(height, width);
         } else if (_height > 0) {
-            _width = width;
-            scale = scaling(height, width);
+            scale = (double) (_height - padding_vertical) / height;
+            _width =  width * scale;
         } else if (_width > 0) {
             _height = height;
             scale = scaling(height, width);
@@ -161,20 +161,20 @@ namespace File2DProcessingTools {
         }
     }
 
-    void CSvgFileWriter::setCanvasHeight(unsigned int height_px) noexcept {
+    void CSvgFileWriter::setCanvasHeight(double height_px) noexcept {
         _height = height_px;
     }
 
-    void CSvgFileWriter::setCanvasWidth(unsigned int width_px) noexcept {
+    void CSvgFileWriter::setCanvasWidth(double width_px) noexcept {
         _width = width_px;
     }
 
-    void CSvgFileWriter::setCanvasSize(unsigned int height_px, unsigned int width_px) noexcept  {
+    void CSvgFileWriter::setCanvasSize(double height_px, double width_px) noexcept  {
         _height = height_px;
         _width = width_px;
     }
 
-    bool CSvgFileWriter::setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px) noexcept {
+    bool CSvgFileWriter::setAlignmentCenter(std::pair<double, double> padding_px) noexcept {
         if (padding_px.first >= _width || padding_px.second >= _height) {
             return false;
         }

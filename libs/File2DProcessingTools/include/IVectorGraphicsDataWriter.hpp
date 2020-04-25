@@ -17,19 +17,19 @@ namespace File2DProcessingTools {
 
         // Input data should be scaled to height
         // Width should be recalculated by input data aspect ratio
-        virtual void setCanvasHeight(unsigned int height_px) = 0;
+        virtual void setCanvasHeight(double height_px) = 0;
 
         // Input data should be scaled to width
         // Height should be recalculated by input data aspect ratio
-        virtual void setCanvasWidth(unsigned int width_px)  = 0;
+        virtual void setCanvasWidth(double width_px)  = 0;
 
         // Input data should be scaled to fit height and width
-        virtual void setCanvasSize(unsigned int height_px, unsigned int width_px)  = 0;
+        virtual void setCanvasSize(double height_px, double width_px)  = 0;
 
         // Padding.first = vertical  (up-side, down-side) padding width in pixels
         // Padding.second = horizontal (left-side, right-side) padding width in pixels
         // Rescale input data to fit if needed
-        virtual bool setAlignmentCenter(std::pair<unsigned int, unsigned int> padding_px)  = 0;
+        virtual bool setAlignmentCenter(std::pair<double, double> padding_px)  = 0;
 
     };
 }
