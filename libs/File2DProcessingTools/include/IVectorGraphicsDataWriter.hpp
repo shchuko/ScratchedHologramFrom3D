@@ -31,5 +31,8 @@ namespace File2DProcessingTools {
         // Rescale input data to fit if needed
         virtual bool setAlignmentCenter(std::pair<double, double> padding_px)  = 0;
 
+        virtual ~IVectorGraphicsDataWriter() = 0;
     };
+
+    inline IVectorGraphicsDataWriter::~IVectorGraphicsDataWriter() = default;
 }
