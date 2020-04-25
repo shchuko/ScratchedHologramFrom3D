@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <svg height = "1024px"  width = "1024px" xmlns="http://www.w3.org/2000/svg">
-<line x1="256" y1="512" x2="512" y2="256" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="512" y1="256" x2="256" y2="0" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="256" y1="0" x2="0" y2="256" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="0" y1="256" x2="256" y2="512" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="512" y1="512" x2="1024" y2="512" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="1024" y1="512" x2="1024" y2="0" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="1024" y1="0" x2="512" y2="0" fill="none" stroke="#000" stroke-width="1"  />
-<line x1="512" y1="0" x2="512" y2="512" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="256" y1="768" x2="512" y2="512" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="512" y1="512" x2="256" y2="256" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="256" y1="256" x2="0" y2="512" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="0" y1="512" x2="256" y2="768" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="512" y1="768" x2="1024" y2="768" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="1024" y1="768" x2="1024" y2="256" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="1024" y1="256" x2="512" y2="256" fill="none" stroke="#000" stroke-width="1"  />
+<line x1="512" y1="256" x2="512" y2="768" fill="none" stroke="#000" stroke-width="1"  />
 </svg>

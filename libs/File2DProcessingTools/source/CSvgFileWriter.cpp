@@ -10,10 +10,14 @@ namespace File2DProcessingTools {
         std::ofstream svg_file;
         tryOpenFile(filepath, svg_file, write_force);
 
-        std::pair<double, double> max(data.getMaxX(), data.getMaxY());
-        std::pair<double, double> min(data.getMinX(), data.getMinY());
+        max.first = data.getMaxX();
+        max.second = data.getMaxY();
+        min.first = data.getMinX();
+        min.second = data.getMinY();
+
 
         updateWidthHeight(max, min);
+        updatePaddings();
         writeBeginning(svg_file);
         writePoints(data, svg_file, max, min);
         writeEnding(svg_file);
@@ -30,13 +34,19 @@ namespace File2DProcessingTools {
         std::ofstream svg_file;
         tryOpenFile(filepath, svg_file, write_force);
 
-        std::pair<double, double> max = getMaxXY(data);
-        std::pair<double, double> min = getMinXY(data);
+        std::pair<double, double> max_xy = getMaxXY(data);
+        std::pair<double, double> min_xy = getMinXY(data);
 
-        updateWidthHeight(max, min);
+        max.first = max_xy.first;
+        max.second = max_xy.second;
+        min.first = min_xy.first;
+        min.second = min_xy.second;
+
+        updateWidthHeight(max_xy, min_xy);
+        updatePaddings();
         writeBeginning(svg_file);
         for (const auto &item : data) {
-            writePoints(item, svg_file, max, min);
+            writePoints(item, svg_file, max_xy, min_xy);
         }
         writeEnding(svg_file);
         if (!svg_file.good()) {
@@ -62,9 +72,9 @@ namespace File2DProcessingTools {
         return true;
     }
 
-    double CSvgFileWriter::scaling(double  height, double  width) const noexcept {
-        return (double) (_width - padding_horizontal) / width < (double) (_height - padding_vertical) / height ?
-               (double) (_width - padding_horizontal) / width : (double) (_height - padding_vertical) / height;
+    double CSvgFileWriter::scaling(double height, double width) const noexcept {
+        return (double) (_width - 2 * padding_horizontal) / width < (double) (_height - 2 * padding_vertical) / height ?
+               (double) (_width - 2 * padding_horizontal) / width : (double) (_height - 2 * padding_vertical) / height;
     }
 
     void CSvgFileWriter::writeBeginning(std::ofstream &svg_file) const noexcept {
@@ -75,23 +85,24 @@ namespace File2DProcessingTools {
 
 
     void CSvgFileWriter::writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
-                                     std::ofstream &svg_file, std::pair<double, double> max,
-                                     std::pair<double, double> min) const noexcept {
+                                     std::ofstream &svg_file, std::pair<double, double> max_xy,
+                                     std::pair<double, double> min_xy) const noexcept {
         auto colors = data.getLineSegmentsColors();
         auto widths = data.getLineSegmentsWidths();
         auto lines = data.getLineSegments();
+
         for (long long unsigned int i = 0; i < lines.size(); ++i) {
             svg_file << "<line "
                      << "x1=\""
-                     << scale * (lines[i].getFirstPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << scale * (lines[i].getFirstPoint().getX() - min_xy.first) + padding_horizontal << "\" "
                      << "y1=\""
-                     << scale * (max.second - min.second - (lines[i].getFirstPoint().getY() - min.second)) +
-                        double(padding_vertical) / 2 << "\" "
+                     << scale * (max_xy.second - min_xy.second - (lines[i].getFirstPoint().getY() - min_xy.second)) +
+                        padding_vertical << "\" "
                      << "x2=\""
-                     << scale * (lines[i].getSecondPoint().getX() - min.first) + double(padding_horizontal) / 2 << "\" "
+                     << scale * (lines[i].getSecondPoint().getX() - min_xy.first) + padding_horizontal << "\" "
                      << "y2=\""
-                     << scale * (max.second - min.second - (lines[i].getSecondPoint().getY() - min.second)) +
-                        double(padding_vertical) / 2 << "\""
+                     << scale * (max_xy.second - min_xy.second - (lines[i].getSecondPoint().getY() - min_xy.second)) +
+                        padding_vertical << "\""
                      << R"( fill="none" stroke=")" + colors[i].getHexStr() + "\" stroke-width=\"" +
                         std::to_string(widths[i]) + "\"  />\n";
         }
@@ -140,21 +151,22 @@ namespace File2DProcessingTools {
         return min;
     }
 
-    void CSvgFileWriter::updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) noexcept {
-        double max_x = max.first;
-        double min_x = min.first;
-        double max_y = max.second;
-        double min_y = min.second;
+    void
+    CSvgFileWriter::updateWidthHeight(std::pair<double, double> max_xy, std::pair<double, double> min_xy) noexcept {
+        double max_x = max_xy.first;
+        double min_x = min_xy.first;
+        double max_y = max_xy.second;
+        double min_y = min_xy.second;
         double width = max_x - min_x;
         double height = max_y - min_y;
         if (_height > 0 && _width > 0) {
             scale = scaling(height, width);
         } else if (_height > 0) {
-            scale = (double) (_height - padding_vertical) / height;
-            _width =  width * scale;
+            scale = (double) (_height - 2 * padding_vertical) / height;
+            _width = width * scale + 2 * padding_horizontal;
         } else if (_width > 0) {
-            _height = height;
-            scale = scaling(height, width);
+            scale = (double) (_width - 2 * padding_horizontal) / width;
+            _height = height * scale + 2 * padding_horizontal;
         } else {
             _height = height;
             _width = width;
@@ -169,18 +181,25 @@ namespace File2DProcessingTools {
         _width = width_px;
     }
 
-    void CSvgFileWriter::setCanvasSize(double height_px, double width_px) noexcept  {
+    void CSvgFileWriter::setCanvasSize(double height_px, double width_px) noexcept {
         _height = height_px;
         _width = width_px;
     }
 
     bool CSvgFileWriter::setAlignmentCenter(std::pair<double, double> padding_px) noexcept {
-        if (padding_px.first >= _width || padding_px.second >= _height) {
-            return false;
+        if ((padding_px.first * 2 >= _width && _width != 0) || (padding_px.second * 2 >= _height && _height != 0)) {
+            is_it_centering = false;
+            return is_it_centering;
         }
         padding_horizontal = padding_px.first;
         padding_vertical = padding_px.second;
-        return true;
+        is_it_centering = true;
+        return is_it_centering;
+    }
+
+    void CSvgFileWriter::updatePaddings() noexcept {
+        padding_horizontal += (_width - scale * (max.first - min.first)) / 2 - padding_horizontal;
+        padding_vertical += (_height - scale * (max.second - min.second)) / 2 - padding_vertical;
     }
 
 

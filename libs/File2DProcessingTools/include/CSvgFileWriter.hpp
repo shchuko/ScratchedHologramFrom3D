@@ -14,8 +14,12 @@ namespace File2DProcessingTools {
         double _height = 0;
         double _width = 0;
         double scale = 1;
+        bool is_it_centering = false;
         unsigned int padding_horizontal = 0;
         unsigned int padding_vertical = 0;
+
+        std::pair<double, double> max{};
+        std::pair<double, double> min{};
 
     public:
 
@@ -78,8 +82,8 @@ namespace File2DProcessingTools {
         static void writeEnding(std::ofstream &svg_file) noexcept;
 
         void writePoints(const File2DProcessingTools::CVectorGraphicsData &data,
-                         std::ofstream &svg_file, std::pair<double, double> max,
-                         std::pair<double, double> min) const noexcept;
+                         std::ofstream &svg_file, std::pair<double, double> max_xy,
+                         std::pair<double, double> min_xy) const noexcept;
 
         static bool isFileExists(const std::string &filepath, bool write_force);
 
@@ -87,11 +91,13 @@ namespace File2DProcessingTools {
 
         static void tryOpenFile(const std::string &filepath, std::ofstream &svg_file, bool write_force);
 
-        void updateWidthHeight(std::pair<double, double> max, std::pair<double, double> min) noexcept;
+        void updateWidthHeight(std::pair<double, double> max_xy, std::pair<double, double> min_xy) noexcept;
 
         static std::pair<double, double> getMaxXY(const std::vector<CVectorGraphicsData> &data) noexcept;
 
         static std::pair<double, double> getMinXY(const std::vector<CVectorGraphicsData> &data) noexcept;
+
+        void updatePaddings() noexcept;
 
     };
 
