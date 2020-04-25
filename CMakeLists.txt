@@ -2,7 +2,17 @@ cmake_minimum_required(VERSION 3.15)
 
 project(ScratchedHologramFrom3D VERSION 0.0.1)
 
-enable_testing()
+# Options can be used:
+#option(SCRATCH_STATIC_LIB_LINKING "Static linking enabled" ON)
+#option(DISABLE_TESTING "Tests compiling disabled" ON)
+
+if (DISABLE_TESTING)
+    message(STATUS "Tests compiling disabled")
+else (DISABLE_TESTING)
+    message(STATUS "Tests compiling enabled")
+    enable_testing()
+endif (DISABLE_TESTING)
+
 
 set(CMAKE_INSTALL_PATH "$ORIGIN")
 set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
@@ -13,7 +23,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_compile_definitions(PROJECT_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 add_compile_definitions(PROJECT_VERSION_DEF="${PROJECT_VERSION}")
-add_subdirectory(./extern)
+
+if (DISABLE_TESTING)
+    message(STATUS "Googletest subdirectory add skipped due to disabled testing")
+else (DISABLE_TESTING)
+    add_subdirectory(./extern/googletest)
+endif (DISABLE_TESTING)
 
 add_subdirectory(libs/CliTools)
 add_subdirectory(libs/Geometry2D)
@@ -27,7 +42,13 @@ file(GLOB App_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 file(GLOB App_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 list(REMOVE_ITEM App_SOURCES main.cpp)
 
-add_library(ScratchedHologramFrom3DAppLib SHARED ${App_HEADERS} ${App_SOURCES})
+if (SCRATCH_STATIC_LIB_LINKING)
+    message(STATUS "ScratchedHologramFrom3D project libs will be static-linked")
+    add_library(ScratchedHologramFrom3DAppLib STATIC ${App_HEADERS} ${App_SOURCES})
+else (SCRATCH_STATIC_LIB_LINKING)
+    add_library(ScratchedHologramFrom3DAppLib SHARED ${App_HEADERS} ${App_SOURCES})
+endif (SCRATCH_STATIC_LIB_LINKING)
+
 target_include_directories(ScratchedHologramFrom3DAppLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 find_package(Threads REQUIRED)
@@ -56,4 +77,6 @@ set_target_properties(ScratchedHologramFrom3DAppLib
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
         )
 
-add_subdirectory(test)
+if (NOT DISABLE_TESTING)
+    add_subdirectory(test)
+endif (NOT DISABLE_TESTING)
