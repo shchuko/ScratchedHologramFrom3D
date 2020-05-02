@@ -8,8 +8,7 @@ namespace File2DProcessingTools {
     }
 
     CPath::CPath() noexcept {
-        _width = 1;
-        _color.setColor(CVectorGraphicsData::CColor_T::COLOR::BLACK);
+        _width = 1;;
         _smooth = false;
         _isCycled = false;
     }
@@ -47,15 +46,20 @@ namespace File2DProcessingTools {
 
     std::vector<CPath> CPath::toSeparatedPaths() {
         std::vector<CPath> CPaths;
-        unsigned int number_of_paths = 0;
+        int number_of_paths = -1;
         unsigned int size_of_current_path = 0;
-        for (auto path : CPoints2D) {
-            if ((path.getX() == std::numeric_limits<double>::quiet_NaN() ||
-            path.getY() == std::numeric_limits<double>::quiet_NaN()) && size_of_current_path != 0){
-                CPaths.resize(++number_of_paths);
+        for (auto &point : CPoints2D) {
+            if (!std::isnormal(point.getX()) || !std::isnormal(point.getY())) {
                 size_of_current_path = 0;
             } else {
-                CPaths[number_of_paths].appendPoint(path);
+                if (size_of_current_path == 0) {
+                    CPath temp;
+                    temp.appendPoint(point);
+                    CPaths.emplace_back(temp);
+                    ++number_of_paths;
+                } else {
+                    CPaths[number_of_paths].appendPoint(point);
+                }
                 ++size_of_current_path;
             }
         }
@@ -67,11 +71,25 @@ namespace File2DProcessingTools {
     }
 
     void CPath::updateCycled() noexcept {
+
         _isCycled = CPoints2D.size() > 1 && CPoints2D[0].getX() == CPoints2D[CPoints2D.size() - 1].getX() &&
                     CPoints2D[0].getY() == CPoints2D[CPoints2D.size() - 1].getY();
+        for (auto &point : CPoints2D) {
+            if (!std::isnormal(point.getX()) || !std::isnormal(point.getY())) {
+                _isCycled = false;
+                break;
+            }
+        }
     }
 
     bool CPath::isCycled() const noexcept {
         return _isCycled;
+    }
+
+    void CPath::appendPath(CPath &cPath) noexcept {
+        std::vector<Geometry2D::CPoint2D> points2D = cPath.getPoints();
+        for(auto & i : points2D) {
+            this->appendPoint(i);
+        }
     }
 }

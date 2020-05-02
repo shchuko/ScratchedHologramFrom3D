@@ -13,7 +13,7 @@ namespace File2DProcessingTools {
         bool _isCycled;
         std::vector<Geometry2D::CPoint2D> CPoints2D;
     public:
-        CPath() noexcept; // Default width 1px, default color BLACK, smoth=false
+        CPath() noexcept; // Default width 1px, default color BLACK, smooth=false
         CPath(unsigned int width_px, CVectorGraphicsData::CColor_T &color, bool smooth) noexcept;
         void setColor(CVectorGraphicsData::CColor_T &color)  noexcept; // цвет
         CVectorGraphicsData::CColor_T getColor() const noexcept;
@@ -25,6 +25,7 @@ namespace File2DProcessingTools {
         // Добавляет следующую точку к линии
         // Если линия имеет одну из координат NaN - разрыв в линии, распознается методом toSeparatedPaths()
         void appendPoint(const Geometry2D::CPoint2D& point) noexcept;
+        void appendPath(CPath &cPath) noexcept;
         const std::vector<Geometry2D::CPoint2D>& getPoints() const noexcept;
 
         // Разбивает линию на несколько линий, разрыв определяется точкой с NaN-координатой или циклом
