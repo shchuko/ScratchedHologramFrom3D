@@ -66,10 +66,10 @@ namespace File2DProcessingTools {
 
             for (std::vector<Geometry2D::CLineSegment2D>::size_type i = 0; i < expected.size(); ++i) {
                 EXPECT_EQ(expected[i].getFirstPoint().getX(), actual[i].getFirstPoint().getX());
-                EXPECT_EQ(expected[i].getFirstPoint().getY(), actual[i].getFirstPoint().getX());
+                EXPECT_EQ(expected[i].getFirstPoint().getY(), actual[i].getFirstPoint().getY());
 
                 EXPECT_EQ(expected[i].getSecondPoint().getX(), actual[i].getSecondPoint().getX());
-                EXPECT_EQ(expected[i].getSecondPoint().getY(), actual[i].getSecondPoint().getX());
+                EXPECT_EQ(expected[i].getSecondPoint().getY(), actual[i].getSecondPoint().getY());
             }
         }
     };
