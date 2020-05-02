@@ -11,6 +11,8 @@ namespace File2DProcessingTools {
 
     class CVectorGraphicsDataFixture : public ::testing::Test {
     private:
+        static constexpr double DOUBLE_MAX_VALUE = 136152.394;
+
         std::default_random_engine *random_gen = nullptr;
         std::uniform_real_distribution<double> *distribution = nullptr;
 
@@ -18,8 +20,7 @@ namespace File2DProcessingTools {
         void SetUp() override {
             std::random_device rd;
             random_gen = new std::default_random_engine(rd());
-            distribution = new std::uniform_real_distribution<double>(-std::numeric_limits<double>::max(),
-                                                                      std::numeric_limits<double>::max());
+            distribution = new std::uniform_real_distribution<double>(-DOUBLE_MAX_VALUE,DOUBLE_MAX_VALUE);
 
             line_segments_fixture_sources = nextRandomCLineSegments2DVector(1000);
             data_fixture.addLineSegments(std::begin(line_segments_fixture_sources),
