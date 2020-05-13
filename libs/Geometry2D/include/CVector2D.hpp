@@ -1,6 +1,7 @@
 #pragma once
 
 #include <AVector2D.hpp>
+#include <Geometry2DBase.hpp>
 #include <cmath>
 
 namespace Geometry2D {

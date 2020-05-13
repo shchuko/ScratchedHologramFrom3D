@@ -6,7 +6,7 @@ file(GLOB File2DProcessingTools_HEADERS ./include/*.hpp)
 if (SCRATCH_STATIC_LIB_LINKING)
     add_library(File2DProcessingTools STATIC ${File2DProcessingTools_SOURCES} ${File2DProcessingTools_HEADERS})
 else (SCRATCH_STATIC_LIB_LINKING)
-    add_library(File2DProcessingTools SHARED ${File2DProcessingTools_SOURCES} ${File2DProcessingTools_HEADERS})
+    add_library(File2DProcessingTools SHARED ${File2DProcessingTools_SOURCES} ${File2DProcessingTools_HEADERS} include/CPath.hpp source/CPath.cpp)
 endif (SCRATCH_STATIC_LIB_LINKING)
 
 target_include_directories(File2DProcessingTools PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

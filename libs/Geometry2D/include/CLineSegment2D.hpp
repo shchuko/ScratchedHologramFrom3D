@@ -1,6 +1,7 @@
 #pragma once
 
 #include <CPoint2D.hpp>
+#include <Geometry2DBase.hpp>
 #include <utility>
 #include <cmath>
 

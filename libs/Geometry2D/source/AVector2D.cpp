@@ -1,9 +1,5 @@
 #include <AVector2D.hpp>
 
-bool Geometry2D::AVector2D::isEqualDouble(double x, double y) noexcept {
-    return std::fabs(x - y) < std::numeric_limits<double>::epsilon();
-}
-
 bool Geometry2D::AVector2D::isCollinear(const Geometry2D::AVector2D &vector) const noexcept {
     double first_vector_x = this->getX();
     double first_vector_y = this->getY();

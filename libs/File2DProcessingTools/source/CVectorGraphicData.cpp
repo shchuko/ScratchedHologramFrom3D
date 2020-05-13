@@ -5,14 +5,14 @@ namespace File2DProcessingTools {
     void
     CVectorGraphicsData::addLineSegments(Geometry2D::CLineSegment2D line_segment, unsigned int width_pixels) noexcept {
         checkRange(line_segment);
-        _data.emplace_back(line_segment);
-        _widths.emplace_back(width_pixels);
+        _line_segments.emplace_back(line_segment);
+        _line_segments_widths.emplace_back(width_pixels);
         _colors.emplace_back(_current_color);
     }
 
 
     const std::vector<Geometry2D::CLineSegment2D> &CVectorGraphicsData::getLineSegments() const noexcept {
-        return _data;
+        return _line_segments;
     }
 
 
@@ -65,7 +65,7 @@ namespace File2DProcessingTools {
     }
 
     const std::vector<unsigned int> &CVectorGraphicsData::getLineSegmentsWidths() const noexcept {
-        return _widths;
+        return _line_segments_widths;
     }
 
     const std::vector<CVectorGraphicsData::CColor_T> &CVectorGraphicsData::getLineSegmentsColors() const noexcept {

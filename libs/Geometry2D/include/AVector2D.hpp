@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Geometry2DBase.hpp>
 #include <cmath>
 #include <limits>
 
@@ -8,9 +9,6 @@ namespace Geometry2D {
      * @author github.com/Tulesha
      */
     class AVector2D {
-    private:
-        static inline bool isEqualDouble(double x, double y) noexcept;
-
     public:
         /**
          * Get x coordinate
