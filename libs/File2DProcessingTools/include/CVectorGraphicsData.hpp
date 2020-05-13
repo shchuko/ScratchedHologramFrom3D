@@ -12,22 +12,20 @@
 #include "CLineSegment2D.hpp"
 
 namespace File2DProcessingTools {
-
-
     /**
      * Vector graphics storage
      * @author Nikita Novgorodtsev (github <https://github.com/paNoNi>)
      */
     class CVectorGraphicsData {
-
     private:
 
-        std::vector<Geometry2D::CLineSegment2D> _data;
+        std::vector<Geometry2D::CLineSegment2D> _line_segments;
+        std::vector<unsigned int> _line_segments_widths;
+
         double min_x = std::numeric_limits<double>::max();
         double min_y = std::numeric_limits<double>::max();
         double max_x = -std::numeric_limits<double>::max();
         double max_y = -std::numeric_limits<double>::max();
-        std::vector<unsigned int> _widths;
 
     public:
 
@@ -47,6 +45,14 @@ namespace File2DProcessingTools {
             };
 
             CColor_T() = default;
+
+            CColor_T(const CColor_T &color) = default;
+
+            CColor_T(CColor_T &&color) = default;
+
+            CColor_T& operator=(const CColor_T &color) = default;
+            CColor_T& operator=(CColor_T &&color) = default;
+
 
             /**
             * Set color from RGB palette
@@ -129,8 +135,8 @@ namespace File2DProcessingTools {
          */
         template<typename InputIterator>
         void addLineSegments(InputIterator begin, InputIterator end, unsigned int width_pixels = 1) noexcept {
-            _data.insert(_data.end(), begin, end);
-            _widths.emplace_back(width_pixels);
+            _line_segments.insert(_line_segments.end(), begin, end);
+            _line_segments_widths.emplace_back(width_pixels);
             _colors.emplace_back(_current_color);
         }
 

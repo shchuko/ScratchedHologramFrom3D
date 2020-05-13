@@ -15,7 +15,7 @@ namespace File2DProcessingTools {
 
     CPath::CPath(unsigned int width_px, CVectorGraphicsData::CColor_T &color, bool smooth) noexcept {
         _width = width_px;
-        _color.setColor(color.getRGBStr());
+        _color = color;
         _smooth = smooth;
         _isCycled = false;
     }
@@ -45,25 +45,20 @@ namespace File2DProcessingTools {
     }
 
     std::vector<CPath> CPath::toSeparatedPaths() {
-        std::vector<CPath> CPaths;
-        int number_of_paths = -1;
-        unsigned int size_of_current_path = 0;
+        std::vector<CPath> paths;
+        bool createNextPath = true;
         for (auto &point : CPoints2D) {
             if (!std::isnormal(point.getX()) || !std::isnormal(point.getY())) {
-                size_of_current_path = 0;
+                createNextPath = true;
             } else {
-                if (size_of_current_path == 0) {
-                    CPath temp;
-                    temp.appendPoint(point);
-                    CPaths.emplace_back(temp);
-                    ++number_of_paths;
-                } else {
-                    CPaths[number_of_paths].appendPoint(point);
+                if (createNextPath) {
+                    paths.emplace_back(this->_width, this->_color, this->_smooth);
+                    createNextPath = false;
                 }
-                ++size_of_current_path;
+                paths.back().appendPoint(point);
             }
         }
-        return CPaths;
+        return paths;
     }
 
     const std::vector<Geometry2D::CPoint2D> &CPath::getPoints() const noexcept {
